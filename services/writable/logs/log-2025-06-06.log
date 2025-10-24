@@ -1,0 +1,718 @@
+CRITICAL - 2025-06-06 05:00:47 --> CodeIgniter\HTTP\Exceptions\HTTPException: Could not move file "phpyk2Wbq" to "/var/www/brighttechnologies.co.in/gofreshaapi/public/uploads/categories/". Reason: 
+[Method: POST, Route: addCategory]
+in SYSTEMPATH/HTTP/Files/UploadedFile.php on line 154.
+ 1 SYSTEMPATH/HTTP/Files/UploadedFile.php(154): CodeIgniter\HTTP\Exceptions\HTTPException::forMoveFailed()
+ 2 APPPATH/Controllers/ApiController.php(99): CodeIgniter\HTTP\Files\UploadedFile->move()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addCategory()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 06:16:45 --> Error: Call to undefined method CodeIgniter\HTTP\Files\UploadedFile::realpath()
+[Method: POST, Route: addCategory]
+in APPPATH/Controllers/ApiController.php on line 103.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addCategory()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 06:17:21 --> Error: Call to undefined method CodeIgniter\HTTP\Files\UploadedFile::realpath()
+[Method: POST, Route: addCategory]
+in APPPATH/Controllers/ApiController.php on line 103.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addCategory()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 06:17:26 --> Error: Call to undefined method CodeIgniter\HTTP\Files\UploadedFile::realpath()
+[Method: POST, Route: addCategory]
+in APPPATH/Controllers/ApiController.php on line 103.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addCategory()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 06:57:23 --> ArgumentCountError: Too few arguments to function App\Controllers\ApiController::editCategory(), 0 passed in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php on line 933 and exactly 1 expected
+[Method: GET, Route: editCategory/66]
+in APPPATH/Controllers/ApiController.php on line 115.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->editCategory()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:18:40 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:19:01 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:19:03 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:19:05 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:19:06 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:19:08 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:19:09 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:19:19 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:19:21 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:19:24 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 08:19:30 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(155): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2025-06-06 11:02:33 --> mysqli_sql_exception: Column 'sub_category_name' cannot be null in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/BaseModel.php(843): CodeIgniter\Model->doInsert()
+#6 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(800): CodeIgniter\BaseModel->insert()
+#7 /var/www/brighttechnologies.co.in/gofreshaapi/app/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+#8 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+#9 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/brighttechnologies.co.in/gofreshaapi/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+CRITICAL - 2025-06-06 11:02:33 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'sub_category_name' cannot be null
+[Method: POST, Route: addSubCategory]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 5 APPPATH/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:02:33 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'sub_category_name' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 7 APPPATH/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:02:33 --> [Caused by] mysqli_sql_exception: Column 'sub_category_name' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2025-06-06 11:04:55 --> mysqli_sql_exception: Column 'sub_category_name' cannot be null in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/BaseModel.php(843): CodeIgniter\Model->doInsert()
+#6 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(800): CodeIgniter\BaseModel->insert()
+#7 /var/www/brighttechnologies.co.in/gofreshaapi/app/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+#8 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+#9 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/brighttechnologies.co.in/gofreshaapi/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+CRITICAL - 2025-06-06 11:04:55 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'sub_category_name' cannot be null
+[Method: POST, Route: addSubCategory]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 5 APPPATH/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:04:55 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'sub_category_name' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 7 APPPATH/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:04:55 --> [Caused by] mysqli_sql_exception: Column 'sub_category_name' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2025-06-06 11:04:57 --> mysqli_sql_exception: Column 'sub_category_name' cannot be null in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/BaseModel.php(843): CodeIgniter\Model->doInsert()
+#6 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(800): CodeIgniter\BaseModel->insert()
+#7 /var/www/brighttechnologies.co.in/gofreshaapi/app/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+#8 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+#9 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/brighttechnologies.co.in/gofreshaapi/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+CRITICAL - 2025-06-06 11:04:57 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'sub_category_name' cannot be null
+[Method: POST, Route: addSubCategory]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 5 APPPATH/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:04:57 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'sub_category_name' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 7 APPPATH/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:04:57 --> [Caused by] mysqli_sql_exception: Column 'sub_category_name' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2025-06-06 11:05:24 --> mysqli_sql_exception: Column 'sub_category_name' cannot be null in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/BaseModel.php(843): CodeIgniter\Model->doInsert()
+#6 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(800): CodeIgniter\BaseModel->insert()
+#7 /var/www/brighttechnologies.co.in/gofreshaapi/app/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+#8 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+#9 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/brighttechnologies.co.in/gofreshaapi/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+CRITICAL - 2025-06-06 11:05:24 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'sub_category_name' cannot be null
+[Method: POST, Route: addSubCategory]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 5 APPPATH/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:05:24 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'sub_category_name' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 7 APPPATH/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:05:24 --> [Caused by] mysqli_sql_exception: Column 'sub_category_name' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/ApiController.php(228): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2025-06-06 11:07:55 --> mysqli_sql_exception: Column 'sub_category_name' cannot be null in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/BaseModel.php(843): CodeIgniter\Model->doInsert()
+#6 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(800): CodeIgniter\BaseModel->insert()
+#7 /var/www/brighttechnologies.co.in/gofreshaapi/app/Controllers/ApiController.php(230): CodeIgniter\Model->insert()
+#8 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+#9 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/brighttechnologies.co.in/gofreshaapi/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+CRITICAL - 2025-06-06 11:07:55 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'sub_category_name' cannot be null
+[Method: POST, Route: addSubCategory]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 5 APPPATH/Controllers/ApiController.php(230): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:07:55 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'sub_category_name' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 7 APPPATH/Controllers/ApiController.php(230): CodeIgniter\Model->insert()
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:07:55 --> [Caused by] mysqli_sql_exception: Column 'sub_category_name' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/ApiController.php(230): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 11:46:15 --> CodeIgniter\Exceptions\ModelException: "App\Models\ApiModel" model class does not specify a Primary Key.
+[Method: GET, Route: subcategories]
+in SYSTEMPATH/Model.php on line 704.
+ 1 SYSTEMPATH/Model.php(704): CodeIgniter\Exceptions\ModelException::forNoPrimaryKey()
+ 2 SYSTEMPATH/Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH/Controllers/ApiController.php(149): CodeIgniter\Model->__call()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->subcategories()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2025-06-06 12:24:23 --> mysqli_sql_exception: Column 'main_category' cannot be null in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/BaseModel.php(843): CodeIgniter\Model->doInsert()
+#6 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(800): CodeIgniter\BaseModel->insert()
+#7 /var/www/brighttechnologies.co.in/gofreshaapi/app/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+#8 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+#9 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/brighttechnologies.co.in/gofreshaapi/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+CRITICAL - 2025-06-06 12:24:23 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'main_category' cannot be null
+[Method: POST, Route: addSubCategory]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 5 APPPATH/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 12:24:23 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'main_category' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 7 APPPATH/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 12:24:23 --> [Caused by] mysqli_sql_exception: Column 'main_category' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2025-06-06 12:25:43 --> mysqli_sql_exception: Column 'main_category' cannot be null in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/BaseModel.php(843): CodeIgniter\Model->doInsert()
+#6 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(800): CodeIgniter\BaseModel->insert()
+#7 /var/www/brighttechnologies.co.in/gofreshaapi/app/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+#8 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+#9 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/brighttechnologies.co.in/gofreshaapi/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+CRITICAL - 2025-06-06 12:25:43 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'main_category' cannot be null
+[Method: POST, Route: addSubCategory]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 5 APPPATH/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 12:25:43 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'main_category' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 7 APPPATH/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 12:25:43 --> [Caused by] mysqli_sql_exception: Column 'main_category' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/ApiController.php(229): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 12:37:21 --> ErrorException: include(/var/www/brighttechnologies.co.in/gofreshaapi/vendor/composer/../../app/Controllers/Home.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in FCPATH/vendor/composer/ClassLoader.php on line 576.
+ 1 FCPATH/vendor/composer/ClassLoader.php(576): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 FCPATH/vendor/composer/ClassLoader.php(576): include()
+ 3 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 4 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 5 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 6 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 13:47:15 --> ErrorException: Undefined array key "category_image"
+[Method: POST, Route: addSubCategory]
+in APPPATH/Controllers/ApiController.php on line 211.
+ 1 APPPATH/Controllers/ApiController.php(211): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 13:47:17 --> ErrorException: Undefined array key "category_image"
+[Method: POST, Route: addSubCategory]
+in APPPATH/Controllers/ApiController.php on line 211.
+ 1 APPPATH/Controllers/ApiController.php(211): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 13:49:29 --> ErrorException: Undefined variable $redirectUrl
+[Method: POST, Route: addSubCategory]
+in APPPATH/Controllers/ApiController.php on line 235.
+ 1 APPPATH/Controllers/ApiController.php(235): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 13:49:30 --> ErrorException: Undefined variable $redirectUrl
+[Method: POST, Route: addSubCategory]
+in APPPATH/Controllers/ApiController.php on line 235.
+ 1 APPPATH/Controllers/ApiController.php(235): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 13:49:31 --> ErrorException: Undefined variable $redirectUrl
+[Method: POST, Route: addSubCategory]
+in APPPATH/Controllers/ApiController.php on line 235.
+ 1 APPPATH/Controllers/ApiController.php(235): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 13:49:34 --> ErrorException: Undefined variable $redirectUrl
+[Method: POST, Route: addSubCategory]
+in APPPATH/Controllers/ApiController.php on line 235.
+ 1 APPPATH/Controllers/ApiController.php(235): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 13:50:30 --> ErrorException: Undefined variable $redirectUrl
+[Method: POST, Route: addSubCategory]
+in APPPATH/Controllers/ApiController.php on line 235.
+ 1 APPPATH/Controllers/ApiController.php(235): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-06 13:50:36 --> ErrorException: Undefined variable $redirectUrl
+[Method: POST, Route: addSubCategory]
+in APPPATH/Controllers/ApiController.php on line 235.
+ 1 APPPATH/Controllers/ApiController.php(235): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addSubCategory()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()

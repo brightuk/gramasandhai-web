@@ -1,0 +1,64 @@
+CRITICAL - 2025-07-01 07:42:53 --> ErrorException: Undefined array key "table_name"
+[Method: POST, Route: import_data]
+in APPPATH/Controllers/ApiController.php on line 1146.
+ 1 APPPATH/Controllers/ApiController.php(1146): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->importData()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-07-01 07:43:38 --> ErrorException: Undefined array key "table_name"
+[Method: POST, Route: import_data]
+in APPPATH/Controllers/ApiController.php on line 1146.
+ 1 APPPATH/Controllers/ApiController.php(1146): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->importData()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-07-01 07:43:41 --> ErrorException: Undefined array key "table_name"
+[Method: POST, Route: import_data]
+in APPPATH/Controllers/ApiController.php on line 1146.
+ 1 APPPATH/Controllers/ApiController.php(1146): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->importData()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ERROR - 2025-07-01 07:59:04 --> mysqli_sql_exception: Column 'description' cannot be null in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/BaseModel.php(843): CodeIgniter\Model->doInsert()
+#6 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(800): CodeIgniter\BaseModel->insert()
+#7 /var/www/brighttechnologies.co.in/gofreshaapi/app/Controllers/ApiController.php(1235): CodeIgniter\Model->insert()
+#8 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(933): App\Controllers\ApiController->importData()
+#9 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/brighttechnologies.co.in/gofreshaapi/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+ERROR - 2025-07-01 08:06:05 --> mysqli_sql_exception: Duplicate entry '11' for key 'products.PRIMARY' in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/BaseModel.php(843): CodeIgniter\Model->doInsert()
+#6 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(800): CodeIgniter\BaseModel->insert()
+#7 /var/www/brighttechnologies.co.in/gofreshaapi/app/Controllers/ApiController.php(1228): CodeIgniter\Model->insert()
+#8 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(933): App\Controllers\ApiController->importData()
+#9 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/brighttechnologies.co.in/gofreshaapi/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}

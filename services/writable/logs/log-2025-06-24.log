@@ -1,0 +1,134 @@
+ERROR - 2025-06-24 05:12:47 --> mysqli_sql_exception: Column 'prod_id' cannot be null in /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:327
+Stack trace:
+#0 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(327): mysqli->query()
+#1 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/BaseModel.php(843): CodeIgniter\Model->doInsert()
+#6 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Model.php(800): CodeIgniter\BaseModel->insert()
+#7 /var/www/brighttechnologies.co.in/gofreshaapi/app/Controllers/ApiController.php(771): CodeIgniter\Model->insert()
+#8 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(933): App\Controllers\ApiController->orderProcess()
+#9 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 /var/www/brighttechnologies.co.in/gofreshaapi/vendor/codeigniter4/framework/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/brighttechnologies.co.in/gofreshaapi/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 {main}
+CRITICAL - 2025-06-24 05:12:47 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'prod_id' cannot be null
+[Method: POST, Route: order/469047]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 5 APPPATH/Controllers/ApiController.php(771): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->orderProcess()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-24 05:12:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'prod_id' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 332.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 6 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 7 APPPATH/Controllers/ApiController.php(771): CodeIgniter\Model->insert()
+ 8 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->orderProcess()
+ 9 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-24 05:12:47 --> [Caused by] mysqli_sql_exception: Column 'prod_id' cannot be null
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 327.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(327): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(843): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/ApiController.php(771): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->orderProcess()
+10 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-24 13:28:33 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:28:58 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:29:00 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:29:45 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:29:47 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:29:49 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:29:58 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:31:21 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:31:23 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:31:24 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:31:26 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:31:29 --> ErrorException: Constant expression contains invalid operations
+[Method: POST, Route: paymentdetials]
+in APPPATH/Controllers/ApiController.php on line 26.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-06-24 13:39:41 --> CodeIgniter\Database\Exceptions\DataException: There is no data to insert.
+[Method: POST, Route: paymentdetials]
+in SYSTEMPATH/BaseModel.php on line 829.
+ 1 SYSTEMPATH/BaseModel.php(829): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset()
+ 2 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 3 APPPATH/Controllers/ApiController.php(1140): CodeIgniter\Model->insert()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->paymentdetials()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-24 13:40:12 --> CodeIgniter\Database\Exceptions\DataException: There is no data to insert.
+[Method: POST, Route: paymentdetials]
+in SYSTEMPATH/BaseModel.php on line 829.
+ 1 SYSTEMPATH/BaseModel.php(829): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset()
+ 2 SYSTEMPATH/Model.php(800): CodeIgniter\BaseModel->insert()
+ 3 APPPATH/Controllers/ApiController.php(1140): CodeIgniter\Model->insert()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->paymentdetials()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()

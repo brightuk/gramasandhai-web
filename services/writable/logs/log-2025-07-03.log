@@ -1,0 +1,22 @@
+CRITICAL - 2025-07-03 11:22:39 --> CodeIgniter\HTTP\Exceptions\HTTPException: Could not move file "php2YG0tn" to "/var/www/gofresha.in/uploads/images/". Reason: 
+[Method: POST, Route: addCategory]
+in SYSTEMPATH/HTTP/Files/UploadedFile.php on line 154.
+ 1 SYSTEMPATH/HTTP/Files/UploadedFile.php(154): CodeIgniter\HTTP\Exceptions\HTTPException::forMoveFailed()
+ 2 APPPATH/Controllers/ApiController.php(142): CodeIgniter\HTTP\Files\UploadedFile->move()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addCategory()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-07-03 11:23:29 --> CodeIgniter\HTTP\Exceptions\HTTPException: Could not move file "phpVGEoEX" to "/var/www/gofresha.in/uploads/images/". Reason: 
+[Method: POST, Route: addCategory]
+in SYSTEMPATH/HTTP/Files/UploadedFile.php on line 154.
+ 1 SYSTEMPATH/HTTP/Files/UploadedFile.php(154): CodeIgniter\HTTP\Exceptions\HTTPException::forMoveFailed()
+ 2 APPPATH/Controllers/ApiController.php(142): CodeIgniter\HTTP\Files\UploadedFile->move()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addCategory()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()

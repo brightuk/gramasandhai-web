@@ -1,0 +1,463 @@
+CRITICAL - 2025-06-07 05:35:38 --> Error: Class "App\Controllers\AdminModel" not found
+[Method: GET, Route: products]
+in APPPATH/Controllers/ApiController.php on line 276.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->products()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 05:35:56 --> Error: Class "App\Controllers\AdminModel" not found
+[Method: GET, Route: products/]
+in APPPATH/Controllers/ApiController.php on line 276.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->products()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:06:48 --> ParseError: Unclosed '{' on line 317
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 424.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:48:36 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:48:37 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:49:38 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:49:40 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:49:42 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:49:44 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: products]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:49:49 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: products]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:51:34 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: products]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:51:35 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: products]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:51:36 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: products]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 08:51:37 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: products]
+in APPPATH/Controllers/ApiController.php on line 362.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:24:27 --> ParseError: syntax error, unexpected token "]", expecting variable or "{" or "$"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 416.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:24:30 --> ParseError: syntax error, unexpected token "]", expecting variable or "{" or "$"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 416.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:24:38 --> ParseError: syntax error, unexpected token "]", expecting variable or "{" or "$"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 416.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:25:41 --> ParseError: syntax error, unexpected token "]", expecting variable or "{" or "$"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 416.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:25:42 --> ParseError: syntax error, unexpected token "]", expecting variable or "{" or "$"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 416.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:25:47 --> ParseError: syntax error, unexpected token "]", expecting variable or "{" or "$"
+[Method: GET, Route: products]
+in APPPATH/Controllers/ApiController.php on line 416.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:26:02 --> ParseError: syntax error, unexpected token "]", expecting variable or "{" or "$"
+[Method: GET, Route: products]
+in APPPATH/Controllers/ApiController.php on line 416.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:26:07 --> ParseError: syntax error, unexpected token "]", expecting variable or "{" or "$"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 416.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:28:13 --> ParseError: syntax error, unexpected token "]", expecting variable or "{" or "$"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 416.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:28:14 --> ParseError: syntax error, unexpected token "]", expecting variable or "{" or "$"
+[Method: GET, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 416.
+ 1 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 2 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 3 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 4 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 09:39:09 --> CodeIgniter\HTTP\Exceptions\HTTPException: Could not move file "phpZGloz0" to "/var/www/brighttechnologies.co.in/gofreshaapi/public/uploads/products/". Reason: 
+[Method: POST, Route: addproduct]
+in SYSTEMPATH/HTTP/Files/UploadedFile.php on line 154.
+ 1 SYSTEMPATH/HTTP/Files/UploadedFile.php(154): CodeIgniter\HTTP\Exceptions\HTTPException::forMoveFailed()
+ 2 APPPATH/Controllers/ApiController.php(492): CodeIgniter\HTTP\Files\UploadedFile->move()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->upProuct()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 10:28:56 --> CodeIgniter\HTTP\Exceptions\HTTPException: Could not move file "phpRxvafm" to "/var/www/brighttechnologies.co.in/uploads/products/". Reason: 
+[Method: POST, Route: addproduct]
+in SYSTEMPATH/HTTP/Files/UploadedFile.php on line 154.
+ 1 SYSTEMPATH/HTTP/Files/UploadedFile.php(154): CodeIgniter\HTTP\Exceptions\HTTPException::forMoveFailed()
+ 2 APPPATH/Controllers/ApiController.php(361): CodeIgniter\HTTP\Files\UploadedFile->move()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addUpProduct()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 10:29:57 --> CodeIgniter\HTTP\Exceptions\HTTPException: Could not move file "phpRPrlqn" to "/var/www/brighttechnologies.co.in/uploads/products/". Reason: 
+[Method: POST, Route: addproduct]
+in SYSTEMPATH/HTTP/Files/UploadedFile.php on line 154.
+ 1 SYSTEMPATH/HTTP/Files/UploadedFile.php(154): CodeIgniter\HTTP\Exceptions\HTTPException::forMoveFailed()
+ 2 APPPATH/Controllers/ApiController.php(361): CodeIgniter\HTTP\Files\UploadedFile->move()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addUpProduct()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 10:31:19 --> ErrorException: mkdir(): Permission denied
+[Method: POST, Route: addproduct]
+in SYSTEMPATH/HTTP/Files/UploadedFile.php on line 181.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/HTTP/Files/UploadedFile.php(181): mkdir()
+ 3 SYSTEMPATH/HTTP/Files/UploadedFile.php(135): CodeIgniter\HTTP\Files\UploadedFile->setPath()
+ 4 APPPATH/Controllers/ApiController.php(370): CodeIgniter\HTTP\Files\UploadedFile->move()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addUpProduct()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 10:40:03 --> CodeIgniter\HTTP\Exceptions\HTTPException: The uploaded file has already been moved.
+[Method: POST, Route: addproduct]
+in SYSTEMPATH/HTTP/Files/UploadedFile.php on line 138.
+ 1 SYSTEMPATH/HTTP/Files/UploadedFile.php(138): CodeIgniter\HTTP\Exceptions\HTTPException::forAlreadyMoved()
+ 2 APPPATH/Controllers/ApiController.php(393): CodeIgniter\HTTP\Files\UploadedFile->move()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addUpProduct()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 10:42:08 --> Error: Call to a member function move() on string
+[Method: POST, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 393.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addUpProduct()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 10:42:56 --> Error: Call to a member function move() on string
+[Method: POST, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 393.
+ 1 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addUpProduct()
+ 2 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 10:50:43 --> TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given
+[Method: POST, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 600.
+ 1 APPPATH/Controllers/ApiController.php(600): count()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->upProuct()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 11:27:10 --> TypeError: count(): Argument #1 ($value) must be of type Countable|array, string given
+[Method: POST, Route: addproduct]
+in APPPATH/Controllers/ApiController.php on line 601.
+ 1 APPPATH/Controllers/ApiController.php(601): count()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->addUpProduct()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 12:01:17 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "';"
+[Method: GET, Route: %27;]
+in SYSTEMPATH/Router/Router.php on line 741.
+ 1 SYSTEMPATH/Router/Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars()
+ 2 SYSTEMPATH/CodeIgniter.php(832): CodeIgniter\Router\Router->handle()
+ 3 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 12:01:33 --> ErrorException: include(/var/www/brighttechnologies.co.in/gofreshaapi/vendor/composer/../../app/Controllers/Home.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in FCPATH/vendor/composer/ClassLoader.php on line 576.
+ 1 FCPATH/vendor/composer/ClassLoader.php(576): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 FCPATH/vendor/composer/ClassLoader.php(576): include()
+ 3 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 4 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 5 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 6 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 12:04:11 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "';"
+[Method: GET, Route: %27;]
+in SYSTEMPATH/Router/Router.php on line 741.
+ 1 SYSTEMPATH/Router/Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars()
+ 2 SYSTEMPATH/CodeIgniter.php(832): CodeIgniter\Router\Router->handle()
+ 3 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 12:04:18 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "'"
+[Method: GET, Route: %27]
+in SYSTEMPATH/Router/Router.php on line 741.
+ 1 SYSTEMPATH/Router/Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars()
+ 2 SYSTEMPATH/CodeIgniter.php(832): CodeIgniter\Router\Router->handle()
+ 3 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 12:04:27 --> ErrorException: include(/var/www/brighttechnologies.co.in/gofreshaapi/vendor/composer/../../app/Controllers/Home.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in FCPATH/vendor/composer/ClassLoader.php on line 576.
+ 1 FCPATH/vendor/composer/ClassLoader.php(576): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 FCPATH/vendor/composer/ClassLoader.php(576): include()
+ 3 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 4 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 5 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 6 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 12:05:09 --> ErrorException: include(/var/www/brighttechnologies.co.in/gofreshaapi/vendor/composer/../../app/Controllers/Home.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in FCPATH/vendor/composer/ClassLoader.php on line 576.
+ 1 FCPATH/vendor/composer/ClassLoader.php(576): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 FCPATH/vendor/composer/ClassLoader.php(576): include()
+ 3 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 4 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 5 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 6 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 12:06:10 --> ErrorException: include(/var/www/brighttechnologies.co.in/gofreshaapi/vendor/composer/../../app/Controllers/Home.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in FCPATH/vendor/composer/ClassLoader.php on line 576.
+ 1 FCPATH/vendor/composer/ClassLoader.php(576): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 FCPATH/vendor/composer/ClassLoader.php(576): include()
+ 3 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 4 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 5 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 6 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 12:06:12 --> ErrorException: include(/var/www/brighttechnologies.co.in/gofreshaapi/vendor/composer/../../app/Controllers/Home.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in FCPATH/vendor/composer/ClassLoader.php on line 576.
+ 1 FCPATH/vendor/composer/ClassLoader.php(576): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 FCPATH/vendor/composer/ClassLoader.php(576): include()
+ 3 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 4 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 5 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 6 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-06-07 12:07:04 --> ErrorException: include(/var/www/brighttechnologies.co.in/gofreshaapi/vendor/composer/../../app/Controllers/Home.php): Failed to open stream: No such file or directory
+[Method: GET, Route: /]
+in FCPATH/vendor/composer/ClassLoader.php on line 576.
+ 1 FCPATH/vendor/composer/ClassLoader.php(576): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 FCPATH/vendor/composer/ClassLoader.php(576): include()
+ 3 FCPATH/vendor/composer/ClassLoader.php(427): Composer\Autoload\{closure}()
+ 4 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 5 SYSTEMPATH/CodeIgniter.php(885): class_exists()
+ 6 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
