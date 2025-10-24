@@ -1,0 +1,23 @@
+
+@media screen and (max-width: 595px) {
+    .product-name-s {
+        max-width: 100px !important;
+     
+    }
+}
+
+/* .product-name-s {
+    display: block;           
+    font-size: 0.9rem;       
+    line-height: 1.3;          
+    white-space: nowrap;       
+    overflow: hidden;           
+    text-overflow: ellipsis;     
+    max-width: 100%;            
+} */
+
+
+
+
+
+

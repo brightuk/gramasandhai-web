@@ -1,0 +1,12 @@
+@media screen and (max-width: 420px) {
+
+    .product-name-s {
+        margin-top: 15px !important;
+    }
+
+    .qty-select {
+        width: 120px !important;
+    }
+}
+
+
