@@ -16,10 +16,11 @@ class ApiModel extends Model
     private $customerRegFields = ['user_id', 'mobile_no', 'otp', 'is_verified', 'token', 'status', 'created_at', 'updated_at'];
     private $addressfields = ['cust_id', 'name', 'street_address', 'phone_no', 'city', 'state', 'pincode', 'country', 'pr_address', 'address_id', 'status'];
 
-    private $productsFieldt = ['id', 'shop_id', 'prod_name', 'qty_type', 'tax_id', 'fssai_no', 'category_id', 'subcategory_id','disc_value','disc_type', 'is_variant','prod_label', 'prod_price', 'prod_type', 'manufacturer', 'made_in', 'return_status', 'cancelable_status', 'cod_allowed', 'total_quantity', 'main_image', 'other_images', 'size_chart', 'description', 'shipping_policy', 'status', 'date_added'];
-    private $products_varFieldt = ['id', 'prod_id', 'measure', 'price', 'disc_type', 'disc_price', 'stock', 'status', 'sku_code', 'hsn_code', 'variant_image'];
+    private $productsFieldt = ['id', 'shop_id', 'prod_name', 'qty_type', 'tax_id', 'fssai_no', 'category_id', 'subcategory_id','disc_value','disc_type', 'is_variant','prod_label', 'prod_price', 'prod_type','hsn_code','sku_code','stock', 'manufacturer', 'made_in', 'return_status', 'cancelable_status', 'cod_allowed', 'total_quantity', 'main_image', 'other_images', 'size_chart', 'description', 'shipping_policy', 'status', 'date_added'];
+    private $products_varFieldt = ['id', 'prod_id', 'measure', 'price', 'disc_type', 'disc_price', 'stock', 'status', 'sku_code', 'hsn_code', 'variant_image','off','updated_at'];
   
     private $postsfield = ['shop_id', 'title', 'content', 'url','image','status','created_at'];
+
 
 
     public function tables(string $tableName, string $id, array $allowedFields)

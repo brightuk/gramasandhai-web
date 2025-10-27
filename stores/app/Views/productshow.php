@@ -900,17 +900,24 @@
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
+
+                                        <?php else: ?>
+                                            <div class="text-center mb-3">
+                                                <span class="fw-semibold rounded-pill bg-light px-4 py-1 d-inline-block" style="font-size:0.8rem;">
+                                                    <?= esc($product['prod_label']) ?>
+                                                </span>
+                                            </div>
                                         <?php endif; ?>
                                         <div class="mb-2 prodprice mb-lg-4">
                                             <?php
                                             // Show final price of first/default variant
                                             $firstVariant = $productVariants[0] ?? null;
                                             if ($firstVariant) {
-                                            $originalPrice =  $product['is_variant'] == 1 ? $firstVariant['price'] : $product['prod_price'];
+                                                $originalPrice =  $product['is_variant'] == 1 ? $firstVariant['price'] : $product['prod_price'];
 
-                                            $firstVariant['disc_price'] =  $product['is_variant'] == 1 ? $firstVariant['disc_price'] : $product['disc_value'];
-                                            $firstVariant['disc_type'] =  $product['is_variant'] == 1 ? $firstVariant['disc_type'] : $product['disc_type'];
-                                                
+                                                $firstVariant['disc_price'] =  $product['is_variant'] == 1 ? $firstVariant['disc_price'] : $product['disc_value'];
+                                                $firstVariant['disc_type'] =  $product['is_variant'] == 1 ? $firstVariant['disc_type'] : $product['disc_type'];
+
                                                 $finalPrice = $originalPrice;
 
                                                 if (!empty($firstVariant['disc_price']) && $firstVariant['disc_price'] > 0) {
@@ -985,22 +992,32 @@
                                         </strong>
 
                                     </div>
-                                    <?php foreach ($productVariants as $variant): ?>
-                                        <div class="product_offer" data-measure="<?= $variant['measure'] ?>"
-                                            style="<?= $variant === $productVariants[0] ? '' : 'display:none;' ?>">
-                                            <?= $variant['disc_type'] == 1 ? '-₹' : '' ?>
-                                            <?= $variant['disc_price'] ?><?= $variant['disc_type'] == 2 ? '%' : '' ?>
-                                        </div>
-                                    <?php endforeach; ?>
+                                    <?php if ($product['is_variant'] == 1): ?>
+                                        <?php foreach ($productVariants as $variant): ?>
+                                            <?php if ($variant['disc_price'] > 0): ?>
+                                                <div class="product_offer"
+                                                    data-measure="<?= $variant['measure'] ?>"
+                                                    style="<?= $variant === $productVariants[0] ? '' : 'display:none;' ?>">
+                                                    <?= $variant['disc_type'] == 1 ? '-₹' : '' ?>
+                                                    <?= $variant['disc_price'] ?><?= $variant['disc_type'] == 2 ? '%' : '' ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <?php if ($product['disc_value'] > 0): ?>
+                                            <div class="product_offer">
+                                                <?= $product['disc_type'] == 1 ? '-₹' : '' ?>
+                                                <?= $product['disc_value'] ?><?= $product['disc_type'] == 2 ? '%' : '' ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
 
                                     <?php if ($product['is_variant'] == 1): ?>
 
                                         <div class="mb-3 text-center">
-
-                                            <select class="form-select  qty-select rounded-pill bg-light border-0 px-2 mx-auto"
+                                            <select class="form-select qty-select rounded-pill bg-light border-0 px-2 mx-auto"
                                                 style="font-size:0.8rem;" id="variantSelect">
                                                 <?php foreach ($productVariants as $index => $variant): ?>
-
                                                     <?php
                                                     // Calculate final price after discount
                                                     $finalPrice = $variant['price'];
@@ -1012,39 +1029,40 @@
                                                         }
                                                     }
                                                     ?>
-                                                    <option value="<?= $finalPrice ?>" data-measure="<?= esc($variant['measure']) ?>"
+                                                    <option value="<?= $finalPrice ?>"
+                                                        data-measure="<?= esc($variant['measure']) ?>"
                                                         data-original-price="<?= $variant['price'] ?>"
                                                         data-disc="<?= !empty($variant['disc_price']) ? $variant['disc_price'] : 0 ?>"
                                                         data-disc-type="<?= $variant['disc_type'] ?>"
                                                         <?= $index === 0 ? 'selected' : '' ?>>
                                                         <?= esc($variant['measure']) ?>
                                                     </option>
-
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
 
                                     <?php else: ?>
-                                        <!-- <div class="text-center">
-                                    <span class="fw-semibold">
-                                        <= esc($productVariants[0]['measure']) ?>
-                                    </span>  -->
 
+                                        <div class="text-center mb-3">
+                                            <span class="fw-semibold rounded-pill bg-light px-3 py-1 d-inline-block" style="font-size:0.8rem;">
+                                                <?= esc($product['prod_label']) ?>
+                                            </span>
+                                        </div>
 
                                     <?php endif; ?>
+
 
                                     <div class="mb-2 text-center prodprice mb-lg-4">
                                         <?php
                                         // Show final price of first/default variant
                                         $firstVariant = $productVariants[0] ?? null;
-                                        if ($firstVariant) {
+                                        if ($firstVariant || $product['is_variant'] == 0) {
                                             $originalPrice =  $product['is_variant'] == 1 ? $firstVariant['price'] : $product['prod_price'];
 
                                             $firstVariant['disc_price'] =  $product['is_variant'] == 1 ? $firstVariant['disc_price'] : $product['disc_value'];
                                             $firstVariant['disc_type'] =  $product['is_variant'] == 1 ? $firstVariant['disc_type'] : $product['disc_type'];
                                             $finalPrice = $originalPrice;
 
-                                            
                                             if (!empty($firstVariant['disc_price']) && $firstVariant['disc_price'] > 0) {
                                                 if ($firstVariant['disc_type'] == 1) { // Fixed amount discount
                                                     $finalPrice -= $firstVariant['disc_price'];
@@ -1103,12 +1121,266 @@
                     </div>
                 <?php endif; ?>
             </div>
+            <div class="text-center my-4">
+                <button id="loadMoreBtn" class="btn btn-primary" onclick="loadMoreProducts()">
+                    Load More Products
+                </button>
+            </div>
         </div>
+
     </div>
 </div>
 
 
+
 <div class="p_spacer"></div>
+
+
+
+
+
+
+<script>
+    // ========== LAZY LOADING IMPLEMENTATION ==========
+    const PRODUCTS_PER_PAGE = 40;
+    let currentPage = 1;
+    let allProductElements = [];
+    let isLoading = false;
+    let lazyLoadObserver = null;
+
+    // Initialize lazy loading on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeLazyLoading();
+    });
+
+    function initializeLazyLoading() {
+        const productContainer = document.getElementById('productContainer1');
+        if (!productContainer) return;
+
+        // Get all product items
+        allProductElements = Array.from(productContainer.querySelectorAll('.product-item'));
+
+        // Hide all products initially
+        allProductElements.forEach(el => el.style.display = 'none');
+
+        // Load first batch
+        loadMoreProducts();
+
+        // Set up intersection observer for infinite scroll
+        setupInfiniteScroll();
+    }
+
+    function loadMoreProducts() {
+        if (isLoading) return;
+
+        isLoading = true;
+
+        // Calculate range
+        const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
+        const end = start + PRODUCTS_PER_PAGE;
+
+        // Get visible products based on current filters (not hidden by filter)
+        const visibleProducts = allProductElements.filter(el => {
+            return el.style.display === 'none' && !el.classList.contains('filtered-out');
+        });
+
+        // Load products in current range
+        const productsToLoad = visibleProducts.slice(0, PRODUCTS_PER_PAGE);
+
+        productsToLoad.forEach(el => {
+            el.style.display = '';
+        });
+
+        // Check if there are more products to load
+        const hasMore = visibleProducts.length > PRODUCTS_PER_PAGE;
+
+        // Show/hide loading indicator
+        toggleLoadingIndicator(hasMore);
+
+        if (productsToLoad.length > 0) {
+            currentPage++;
+        }
+
+        isLoading = false;
+
+        // Update no results message
+        updateNoResultsMessage();
+    }
+
+    function setupInfiniteScroll() {
+        // Create loading indicator if it doesn't exist
+        let loadingIndicator = document.getElementById('loadingIndicator');
+
+        if (!loadingIndicator) {
+            loadingIndicator = document.createElement('div');
+            loadingIndicator.id = 'loadingIndicator';
+            loadingIndicator.className = 'text-center py-4';
+            loadingIndicator.innerHTML = `
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2 text-muted">Loading more products...</p>
+        `;
+            loadingIndicator.style.display = 'none';
+
+            const productContainer = document.getElementById('productContainer1');
+            productContainer.parentElement.appendChild(loadingIndicator);
+        }
+
+        // Disconnect existing observer if any
+        if (lazyLoadObserver) {
+            lazyLoadObserver.disconnect();
+        }
+
+        // Create intersection observer
+        lazyLoadObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !isLoading) {
+                    loadMoreProducts();
+                }
+            });
+        }, {
+            rootMargin: '200px' // Start loading 200px before reaching the bottom
+        });
+
+        // Observe the loading indicator
+        lazyLoadObserver.observe(loadingIndicator);
+    }
+
+    function toggleLoadingIndicator(show) {
+        const indicator = document.getElementById('loadingIndicator');
+        if (indicator) {
+            indicator.style.display = show ? 'block' : 'none';
+        }
+    }
+
+    function updateNoResultsMessage() {
+        const displayedProducts = allProductElements.filter(el =>
+            el.style.display !== 'none'
+        );
+
+        const noResults = document.getElementById('noResults');
+        const sidebar = document.getElementById('sidebar');
+
+        if (displayedProducts.length === 0 && !isLoading) {
+            if (noResults) noResults.classList.remove('d-none');
+            if (sidebar) sidebar.classList.add('d-none');
+        } else {
+            if (noResults) noResults.classList.add('d-none');
+            if (sidebar) sidebar.classList.remove('d-none');
+        }
+    }
+
+    // Reset lazy loading when filters change
+    function resetLazyLoading() {
+        currentPage = 1;
+
+        // Hide all products that are not filtered out
+        allProductElements.forEach(el => {
+            if (!el.classList.contains('filtered-out')) {
+                el.style.display = 'none';
+            }
+        });
+
+        // Load first batch
+        loadMoreProducts();
+    }
+
+    // ========== INTEGRATION WITH EXISTING FILTER FUNCTIONS ==========
+
+    // Override the existing filterProducts function to work with lazy loading
+    const originalFilterProducts = window.filterProducts;
+    window.filterProducts = function() {
+        const searchTerm = document.getElementById('productSearch')?.value.toLowerCase() || '';
+        const priceFilter = document.getElementById('priceFilter').value;
+
+        window.currentSearchTerm = searchTerm;
+        window.currentPriceFilter = priceFilter;
+
+        const productItems = document.querySelectorAll('.product-item');
+
+        productItems.forEach(item => {
+            let showItem = true;
+
+            // Category filter
+            if (window.currentCategoryFilter && window.currentCategoryFilter !== 'all') {
+                const itemCategoryId = item.dataset.categoryId;
+                if (itemCategoryId !== window.currentCategoryFilter) {
+                    showItem = false;
+                }
+            }
+
+            // Subcategory filter
+            if (showItem && window.currentSubcategoryFilter && window.currentSubcategoryFilter !== 'all') {
+                const itemSubcategoryId = item.dataset.subcategoryId;
+                if (itemSubcategoryId !== window.currentSubcategoryFilter) {
+                    showItem = false;
+                }
+            }
+
+            // Search filter
+            if (showItem && searchTerm) {
+                const productName = item.dataset.productName;
+                if (!productName.includes(searchTerm)) {
+                    showItem = false;
+                }
+            }
+
+            // Price filter
+            if (showItem && priceFilter) {
+                const itemPrice = parseFloat(item.dataset.price);
+                showItem = matchesPriceFilter(itemPrice, priceFilter);
+            }
+
+            // Mark items as filtered or not
+            if (showItem) {
+                item.classList.remove('filtered-out');
+            } else {
+                item.classList.add('filtered-out');
+                item.style.display = 'none';
+            }
+        });
+
+        // Reset lazy loading to show first batch of filtered products
+        resetLazyLoading();
+    };
+
+    // Override filterByCategory to work with lazy loading
+    const originalFilterByCategory = window.filterByCategory;
+    window.filterByCategory = function(categoryId) {
+        window.currentCategoryFilter = categoryId;
+        filterProducts();
+        if (typeof updateSubcategoryVisibility === 'function') {
+            updateSubcategoryVisibility(categoryId);
+        }
+    };
+
+    // Override filterBySubcategory to work with lazy loading
+    const originalFilterBySubcategory = window.filterBySubcategory;
+    window.filterBySubcategory = function(subcategoryId, buttonElement = null) {
+        window.currentSubcategoryFilter = subcategoryId;
+
+        // Update button states
+        if (buttonElement) {
+            document.querySelectorAll('.subcategory-filter-btn').forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+        }
+
+        // Filter products
+        filterProducts();
+    };
+</script>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

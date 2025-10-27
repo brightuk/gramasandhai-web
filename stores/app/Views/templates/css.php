@@ -9,11 +9,12 @@
     color: #fff;
     padding: 5px;
     border-radius: 5px 0 10px 0;
-    font-size: 10px !important;
+    font-size: 11px !important;
     font-weight: bold;
     width: 40px;
-    height: 20px;
+    height: 22px;
     z-index: 120px !important;
+    text-align: center;
 
 }
 

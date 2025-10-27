@@ -16,7 +16,7 @@ class ShopAdminController extends BaseController
     private $subcategoriesFieldt = ['category_id', 'main_category', 'sub_category_name', 'sub_category_subtitle', 'sub_category_image', 'status'];
     private $districtField = ['state_id', 'district_name', 'status'];
 
-    private $productsFieldt = ['id', 'shop_id', 'prod_name', 'qty_type', 'tax_id', 'fssai_no', 'category_id', 'subcategory_id','disc_value','disc_type', 'prod_label','is_variant', 'prod_price', 'prod_type', 'manufacturer', 'made_in', 'return_status', 'cancelable_status', 'cod_allowed', 'total_quantity', 'main_image', 'other_images', 'size_chart', 'description', 'shipping_policy', 'color', 'status', 'date_added'];
+    private $productsFieldt = ['id', 'shop_id', 'prod_name', 'qty_type', 'tax_id', 'fssai_no', 'category_id', 'subcategory_id','disc_value','disc_type', 'prod_label','hsn_code','sku_code','stock','is_variant', 'prod_price', 'prod_type', 'manufacturer', 'made_in', 'return_status', 'cancelable_status', 'cod_allowed', 'total_quantity', 'main_image', 'other_images', 'size_chart', 'description', 'shipping_policy', 'color', 'status', 'date_added'];
     private $products_varFieldt = ['id', 'prod_id', 'measure', 'price', 'disc_type', 'disc_price', 'stock', 'status', 'sku_code', 'hsn_code', 'variant_image'];
     private $categoriesField = ['category_name', 'category_subtitle', 'category_image', 'position', 'status'];
 
@@ -686,7 +686,45 @@ class ShopAdminController extends BaseController
         ]);
     }
 
+    public function category_subcategories($shop_id)
+    {
+        $raw = $this->filterCategory_Sub($shop_id);
+        foreach($raw['categories'] as $key => $category){
+            $raw['categories'][$key]['subcategory_count'] = $this->sucategory_count($category['category_id'], $raw['subcategories']);
+        }
+        return $this->response->setJSON([
+            'status' => 'success',
+            'categories' => $raw['categories'],
+            'subcategories' => $raw['subcategories'],
+        ]);
+    }
 
+    public function categories($shop_id)
+    {
+        $raw = $this->filterCategory_Sub($shop_id);
+        foreach($raw['categories'] as $key => $category){
+            $raw['categories'][$key]['subcategory_count'] = $this->sucategory_count($category['category_id'], $raw['subcategories']);
+        }
+        return $this->response->setJSON([
+            'status' => 'success',
+            'categories' => $raw['categories'],
+
+        ]);
+    }
+
+    public function subcategory($shop_id)
+    {
+        $raw = $this->filterCategory_Sub($shop_id);
+        foreach($raw['subcategories'] as $key => $subcategory){
+            $raw['subcategories'][$key]['products_count'] = $this->products_count($subcategory['subcategory_id']);
+        }
+        return $this->response->setJSON([
+            'status' => 'success',
+            'subcategories' => $raw['subcategories'],
+        ]);
+    }
+
+    
 
     public function sucategory_count($id, $array){
         $count = 0;
@@ -756,157 +794,6 @@ class ShopAdminController extends BaseController
 
 
     }
-
-    // public function saveProduct($shop_id)
-    // {
-    //     $shop_id = service('uri')->getSegment(2);
-    //     $postData = [];
-
-    //     // Collect all scalar post fields first
-    //     $simpleFields = [
-    //         'product_name',
-    //         'qtytype',
-    //         'tax',
-    //         'fssai_no',
-    //         'category',
-    //         'sub_category',
-    //         'productType',
-    //         'manufacturer',
-    //         'made_in',
-    //         'returnable',
-    //         'cancelable',
-    //         'cod_allowed',
-    //         'total_quantity',
-    //         'product_description',
-    //         'shippingPolicy'
-    //     ];
-
-    //     foreach ($simpleFields as $field) {
-    //         $postData[$field] = $this->request->getPost($field);
-    //     }
-
-    //     // Handle file uploads
-    //     $mainImage = $this->request->getFile('main_image');
-    //     $sizeChart = $this->request->getFile('size_chart');
-    //     $otherImages = $this->request->getFileMultiple('other_images');
-
-    //     if ($mainImage && $mainImage->isValid() && !$mainImage->hasMoved()) {
-    //         $postData['main_image'] = new \CURLFile(
-    //             $mainImage->getTempName(),
-    //             $mainImage->getMimeType(),
-    //             $mainImage->getName()
-    //         );
-    //     }
-
-    //     if ($sizeChart && $sizeChart->isValid() && !$sizeChart->hasMoved()) {
-    //         $postData['size_chart'] = new \CURLFile(
-    //             $sizeChart->getTempName(),
-    //             $sizeChart->getMimeType(),
-    //             $sizeChart->getName()
-    //         );
-    //     }
-
-    //     // Multiple other images
-    //     if (!empty($otherImages)) {
-    //         foreach ($otherImages as $index => $file) {
-    //             if ($file->isValid() && !$file->hasMoved()) {
-    //                 $postData["other_images[$index]"] = new \CURLFile(
-    //                     $file->getTempName(),
-    //                     $file->getMimeType(),
-    //                     $file->getName()
-    //                 );
-    //             }
-    //         }
-    //     }
-
-    //     $variantImages = $this->request->getFileMultiple('variant_images') ?? [];
-    //     foreach ($variantImages as $index => $file) {
-    //         if ($file->isValid() && !$file->hasMoved()) {
-    //             $postData["variant_images[$index]"] = new \CURLFile(
-    //                 $file->getTempName(),
-    //                 $file->getMimeType(),
-    //                 $file->getName()
-    //             );
-    //         }
-    //     }
-
-    //     // Variant fields
-    //     $variantFields = [
-    //         'measurement',
-    //         'measureUnit',
-    //         'prices',
-    //         'discount_type',
-    //         'discount_price',
-    //         'stock',
-    //         'stock_unit',
-    //         'status',
-    //         'sku_code',
-    //         'hsn_code',
-    //         'variantexist',
-    //         'productid'
-    //     ];
-
-    //     foreach ($variantFields as $field) {
-    //         $values = (array) $this->request->getPost($field);
-    //         foreach ($values as $i => $val) {
-    //             $postData["{$field}[$i]"] = $val;
-    //         }
-    //     }
-
-    //     $url = $this->api_url_shop . $shop_id . '/addproduct';
-
-    //     // Prepare cURL request
-    //     $curl = curl_init();
-    //     curl_setopt_array($curl, [
-    //         CURLOPT_URL => $url,
-    //         CURLOPT_RETURNTRANSFER => true,
-    //         CURLOPT_ENCODING => '',
-    //         CURLOPT_MAXREDIRS => 10,
-    //         CURLOPT_TIMEOUT => 30, // Increased timeout for file uploads
-    //         CURLOPT_FOLLOWLOCATION => true,
-    //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    //         CURLOPT_CUSTOMREQUEST => 'POST',
-    //         CURLOPT_POSTFIELDS => $postData,
-    //         CURLOPT_HTTPHEADER => [
-    //             'X-Api: Bearer ' . $this->api_key
-    //         ]
-    //     ]);
-
-    //     $response = curl_exec($curl);
-    //     $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-    //     if ($response === false) {
-    //         $error = curl_error($curl);
-    //         curl_close($curl);
-    //         return $this->response->setJSON(['status' => 'error', 'message' => 'cURL Error: ' . $error]);
-    //     }
-
-    //     curl_close($curl);
-
-    //     $result = json_decode($response, true);
-
-    //     // Check for JSON decode errors
-    //     if (json_last_error() !== JSON_ERROR_NONE) {
-    //         return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid JSON response from API']);
-    //     }
-
-    //     // Remove debug output - should not be in production code
-    //     // echo "<pre>", print_r($result, true), "</pre>";
-    //     // die;
-
-    //     if (isset($result['status']) && $result['status'] == 'success') {
-    //         $mess = (isset($result['type']) && $result['type'] == 'create') ?
-    //             '✅ Product added successfully' : '✅ Product updated successfully';
-    //         $redirectUrl = (isset($result['type']) && $result['type'] == 'create') ?
-    //             'index.php/addproduct' : 'index.php/products';
-
-    //         return redirect()->to($redirectUrl)->with('message', $mess);
-    //     } else {
-    //         $errorMessage = isset($result['message']) ? $result['message'] : 'Failed to add product';
-    //         return $this->response->setJSON(['status' => 'error', 'message' => $errorMessage]);
-    //     }
-    // }
-
 
 
 
@@ -1033,24 +920,21 @@ class ShopAdminController extends BaseController
                 'description' => $this->request->getPost('product_description'),
                 'shipping_policy' => $this->request->getPost('shippingPolicy'),
                 'is_variant' => $is_variant,
+                'stock'   => trim(($stock[0] ?? '') . ' ' . ($stock_unit[0] ?? '')),
+                'sku_code'     => $sku_code[0] ?? 'not-available',
+                'hsn_code'     => $hsn_code[0] ?? 'not-available',
             ];
 
 
-            if($is_variant != 1){
-                $data['prod_label'] =  ($measurement[0] ?? '') . '' . ($measure_unit[0] ?? '');
-                $data['prod_price'] = isset($prices[0]) ? (int) $prices[0] : 0;
-                $data['disc_type'] = isset($discount_type[0]) && !empty($discount_type[0]) ? (int) $discount_type[0] : 0;
-                $data['disc_value'] = isset($discount_price[0]) && !empty($discount_price[0]) ? (int) $discount_price[0] : 0;
-
-
+            if ($is_variant != 1) {
+                $data['prod_label']   = trim(($measurement[0] ?? '') . ' ' . ($measure_unit[0] ?? ''));
+                $data['prod_price']   = isset($prices[0]) ? (int) $prices[0] : 0;
+                $data['disc_type']    = !empty($discount_type[0]) ? (int) $discount_type[0] : 0;
+                $data['disc_value']   = !empty($discount_price[0]) ? (int) $discount_price[0] : 0;
             }
 
-            // return $this->response->setJSON([
-            //     'status' => 'success',
-            //     'data' => $data,
-            //     'variants_count' => $count
 
-            // ]);
+
             // Insert/update product
             if ($existing) {
                 if (!$products->update($product_id, $data)) {
@@ -1069,7 +953,8 @@ class ShopAdminController extends BaseController
                     ->whereNotIn('id', array_filter($existvar_id)) // Filter out empty values
                     ->delete();
             }
-            // if($is_variant == 1){
+            if ($is_variant != 0) {
+
                 // Insert/update product variants
                 for ($i = 0; $i < $count; $i++) {
                     // Ensure discount values are properly set
@@ -1102,7 +987,7 @@ class ShopAdminController extends BaseController
                         }
                     }
                 }
-            // }
+            }
 
             return $this->response->setJSON([
                 'status' => 'success',
@@ -1124,6 +1009,103 @@ class ShopAdminController extends BaseController
         }
     }
 
+public function addProductVariant()
+{
+    $product_var = new ApiModel();
+    $product_var->tables('product_variants', 'id', $this->products_varFieldt);
+
+    $measurement        = $this->request->getPost('measurement') ?? [];
+    $measure_unit       = $this->request->getPost('measureUnit') ?? [];
+    $prices             = $this->request->getPost('prices') ?? [];
+    $discount_type      = $this->request->getPost('discount_type') ?? [];
+    $discount_price     = $this->request->getPost('discount_price') ?? [];
+    $stock              = $this->request->getPost('stock') ?? [];
+    $stock_unit         = $this->request->getPost('stock_unit') ?? [];
+    $status             = $this->request->getPost('status') ?? [];
+    $sku_code           = $this->request->getPost('sku_code') ?? [];
+    $hsn_code           = $this->request->getPost('hsn_code') ?? [];
+    $existvar_id        = $this->request->getPost('variantexist_id') ?? [];
+    $product_id         = $this->request->getPost('productid');
+
+    // --- HANDLE IMAGE UPLOAD ---
+    $files = $this->request->getFiles();
+    $variant_image_names = [];
+
+    if (isset($files['variant_image']) && is_array($files['variant_image'])) {
+        foreach ($files['variant_image'] as $file) {
+            if ($file->isValid() && !$file->hasMoved()) {
+                $imageName1 = bin2hex(random_bytes(5)) . '.' . $file->getExtension();
+                if ($file->move($this->uploadPath, $imageName1)) {
+                    $variant_image_names[] = $imageName1;
+                } else {
+                    $variant_image_names[] = null;
+                }
+            } else {
+                $variant_image_names[] = null;
+            }
+        }
+    }
+
+    // --- VALIDATE ARRAY COUNTS ---
+    $count = count($measurement);
+    if ($count !== count($measure_unit) || $count !== count($prices)) {
+        return $this->response->setJSON([
+            'status' => false,
+            'message' => 'Variant data arrays must have the same length'
+        ]);
+    }
+
+    // --- SAVE VARIANTS ---
+    for ($i = 0; $i < $count; $i++) {
+
+        $discountType  = isset($discount_type[$i]) && $discount_type[$i] !== '' ? (int) $discount_type[$i] : 0;
+        $discountPrice = isset($discount_price[$i]) && $discount_price[$i] !== '' ? (int) $discount_price[$i] : 0;
+
+        $data2 = [
+            'prod_id'     => $product_id,
+            'measure'     => trim(($measurement[$i] ?? '') . ' ' . ($measure_unit[$i] ?? '')),
+            'price'       => isset($prices[$i]) ? (int)$prices[$i] : 0,
+            'disc_type'   => $discountType,
+            'disc_price'  => $discountPrice,
+            'stock'       => trim((isset($stock[$i]) ? (int)$stock[$i] : 0) . ' ' . ($stock_unit[$i] ?? '')),
+            'sku_code'    => $sku_code[$i] ?? '',
+            'hsn_code'    => $hsn_code[$i] ?? '',
+            'variant_image' => $variant_image_names[$i] ?? null,
+            'status'      => isset($status[$i]) ? $status[$i] : 1,
+        ];
+
+        if (!empty($existvar_id) && isset($existvar_id[$i]) && !empty($existvar_id[$i])) {
+            // UPDATE
+            if (!$product_var->update($existvar_id[$i], $data2)) {
+                return $this->response->setJSON([
+                    'status' => false,
+                    'message' => 'Variant update failed at index ' . $i
+                ]);
+            }
+            $type = 'updated';
+        } else {
+            // INSERT
+            if (!$product_var->insert($data2)) {
+                return $this->response->setJSON([
+                    'status' => false,
+                    'message' => 'Variant insert failed at index ' . $i
+                ]);
+            }
+            $type = 'added';
+        }
+    }
+
+    return $this->response->setJSON([
+        'status' => true,
+        'type' => $type,
+        'message' => 'Product variants ' . $type . ' successfully'
+    ]);
+}
+
+
+
+
+
     public function products($shop_id)
     {
 
@@ -1138,31 +1120,28 @@ class ShopAdminController extends BaseController
             
 
         foreach ($products as $key => $product) {
-            $variants[$key] = $product_var->where('prod_id', $product['id'])->findAll();
+            $variants[$key] = $product_var->where('prod_id', $product['id'])->where('off', 1)->findAll();
         }
         $raw = $this->filterCategory_Sub($shop_id);
         foreach($raw['categories'] as $key => $category){
             $raw['categories'][$key]['subcategory_count'] = $this->sucategory_count($category['category_id'], $raw['subcategories']);
         }
-       foreach($raw['subcategories'] as $key => $subcategory){
-            $raw['subcategories'][$key]['products_count'] = $this->products_count($subcategory['subcategory_id'], $products);
-        }
+   
         return $this->response->setJSON([
             'status' => 'success',
-            'categories' => $raw['categories'],
-            'subcategories' => $raw['subcategories'],
             'products' => $products,
             'products_variants' => $variants ?? 0,
+            'categories' => $raw['categories'],
+            'subcategories' => $raw['subcategories'],
         ]);
     }
 
-        public function products_count($id, $array){
+    public function products_count($id){
         $count = 0;
-        foreach($array as $key => $value){
-            if($value['subcategory_id'] == $id){
-                $count++;
-            }
-        }
+        $products = new ApiModel();
+        $products->tables('products', 'id', $this->productsFieldt);
+        $count = $products->where('subcategory_id', $id)->countAllResults();
+
         return $count;
     }
     public function editProductPage($shop_id, $id)
@@ -1623,10 +1602,6 @@ public function orderUpdate(int $id)
 
 
 
-
-  
-
-
     public function product_Var($prod_id)
     {
         $products = $this->adminmodel->products();
@@ -1635,7 +1610,7 @@ public function orderUpdate(int $id)
         $data = []; 
 
         $product = $products->where('id', $prod_id)->first();
-        $details = $product_var->where('prod_id', $prod_id)->findAll();
+        $details = $product_var->where('prod_id', $prod_id)->where('off', 1)->findAll();
         
         $data= [
             'product' => $product,
@@ -1651,6 +1626,33 @@ public function orderUpdate(int $id)
         ]); 
     }
 
+    public function off_delete($seg, $id)
+    {
+        $products    = $this->adminmodel->products();
+        $product_var = $this->model->product_var();
+
+        if ($seg == 'variant') {
+            $model = $product_var;
+        } elseif ($seg == 'product') { 
+            $model = $products;
+        } else {
+            return $this->response->setJSON([
+                'status' => false,
+                'message' => 'Invalid segment passed'
+            ]);
+        }
+
+        $model->update($id, [
+            'status'     => 0,
+            'off'        => 0,
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        return $this->response->setJSON([
+            'status' => true,
+            'message' => ucfirst($seg) . ' deleted successfully'
+        ]);
+    }
 
 
 

@@ -9,7 +9,7 @@ $routes->get('/', 'LandingController::index');
 $routes->get('about-us-privacy-policy', 'LandingController::about_us_privacy_policy');
 $routes->get('orderhistory', 'LandingController::orderhistory');
 $routes->get('login', 'StoresController::lo');
-$routes->get('notification', 'Home::notification');
+
 
 
 $routes->get('(:segment)', 'StoresController::shopHome/$1');
@@ -49,24 +49,5 @@ $routes->group('(:segment)/', function ($routes) {
 
 });
 
-
-
-// $routes->get('/', 'Home::index');
-// $routes->get('cart', 'Home::cart');
-// $routes->get('orderpage', 'Home::orderpage');
-// $routes->get('addAddress', 'Home::addAddress');
-// $routes->get('success', 'Home::success');
-// $routes->get('categories', 'Home::categories');
-// $routes->get('productShow/(:num)/(:num)', 'Home::productShow/$1/$2');
-// $routes->get('productShow/(:num)/(:num)/(:num)', 'Home::productShow/$1/$2/$3');
-// $routes->get('productShow', 'Home::productShow');
-// $routes->post('registaration', 'Home::registrationProcess');
-// $routes->post('regVerify', 'Home::regVerify');
-
-// $routes->match(['get', 'post'],'address', 'Home::saveAddress');
-// $routes->get('getaddress', 'Home::getCustomerAddress');
-// $routes->get('address/delete/(:num)', 'Home::deleteAddress/$1');
-// $routes->post('address/update', 'Home::updateAddress');
-// $routes->get('edit/getaddress/(:num)', 'Home::getaddress/$1');
 
 

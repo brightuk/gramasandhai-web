@@ -21,8 +21,8 @@ $routes->get('posts_list', 'ApiController::postsList');
 
 
 $routes->get('sendPost/(:num)', 'FirebaseController::sendPost/$1');
-
 $routes->get('send-notification', 'FirebaseController::sendNotification');
+
 
 
 
@@ -74,6 +74,13 @@ $routes->get('orders_history/(:segment)', 'StoresApiController::orderHistory/$1'
 $routes->post('test', 'FirebaseAuthController::verifyOtp');
 
 
+$routes->group('store', function ($routes) {
+    $routes->post('addProductVariant', 'ShopAdminController::addProductVariant');
+    $routes->get('(:segment)/delete/(:num)', 'ShopAdminController::off_delete/$1/$2');
+
+});
+
+
 
 $routes->group('store/(:num)/', function ($routes) {
     $routes->get('all', 'StoresApiController::all/$1');
@@ -100,7 +107,6 @@ $routes->group('store/(:segment)', function ($routes) {
     $routes->get('offers', 'StoresApiController::offers/$1');
     $routes->get('offer/products', 'StoresApiController::offerProducts/$1');
 
-
 });
 
 
@@ -113,6 +119,10 @@ $routes->group('shop/(:num)', function ($routes) {
     $routes->get('(:segment)/second_ch/(:num)', 'ShopAdminController::second_ch/$1/$2/$3');
     $routes->get('(:segment)/enableInall', 'ShopAdminController::enableInALL/$1/$2');
     $routes->get('category_subcategory', 'ShopAdminController::category_subcategory/$1');
+    $routes->get('category_subcategories', 'ShopAdminController::category_subcategories/$1');
+    $routes->get('category', 'ShopAdminController::categories/$1');
+    $routes->get('subcategory', 'ShopAdminController::subcategory/$1');
+
     $routes->post('category_add', 'ShopAdminController::categoryAdd/$1');
     $routes->post('subcategory_add', 'ShopAdminController::subCategoryAdd/$1');
 
@@ -140,6 +150,8 @@ $routes->group('shop/(:num)', function ($routes) {
     $routes->get('dashboard', 'ShopAdminController::shopdashboard/$1');
     $routes->post('orderUpdate/(:num)', 'ShopAdminController::orderUpdate/$2');
     $routes->get('product/(:num)', 'ShopAdminController::product_Var/$2');
+
+
 
 
 

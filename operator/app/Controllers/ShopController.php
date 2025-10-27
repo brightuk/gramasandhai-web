@@ -486,7 +486,7 @@ class ShopController extends Authenticated
 
         $result = json_decode($response, true);
 
-echo "<pre>", print_r($result, true), "</pre>";die;
+// echo "<pre>", print_r($result, true), "</pre>";die;
 
 
         // Check for JSON decode errors
