@@ -42,7 +42,7 @@
 <script>
     // Get current shop from PHP
     let current_shop = "<?= $shop_url_name ?>";
-    
+
     // Function to safely get and decode shop from localStorage
     function getStoredShop() {
         try {
@@ -57,13 +57,13 @@
             return null;
         }
     }
-    
+
     // Function to check if cart exists and has items
     function hasCartItems() {
         try {
             let cart = localStorage.getItem("cart");
             if (!cart) return false;
-            
+
             let parsedCart = JSON.parse(cart);
             return parsedCart && Object.keys(parsedCart).length > 0;
         } catch (error) {
@@ -71,56 +71,56 @@
             return false;
         }
     }
-    
+
     // Function to show the static modal
     function showStaticShopModal() {
         const modalElement = document.getElementById('shopCheckModal');
         if (modalElement) {
             const modal = new bootstrap.Modal(modalElement, {
-                backdrop: 'static',  // Prevent closing by clicking backdrop
-                keyboard: false      // Prevent closing with ESC key
+                backdrop: 'static', // Prevent closing by clicking backdrop
+                keyboard: false // Prevent closing with ESC key
             });
             modal.show();
         } else {
             console.error("Modal element not found");
         }
     }
-    
+
     // Function to go back to cart (with existing cart)
     function goBackToCart() {
         console.log("User chose to go back to existing cart");
         // The href attribute will handle the navigation
         // Optional: Add tracking or analytics here
     }
-    
+
     // Function to clear cart and switch to current shop
     function clearCartAndSwitchShop() {
         try {
             // Clear the cart
             localStorage.removeItem("cart");
-            
+            updateCartCount();
             // Set the new shop
             if (current_shop) {
                 localStorage.setItem("shop_cart", current_shop);
             }
-            
+
             // Hide the modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('shopCheckModal'));
             if (modal) {
                 modal.hide();
             }
-            
+
             console.log("Cart cleared and switched to current shop:", current_shop);
-            
+
             // Optional: Show success message
             showSuccessMessage("Cart cleared! You can now start shopping from this shop.");
-            
+
         } catch (error) {
             console.error("Error clearing cart:", error);
             alert("There was an error clearing your cart. Please try again.");
         }
     }
-    
+
     // Optional: Function to show success message
     function showSuccessMessage(message) {
         // Create a temporary success alert
@@ -131,9 +131,9 @@
             <i class="fas fa-check-circle me-2"></i>${message}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         `;
-        
+
         document.body.appendChild(alertDiv);
-        
+
         // Auto remove after 5 seconds
         setTimeout(() => {
             if (alertDiv.parentNode) {
@@ -141,22 +141,22 @@
             }
         }, 5000);
     }
-    
+
     // Main logic to check shop and display modal
     function checkShopAndDisplayModal() {
         let decoded_shop_url_name = getStoredShop();
         let hasCart = hasCartItems();
-        
+
         // console.log("Current shop:", current_shop);
         // console.log("Stored shop:", decoded_shop_url_name);
         // console.log("Has cart items:", hasCart);
-        
+
         // Only proceed if we have a stored shop and current shop
         if (!decoded_shop_url_name || !current_shop) {
             console.log("Missing shop information - no modal needed");
             return;
         }
-        
+
         // Show modal only if there are cart items and shops are different
         if (hasCart && decoded_shop_url_name !== current_shop) {
             console.log("Different shop with existing cart - showing modal");
@@ -167,7 +167,7 @@
             console.log("No cart items - no modal needed");
         }
     }
-    
+
     // Wait for DOM to be ready before executing
     document.addEventListener('DOMContentLoaded', function() {
         // Small delay to ensure everything is loaded
@@ -175,7 +175,7 @@
             checkShopAndDisplayModal();
         }, 100);
     });
-    
+
     // Optional: Add event listener for storage changes (if user has multiple tabs)
     window.addEventListener('storage', function(e) {
         if (e.key === 'cart' || e.key === 'shop_cart') {
@@ -184,7 +184,7 @@
             checkShopAndDisplayModal();
         }
     });
-    
+
     // Debug function (remove in production)
     function debugCartInfo() {
         console.log("=== CART DEBUG INFO ===");
@@ -195,9 +195,17 @@
         // console.log("Raw Shop:", localStorage.getItem("shop_cart"));
         console.log("=====================");
     }
-    
+
+    function updateCartCount() {
+        const cart = getCart();
+        const totalItems = cart.length; // count only total unique items
+        document.querySelectorAll('.cart-count').forEach(el => el.textContent = totalItems);
+    }
+
     // Call debug in console: debugCartInfo()
 </script>
+
+
 
 <style>
     /* Enhanced styling for static modal */
@@ -206,31 +214,31 @@
         align-items: center;
         min-height: calc(100% - 1rem);
     }
-    
+
     .modal-content {
         border: none;
         border-radius: 15px;
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         overflow: hidden;
     }
-    
+
     .modal-header {
         border-radius: 15px 15px 0 0;
         border-bottom: 2px solid #ffc107;
         padding: 1.5rem;
     }
-    
+
     .modal-body {
         padding: 2rem;
     }
-    
+
     .modal-footer {
         border-radius: 0 0 15px 15px;
         background-color: #f8f9fa;
         border-top: 1px solid #dee2e6;
         padding: 1.5rem;
     }
-    
+
     /* Ensure buttons have proper spacing */
     .modal-footer .btn {
         margin: 0 8px;
@@ -240,77 +248,77 @@
         border-radius: 8px;
         transition: all 0.3s ease;
     }
-    
+
     /* Add hover effects for better UX */
     .modal-footer .btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-    
+
     .modal-footer .btn-outline-secondary:hover {
         background-color: #6c757d;
         border-color: #6c757d;
         color: white;
     }
-    
+
     .modal-footer .btn-primary:hover {
         background-color: #0056b3;
         border-color: #0056b3;
     }
-    
+
     /* Style the warning icon */
     .fs-1 {
         font-size: 4rem !important;
         margin-bottom: 1rem;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    
+
     /* Enhanced alert styling */
     .alert-info {
         border-left: 4px solid #0dcaf0;
         background-color: #e7f3ff;
         border-color: #b8daff;
     }
-    
+
     /* Success message styling */
     .alert-success.position-fixed {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         border-radius: 8px;
     }
-    
+
     /* Modal title styling */
     .modal-title {
         font-weight: 600;
         display: flex;
         align-items: center;
     }
-    
+
     /* Responsive adjustments */
     @media (max-width: 576px) {
         .modal-dialog {
             margin: 10px;
         }
-        
+
         .modal-footer .btn {
             min-width: 140px;
             margin: 5px 0;
         }
-        
+
         .modal-footer {
             flex-direction: column;
         }
-        
+
         .fs-1 {
             font-size: 3rem !important;
         }
     }
-    
+
     /* Loading animation for buttons */
     .btn.loading {
         pointer-events: none;
         opacity: 0.6;
     }
-    
+
     .btn.loading::after {
         content: "";
         display: inline-block;
@@ -322,7 +330,7 @@
         border-top-color: transparent;
         animation: spin 1s linear infinite;
     }
-    
+
     @keyframes spin {
         to {
             transform: rotate(360deg);

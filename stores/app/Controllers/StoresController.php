@@ -423,7 +423,6 @@ class StoresController extends BaseController
 
     public function saveAddress()
     {
-
         $address = $this->request->getCookie('address');
         $getdata = json_decode($address, true);
 
@@ -610,7 +609,6 @@ class StoresController extends BaseController
             'allproducts' => $funcdata['products'],
             'subcategories' => $funcdata['subcategories'],
             'isProductShow' => true
-
         ];
 
         // echo "<pre>", print_r($product_details, true), "</pre>";
@@ -621,21 +619,21 @@ class StoresController extends BaseController
 
     public function categoryFilter($category_id)
     {
-        $url = $this->api_url_store . $this->shop_id . '/categoryFilter/' . $category_id;
-        $data = $this->apiGetfetch($url);
+        // $url = $this->api_url_store . $this->shop_id . '/categoryFilter/' . $category_id;
+        // $data = $this->apiGetfetch($url);
 
-        if ($data['status'] == 'error') {
-            return redirect()->back()->with('error', $data['message']);
-        }
-
+        // if ($data['status'] == 'error') {
+        //     return redirect()->back()->with('error', $data['message']);
+        // }
+        // echo "<pre>", print_r($data, true), "</pre>"; die;
         $funcdata = $this->productsReturn();
         
         // Use the segment parameter passed from the route, which is the shop URL name
         // $shop_url_name = $seg;
 
         $product_details = [
-            'product' => $data['products'],
-            'variant' => $data['products_variants'],
+            // 'product' => $data['products'],
+            // 'variant' => $data['products_variants'],
             'categories' => $funcdata['categories'],
             'subcategories' => $funcdata['subcategories'],
             'allvariants' => $funcdata['products_variants'],
@@ -644,6 +642,8 @@ class StoresController extends BaseController
             // 'shop_url_name' => $shop_url_name,
             'isProductShow' => true
         ];
+
+        // echo "<pre>", print_r($product_details, true), "</pre>"; die;
         return view('productshow', $product_details);
     }
 

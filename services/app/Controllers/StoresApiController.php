@@ -392,7 +392,6 @@ class StoresApiController extends BaseController
 
     public function offers($shop_id)
     {
-
         $offers = $this->offers->where('shop_id', $shop_id)
             ->where('status', 1)
             ->findAll();
@@ -920,7 +919,7 @@ class StoresApiController extends BaseController
         }
 
         foreach ($fetch as $key => $value) {
-            $prouctsresults[$value['prod_id']] = $products->where('shop_id', $shop_id)
+            $prouctsresults[$value['prod_id']] = $products->where('shop_id', $shop_id)->where('status', 1)
                 ->where('id', $value['prod_id'])->get()->getRowArray();
         }
 
@@ -968,6 +967,7 @@ class StoresApiController extends BaseController
 
         $prod = $products->where('shop_id', $shop_id)
             ->where('category_id', $category_id)
+            ->where('status', 1)
             ->orderBy('id', 'DESC')
             ->findAll();
 
@@ -1024,9 +1024,9 @@ class StoresApiController extends BaseController
 
         if ($val == 1 || $val == 2) {
             $num = ($val == 1) ? 0 : 1;
-            $varinats = $product_var->where('disc_type', $num)->where('disc_price >', (int) $seg)->get()->getResultArray();
+            $varinats = $product_var->where('disc_type', $num)->where('disc_price >', (int) $seg)->where('status', 1)->get()->getResultArray();
         } elseif ($val == 3) {
-            $varinats = $product_var->where('disc_price >', 1)->findAll();
+            $varinats = $product_var->where('disc_price >', 1)->where('status', 1)->findAll();
         }
 
         if (empty($varinats)) {

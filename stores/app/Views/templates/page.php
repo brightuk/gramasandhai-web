@@ -993,10 +993,10 @@ $page = $request->getUri()->getSegment(2,'home');
                     style="gap: 10px; scroll-behavior: smooth; margin-left: 10px; margin-right: 10px;"
                     id="scrollContainer">
                     <!-- All your tab buttons should be direct children of this container -->
-                    <button class="subcategory-filter-btn active" data-subcategory="all"
+                    <!-- <button class="subcategory-filter-btn active" data-subcategory="all"
                         onclick="filterBySubcategory('all', this)">
                         All Subcategories
-                    </button>
+                    </button> -->
                     <?php foreach ($subcategories as $subcategory): ?>
                     <button class="subcategory-filter-btn" data-subcategory="<?= $subcategory['subcategory_id'] ?>"
                         data-main-category="<?= $subcategory['main_category'] ?>"
@@ -1322,7 +1322,7 @@ $page = $request->getUri()->getSegment(2,'home');
         aria-labelledby="offcanvasCategoriesLabel">
         <div class="offcanvas-header  text-white categories-header  ">
             <h3 class="offcanvas-title" id="offcanvasCategoriesLabel">Categories</h3>
-            <button type="button" class="btn-close text-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button type="button" class="btn btn-outline-primary fs-4"  data-bs-dismiss="offcanvas" aria-label="Close"> X</button>
         </div>
 
         <div class="myoffcanvas-menu">
@@ -1356,6 +1356,10 @@ $page = $request->getUri()->getSegment(2,'home');
 
 
     <style>
+    .btn-close-blue {
+        color: #fff !important;
+    }
+
     #sidebarmenu {
         font-family: Arial, sans-serif;
         font-weight: bold;
@@ -1687,25 +1691,25 @@ $page = $request->getUri()->getSegment(2,'home');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function()
+    // document.addEventListener('DOMContentLoaded', function()
 
 
 
-    // Account Modal Functionality
-    const accountModal = document.getElementById('accountModal');
-    const loginForm = document.getElementById('loginForm');
-    const otpForm = document.getElementById('otpForm');
-    const userInfo = document.getElementById('userInfo');
-    const mobileNumberInput = document.getElementById('mobileNumber');
-    const mobileNumberDisplay = document.getElementById('mobileNumberDisplay');
-    const otpInput = document.getElementById('otpInput');
-    const sendOtpBtn = document.getElementById('sendOtpBtn');
-    const verifyOtpBtn = document.getElementById('verifyOtpBtn');
-    const resendOtpBtn = document.getElementById('resendOtpBtn');
-    const displayUserId = document.getElementById('displayUserId');
-    const displayUserMobile = document.getElementById('displayUserMobile');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const orderHistoryDropdown = document.getElementById('orderHistoryDropdown');
+    // // Account Modal Functionality
+    // const accountModal = document.getElementById('accountModal');
+    // const loginForm = document.getElementById('loginForm');
+    // const otpForm = document.getElementById('otpForm');
+    // const userInfo = document.getElementById('userInfo');
+    // const mobileNumberInput = document.getElementById('mobileNumber');
+    // const mobileNumberDisplay = document.getElementById('mobileNumberDisplay');
+    // const otpInput = document.getElementById('otpInput');
+    // const sendOtpBtn = document.getElementById('sendOtpBtn');
+    // const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+    // const resendOtpBtn = document.getElementById('resendOtpBtn');
+    // const displayUserId = document.getElementById('displayUserId');
+    // const displayUserMobile = document.getElementById('displayUserMobile');
+    // const logoutBtn = document.getElementById('logoutBtn');
+    // const orderHistoryDropdown = document.getElementById('orderHistoryDropdown');
 
     // Cart Functions
     // function getCart() {
@@ -1820,7 +1824,7 @@ $page = $request->getUri()->getSegment(2,'home');
 
 
 
-    });
+    // });
     </script>
 
 

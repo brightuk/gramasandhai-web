@@ -921,19 +921,32 @@ class ShopAdminController extends BaseController
                 'shipping_policy' => $this->request->getPost('shippingPolicy'),
                 'is_variant' => $is_variant,
                 'stock'   => trim(($stock[0] ?? '') . ' ' . ($stock_unit[0] ?? '')),
-                'sku_code'     => $sku_code[0] ?? 'not-available',
-                'hsn_code'     => $hsn_code[0] ?? 'not-available',
+                'sku_code'     => $sku_code[0] ?? 'NVT',
+                'hsn_code'     => $hsn_code[0] ?? 'NVT',
             ];
 
 
+            // For NON-variant product (single value)
             if ($is_variant != 1) {
-                $data['prod_label']   = trim(($measurement[0] ?? '') . ' ' . ($measure_unit[0] ?? ''));
-                $data['prod_price']   = isset($prices[0]) ? (int) $prices[0] : 0;
-                $data['disc_type']    = !empty($discount_type[0]) ? (int) $discount_type[0] : 0;
-                $data['disc_value']   = !empty($discount_price[0]) ? (int) $discount_price[0] : 0;
+
+                $data['prod_label'] = trim(
+                    (is_array($measurement) ? ($measurement[0] ?? '') : $measurement) 
+                    . ' ' .
+                    (is_array($measure_unit) ? ($measure_unit[0] ?? '') : $measure_unit)
+                );
+
+                $data['prod_price'] = (int) (
+                    is_array($prices) ? ($prices[0] ?? 0) : $prices
+                );
+
+                $data['disc_type']  = (int) (
+                    is_array($discount_type) ? ($discount_type[0] ?? 0) : $discount_type
+                );
+
+                $data['disc_value'] = (int) (
+                    is_array($discount_price) ? ($discount_price[0] ?? 0) : $discount_price
+                );
             }
-
-
 
             // Insert/update product
             if ($existing) {
@@ -1011,6 +1024,8 @@ class ShopAdminController extends BaseController
 
 public function addProductVariant()
 {
+    $products = new ApiModel();
+    $products->tables('products', 'id', $this->productsFieldt);
     $product_var = new ApiModel();
     $product_var->tables('product_variants', 'id', $this->products_varFieldt);
 
@@ -1054,6 +1069,9 @@ public function addProductVariant()
             'message' => 'Variant data arrays must have the same length'
         ]);
     }
+
+    $products->update($product_id, ['is_variant' => 1]);
+
 
     // --- SAVE VARIANTS ---
     for ($i = 0; $i < $count; $i++) {
@@ -1127,12 +1145,16 @@ public function addProductVariant()
             $raw['categories'][$key]['subcategory_count'] = $this->sucategory_count($category['category_id'], $raw['subcategories']);
         }
    
+        foreach($raw['subcategories'] as $key => $subcategory){
+            $raw['subcategories'][$key]['products_count'] = $this->products_count($subcategory['subcategory_id']);
+        }
         return $this->response->setJSON([
             'status' => 'success',
             'products' => $products,
             'products_variants' => $variants ?? 0,
             'categories' => $raw['categories'],
             'subcategories' => $raw['subcategories'],
+            
         ]);
     }
 
@@ -1482,9 +1504,50 @@ public function addProductVariant()
         $product_var->tables('product_variants', 'id', $this->products_varFieldt);
 
         $data = $this->request->getPost();
-        $product_var->update($var_id, $data);
+        
+        if($product_var->update($var_id, $data)){
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Product variant updated successfully',
+                'data' => $data,
+            ]);
+        }else{
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Product variant update failed',
+                'data' => $data,
+            ]);
+        }
+ 
+
+    }
+
+    public function produpdate($prod_id)
+    {
+        $products = new ApiModel();
+        $products->tables('products', 'id', $this->productsFieldt);
+   
+        $price =  $this->request->getPost('prod_price');
+        $prod_name = $this->request->getPost('prod_name');
+        $image = $this->handleImageUpload('main_image');
+
+        
+
+        
+
+
+        $data =[
+            'prod_price' => (int) $price,
+            'prod_name' => $prod_name,
+            'main_image' => $image,
+        ];
+        // if(empty($price)){
+        //     $data = $this->request->getPost();
+        // }
+
+        // $products->update($prod_id, $data);
         return $this->response->setJSON([
-            'status' => 'success',
+            'status' => true,
             'message' => 'Product updated successfully',
             'data' => $data,
         ]);
@@ -1496,7 +1559,6 @@ public function addProductVariant()
 
         $customer = new ApiModel();
         $customer->tables('customers', 'id', $this->customerRegFields);
-
         $ordersModel = $this->shopOrders;
         $orderDetailsModel = $this->ordersDetials;
 
@@ -1559,6 +1621,13 @@ public function addProductVariant()
             ->where('order_status', 'COM')
             ->countAllResults();
 
+        $revenue = $ordersModel
+            ->where('shop_id', $id)
+            ->where('ordered_date', date('Y-m-d'))
+            ->where('order_status', 'COM')
+            ->selectSum('amount')
+            ->first();
+
         return $this->response->setJSON([
             'status' => 'success',
             'message' => 'Customer orders fetched successfully',
@@ -1566,7 +1635,7 @@ public function addProductVariant()
             'process' => $process,
             'totalorder' => $totalord,
             'completed' => $complete,
-            'revenue' => 200,
+            'revenue' => (int) $revenue['amount'] ?? 0,
         ]);
 
 

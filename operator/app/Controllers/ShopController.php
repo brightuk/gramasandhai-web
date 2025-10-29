@@ -7,8 +7,10 @@ class ShopController extends Authenticated
 {
     public $config, $sapi_url, $sapi_key, $uploadPath, $uploads_url, $api_url, $api_key, $api_url_shop;
 
+
+
     private $products_varFieldt = ['prod_id', 'measure', 'price', 'disc_type', 'disc_price', 'stock', 'sku_code', 'hsn_code', 'variant_image'];
-    private $productsFieldt = ['id', 'prod_name', 'qty_type', 'tax_id', 'fssai_no', 'category_id', 'subcategory_id', 'prod_type', 'manufacturer', 'made_in', 'return_status', 'cancelable_status', 'cod_allowed', 'total_quantity', 'main_image', 'other_images', 'size_chart', 'description', 'shipping_policy'];
+    private $productsFieldt = ['id', 'prod_name', 'qty_type', 'tax_id', 'fssai_no', 'category_id', 'subcategory_id', 'prod_label','prod_price','disc_type','disc_value','stock','sku_code','hsn_code','prod_type','manufacturer', 'made_in', 'return_status', 'cancelable_status', 'cod_allowed', 'total_quantity', 'main_image', 'other_images', 'size_chart', 'description', 'shipping_policy'];
 
 
     public function __construct()
@@ -757,9 +759,9 @@ class ShopController extends Authenticated
             if (!$main_excel || !$main_excel->isValid()) {
                 return redirect()->back()->with('error', 'Please select the main file');
             }
-            if ($runCount === 2 && (!$variant_excel || !$variant_excel->isValid())) {
-                return redirect()->back()->with('error', 'Please select the second file for products');
-            }
+            // if ($runCount === 2 && (!$variant_excel || !$variant_excel->isValid())) {
+            //     return redirect()->back()->with('error', 'Please select the second file for products');
+            // }
 
             $collect = [];
 
@@ -829,7 +831,8 @@ class ShopController extends Authenticated
             $response = curl_exec($curl);
 
             $data = json_decode($response, true);
-
+            // echo "<pre>", print_r($data, true), "</pre>";
+            // die;
 
 
             return redirect()->back()->with($data['status'], $data['message']);

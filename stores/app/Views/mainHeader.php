@@ -510,7 +510,7 @@ $image_url = $img_url;
 
     function updateCartCount() {
         const cart = getCart();
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        const totalItems = cart.length; // count only total unique items
         document.querySelectorAll('.cart-count').forEach(el => el.textContent = totalItems);
     }
 
@@ -623,7 +623,6 @@ $image_url = $img_url;
                 quantity: 1
             });
         }
-
         saveCart(cart);
         updateCartCount();
     }

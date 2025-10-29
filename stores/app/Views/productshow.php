@@ -730,6 +730,14 @@
         margin-bottom: 2rem;
     }
 </style>
+<?php if (isset($category_id)) : ?>
+    <div class="category_id" id="category_id"> <?= esc($category_id) ?></div>
+<?php endif; ?>
+
+<?php if (isset($subcategory_id)) : ?>
+    <div class="subcategory_id" id="subcategory_id"> <?= esc($subcategory_id) ?></div>
+<?php endif; ?>
+
 
 <div class="container-fluid center-cont spacerm">
     <div class="head-noresults">
@@ -749,7 +757,9 @@
     </div>
 
     <div class="row">
+
         <!-- Sidebar -->
+
         <div class="col-12 col-lg-3 col-xl-3 cat mb-3">
             <div class="sidebar" id="sidebar">
                 <label class="form-label fw-bold ps-2">Categories</label>
@@ -1111,6 +1121,11 @@
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    <div class="text-center my-4 " id="loadproducts">
+                        <button id="loadMoreBtn" class="btn btn-primary" onclick="loadMoreProducts()">
+                            Load More Products
+                        </button>
+                    </div>
 
                 <?php else: ?>
                     <div class="col-12">
@@ -1121,11 +1136,7 @@
                     </div>
                 <?php endif; ?>
             </div>
-            <div class="text-center my-4">
-                <button id="loadMoreBtn" class="btn btn-primary" onclick="loadMoreProducts()">
-                    Load More Products
-                </button>
-            </div>
+
         </div>
 
     </div>
@@ -1138,11 +1149,9 @@
 
 
 
-
-
 <script>
     // ========== LAZY LOADING IMPLEMENTATION ==========
-    const PRODUCTS_PER_PAGE = 40;
+    const PRODUCTS_PER_PAGE = 16;
     let currentPage = 1;
     let allProductElements = [];
     let isLoading = false;
@@ -1374,16 +1383,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const sliderWrapper = document.getElementById('subcategoryContainer');
@@ -1520,22 +1519,30 @@
                 visibleCount++;
             } else {
                 item.style.display = 'none';
+
+
             }
         });
 
         // Show/hide no results message
         const noResults = document.getElementById('noResults');
         const sidebar = document.getElementById('sidebar');
+        const loadProducts = document.getElementById('loadproducts');
+
         if (visibleCount === 0) {
             noResults.classList.remove('d-none');
             sidebar.classList.add('d-none');
+            loadProducts.classList.add('d-none');
+
         } else {
             noResults.classList.add('d-none');
             sidebar.classList.remove('d-none');
+            loadProducts.classList.remove('d-none');
         }
 
         updateProductCount();
     }
+
 
     // Check if price matches filter
     function matchesPriceFilter(price, filter) {
@@ -1674,9 +1681,10 @@
 
     function updateCartCount() {
         const cart = getCart();
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        const totalItems = cart.length; // count only total unique items
         document.querySelectorAll('.cart-count').forEach(el => el.textContent = totalItems);
     }
+
 
     function initializeCart() {
         updateCartCount();
@@ -1728,21 +1736,32 @@
 
         const productItem = card.closest('.product-item');
         if (!productItem) return;
+
         const productId = productItem.dataset.productId;
         const productName = (card.querySelector('.product-name, .product-name-s')?.textContent || '').trim();
-        const select = card.querySelector('.qty-select');
-        const selectedOption = select.options[select.selectedIndex];
-        const price = parseFloat(selectedOption.value);
-        const measure = selectedOption.getAttribute('data-measure');
         const image = card.querySelector('img')?.src || '';
         const imageName = card.querySelector('#image_name')?.value || '';
+
+        // check if variant
+        const select = card.querySelector('.qty-select');
+        let price = 0;
+        let measure = '';
+
+        if (select) {
+            // VARIANT product
+            const selectedOption = select.options[select.selectedIndex] || '';
+            price = parseFloat(selectedOption.value) || 0;
+            measure = selectedOption.getAttribute('data-measure') || '';
+        } else {
+            // NON-VARIANT product
+            measure = (card.querySelector('.fw-semibold')?.textContent || '').trim();
+            price = parseFloat(card.querySelector('.product-price')?.textContent.replace(/[₹,]/g, '')) || 0;
+        }
 
         let cart = getCart();
         const existingItemIndex = cart.findIndex(item => item.id === productId && item.measure === measure);
 
-        if (existingItemIndex !== -1) {
-            // Keep quantity as-is; UI will reveal current quantity
-        } else {
+        if (existingItemIndex === -1) {
             cart.push({
                 id: productId,
                 name: productName,
@@ -1757,16 +1776,9 @@
         saveCart(cart);
         updateCartCount();
 
-        const toastEl = document.getElementById('cart-toast');
-        if (toastEl && window.bootstrap?.Toast) {
-            const toast = new bootstrap.Toast(toastEl);
-            const toastBody = toastEl.querySelector('.toast-body');
-            if (toastBody) toastBody.textContent = `${productName} (${measure}) added to cart`;
-            toast.show();
-        }
-
         toggleCartUI(card, true, existingItemIndex !== -1 ? cart[existingItemIndex].quantity : 1);
     }
+
 
     // --- ADD TO CART helper (used by multiple listeners) ---
     function addToCart(productId, productName, price, measure, image) {

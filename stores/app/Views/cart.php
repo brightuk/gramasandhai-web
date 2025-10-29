@@ -375,15 +375,18 @@ function saveCart(cart) {
     }
 }
 
+
+
 function updateCartCount() {
     const cart = getCart();
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-    // Update cart count in header/navigation if exists
-    document.querySelectorAll('.cart-count').forEach(el => {
-        el.textContent = totalItems;
-    });
+    const totalItems = cart.length;  // count only total unique items
+    document.querySelectorAll('.cart-count').forEach(el => el.textContent = totalItems);
 }
+
+
+
+
+
 
 function renderCart() {
     const cart = getCart();
@@ -540,11 +543,11 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCartCount();
 });
 
-function updateCartCount() {
-    const cart = getCart();
-    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    document.querySelectorAll('.cart-count').forEach(el => el.textContent = totalItems);
-}
+
+
 </script>
+
+
+
 
 <?= $this->endSection() ?>

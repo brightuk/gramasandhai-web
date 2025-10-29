@@ -77,6 +77,7 @@ $routes->post('test', 'FirebaseAuthController::verifyOtp');
 $routes->group('store', function ($routes) {
     $routes->post('addProductVariant', 'ShopAdminController::addProductVariant');
     $routes->get('(:segment)/delete/(:num)', 'ShopAdminController::off_delete/$1/$2');
+    $routes->post('productUpdate/(:num)', 'ShopAdminController::produpdate/$1');
 
 });
 
