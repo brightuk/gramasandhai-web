@@ -202,6 +202,21 @@ class ApiController extends BaseController
         return $default;
     }
 
+    private function handleImageUploadPath($fieldName, $prefix, $targetPath)
+    {
+        $uploadDir = rtrim($this->uploadPath, '/\\') . $targetPath;
+        if (!is_dir($uploadDir)) {
+            @mkdir($uploadDir, 0755, true);
+        }
+        $file = $this->request->getFile($fieldName);
+
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $imageName = $prefix .'_'. $file->getRandomName();
+            $file->move($uploadDir, $imageName);
+            return $imageName;
+        }
+        return false;
+    }
 
     public function location_add($seg)
     {
@@ -285,6 +300,8 @@ class ApiController extends BaseController
             'shop_name' => $postData['shop_name'] ?? ($existingShop['shop_name'] ?? ''),
             'owner_name' => $postData['owner_name'] ?? ($existingShop['owner_name'] ?? ''),
             'email' => $postData['email'] ?? ($existingShop['email'] ?? ''),
+            'password' => $postData['password'] ?? ($existingShop['password'] ?? ''),
+            'is_verified' => $postData['is_verified'] ?? ($existingShop['is_verified'] ?? 0),
             'shop_address' => $postData['address'] ?? ($existingShop['shop_address'] ?? ''),
             'pincode' => $postData['pincode'] ?? ($existingShop['pincode'] ?? ''),
             'state_id' => $postData['state_id'] ?? ($existingShop['state_id'] ?? ''),
@@ -325,8 +342,6 @@ class ApiController extends BaseController
             'message' => $message,
             'type' => $type,
             'data' => $data,
-
-
         ]);
     }
 
@@ -842,6 +857,7 @@ class ApiController extends BaseController
 
         ]);
     }
+
     public function postsList(){
         $model = $this->adminModel->posts();
         $posts = $model->orderBy('id', 'desc')->findAll();
@@ -851,7 +867,167 @@ class ApiController extends BaseController
         ]);
     }
 
+    public function shoplist_check($seg){
+        $model = $this->adminModel->shops();
+        $shopDocs = $this->model->shopDocs();
 
+        if($_SERVER['REQUEST_METHOD']== "POST") {
+            $mobile = $this->request->getPost('mobile');
+            $shop = $model->where('shop_phone', $mobile)->first();
+            $pending_status =  "no" ;
+
+            if(!empty($shop)) {
+                $docs = $shopDocs->where('shop_id', $shop['shop_id'])->first();
+
+                $shop['gstin_certificate_no'] = $docs['gstin_certificate_no'] ?? '';
+                $shop['gst_certificate'] = $docs['gst_certificate'] ?? '';                    
+                $shop['pancard_no'] = $docs['pancard_no'] ?? '';                    
+            
+                $pending_status =  "yes" ;
+            }
+
+
+    
+            return $this->response->setJSON([
+                'status' => 'success',
+                'pending' => $pending_status,
+                'shop' => $shop ?? [],
+                // 'docs' => $docs ?? []
+
+            ]);
+        }
+    
+        
+ 
+
+
+
+
+        if($seg == "shops"){
+            $model->select('shop_phone')->where('is_verified', 1);
+        }
+        
+        $shops = $model->orderBy('id', 'desc')->findAll();
+
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'shops' => $shops
+        ]);
+    }
+
+
+
+    public function partner_Joinprocess()
+    {
+        $uploadDir = rtrim($this->uploadPath, '/\\') . '/partner_docs';
+        if (!is_dir($uploadDir)) {
+            @mkdir($uploadDir, 0755, true);
+        }
+
+        $model = new ApiModel();
+        $model->shopDocs();
+
+        $postData = $this->request->getPost();
+        $shop_id =  $this->adminModel->createShopId();
+
+        $shop_images = $this->request->getFiles();
+        $businessPhotosSaved = [];
+        if (isset($shop_images['shop_images']) && is_array($shop_images['shop_images'])) {
+            foreach ($shop_images['shop_images'] as $photo) {
+                if ($photo && $photo->isValid()) {
+                    $newName = 'shop_photo_'. $photo->getRandomName();
+                    // $photo->move($this->uploadPath, $newName, true);
+                    $businessPhotosSaved[] =  $newName;
+                }
+            }
+        }
+        $createShopUrlname = $this->adminModel->createShopUrl($postData['shop_name'] ?? '');
+
+        $shopfolder = "/partner_docs/".$createShopUrlname.$shop_id;
+
+        $fields = [
+            'shop_id' => $shop_id,
+            'shop_name' => ucwords($postData['shop_name'] ?? ''),
+            'owner_name' => $postData['owner_name'] ?? '',
+            'email' => $postData['email'] ?? '',
+            'url_name' => $createShopUrlname,
+            'shop_url' => $this->shop_url . $createShopUrlname,
+            'shop_phone' => $postData['phone'] ?? '',
+            'address' => $postData['address'] ?? '',
+            'shop_category' => $postData['shop_category'] ?? '',
+            'state_id' => $postData['state_id'] ?? '',
+            'district_id' => $postData['district_id'] ?? '',
+            'city_id' => $postData['city_id'] ?? '',
+            'pincode' => $postData['pincode'] ?? '',
+            'password' => $postData['password'] ?? '',
+            'shop_logo' => $businessPhotosSaved[0] ?? 'no_image.jpg',
+            'shop_images' => json_encode($businessPhotosSaved),
+            'qr_image' => "no_image.jpg",
+            'discount' => "0",
+            'latitude' => "00.000000",
+            'longitude' => "00.000000",
+        ];
+
+
+        $docs = [
+            'shop_id' => $shop_id,
+            'terms_agreement' => ($postData['terms_agreement'] == "on" ? 1 : 0) ?? 0,
+            'fssai_license_no' => $postData['fssai_license_no'] ?? '',
+            'gstin_certificate_no' => $postData['gstin_certificate_no'] ?? '',
+            'pancard_no' => $postData['pancard_no'] ?? '',
+            'pan_card' => $this->handleImageUploadPath('pan_card', 'pancard', $shopfolder),
+            'fssai_license' => $this->handleImageUploadPath('fssai_license', 'fssai', $shopfolder),
+            'gstin_certificate' => $this->handleImageUploadPath('gstin_certificate', 'gstin', $shopfolder),
+
+        ];
+
+        $existshop = $this->shops->where('shop_phone', $fields['shop_phone'] ?? 0)->first();
+
+        if ($existshop) {
+            // Update existing shop
+            $this->shops->update($existshop['shop_id'], $fields);
+
+            // Update related shopDocs
+            $model->shopDocs()->update($existshop['shop_id'], $docs);
+
+            $status = true;
+            $message = 'Partner shop updated successfully';
+        } else {
+            // Insert new shop
+            $shopId = $this->shops->insert($fields, true); // true returns insert ID
+
+            if ($shopId) {
+                // Attach shop ID to docs and insert
+                $docs['shop_id'] = $shopId;
+                $model->shopDocs()->insert($docs);
+
+                $status = true;
+                $message = 'Partner shop added successfully';
+            } else {
+                $status = false;
+                $message = 'Error adding partner shop';
+            }
+        }
+
+
+
+
+
+        return $this->response->setJSON([
+            'status' => $status,
+            'message' => $message,
+            'application_id' => $shop_id,
+            'fields' => $fields,
+            // 'docs' => $docs,
+        ]);
+
+    }
+
+
+
+
+        // Assuming you have a method to get admin device tokens
 
 
 

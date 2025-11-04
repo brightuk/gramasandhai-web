@@ -2,6 +2,8 @@
 
 $myConfig = config('AccessProperties');
 $request = service('request');
+$company_name = $myConfig->company_name;
+$supportEmail = $myConfig->supportEmail;
 
 $base = $myConfig->b_url;
 $site_url = $myConfig->site_url;
@@ -15,7 +17,7 @@ $image_url = $myConfig->uploads . 'images/';
 $img_sat = $myConfig->uploads . 'staticimage/';
 
 $url = $myConfig->api_url;
-$burl = $myConfig->site_url;
+$burl = $myConfig->b_url;
 
 $shop_name = $myConfig->shop_name ?? '';
 

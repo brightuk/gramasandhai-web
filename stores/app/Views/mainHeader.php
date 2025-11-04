@@ -263,6 +263,7 @@ $image_url = $img_url;
     </div>
 </div>
 
+<!-- <php $finalPrice = 0; ?> -->
 
 <div class="shop-categories container" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; ">
     <h3 class="category-header">Shop by Category</h3>
@@ -357,91 +358,117 @@ $image_url = $img_url;
                                 </div>
 
 
-                                        <?php if ($product['is_variant'] == 1): ?>
+                                <?php if ($product['is_variant'] == 1): ?>
 
-                                <div class="mb-2">
-                                    <select class="form-select form-select qty-select rounded-pill bg-light border-0 px-2"
-                                        style="font-size: 0.98rem;">
-                                        <?php
-                                        $lowestVariant = null;
-                                        $productVariants = [];
+                                    <div class="mb-2">
+                                        <select class="form-select form-select qty-select rounded-pill bg-light border-0 px-2"
+                                            style="font-size: 0.98rem;">
+                                            <?php
+                                            $lowestVariant = null;
+                                            $productVariants = [];
 
-                                        // Extract variants for current product from the nested structure
-                                        foreach ($variants as $variantGroup) {
-                                            if (is_array($variantGroup)) {
-                                                foreach ($variantGroup as $variant) {
-                                                    if (isset($variant['prod_id']) && $variant['prod_id'] == $product['id']) {
-                                                        $productVariants[] = $variant;
-                                                        if ($lowestVariant === null || $variant['price'] < $lowestVariant['price']) {
-                                                            $lowestVariant = $variant;
+                                            // Extract variants for current product from the nested structure
+                                            foreach ($variants as $variantGroup) {
+                                                if (is_array($variantGroup)) {
+                                                    foreach ($variantGroup as $variant) {
+                                                        if (isset($variant['prod_id']) && $variant['prod_id'] == $product['id']) {
+                                                            $productVariants[] = $variant;
+                                                            if ($lowestVariant === null || $variant['price'] < $lowestVariant['price']) {
+                                                                $lowestVariant = $variant;
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
-                                        }
 
-                                        // Generate options for the current product
-                                        foreach ($productVariants as $variant):
-                                            // Calculate final price with discount
-                                            $originalPrice = $variant['price'];
-                                            $finalPrice = $originalPrice;
+                                            // Generate options for the current product
+                                            foreach ($productVariants as $variant):
+                                                // Calculate final price with discount
+                                                $originalPrice = $variant['price'];
+                                                $finalPrice = $originalPrice;
 
-                                            if (!empty($variant['disc_price']) && $variant['disc_price'] > 0) {
-                                                if ($variant['disc_type'] == 1) { // Fixed amount discount
-                                                    $finalPrice -= $variant['disc_price'];
-                                                } else { // Percentage discount
-                                                    $finalPrice -= ($variant['disc_price'] * $originalPrice / 100);
+                                                if (!empty($variant['disc_price']) && $variant['disc_price'] > 0) {
+                                                    if ($variant['disc_type'] == 1) { // Fixed amount discount
+                                                        $finalPrice -= $variant['disc_price'];
+                                                    } else { // Percentage discount
+                                                        $finalPrice -= ($variant['disc_price'] * $originalPrice / 100);
+                                                    }
                                                 }
-                                            }
-                                        ?>
-                                            <option value="<?= $finalPrice ?>" data-measure="<?= $variant['measure'] ?>"
-                                                data-id="<?= $product['id'] ?>" data-original-price="<?= $originalPrice ?>"
-                                                data-disc="<?= !empty($variant['disc_price']) ? $variant['disc_price'] : 0 ?>"
-                                                data-disc-type="<?= $variant['disc_type'] ?>">
-                                                <?= $variant['measure'] ?>
-                                                <!-- - ₹<= number_format($finalPrice, 2) ?> -->
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                            ?>
+                                                <option value="<?= $finalPrice ?>" data-measure="<?= $variant['measure'] ?>"
+                                                    data-id="<?= $product['id'] ?>" data-original-price="<?= $originalPrice ?>"
+                                                    data-disc="<?= !empty($variant['disc_price']) ? $variant['disc_price'] : 0 ?>"
+                                                    data-disc-type="<?= $variant['disc_type'] ?>">
+                                                    <?= $variant['measure'] ?>
+                                                    <!-- - ₹<= number_format($finalPrice, 2) ?> -->
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
 
-                                </div>
-                                        <?php endif; ?>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="text-start mb-2">
+                                        <span class="fw-semibold rounded-pill bg-light py-1 d-inline-block" style="font-size:0.8rem;">
+                                            <?= esc($product['prod_label'] ?? '') ?>
+                                        </span>
+                                    </div>
+                                <?php endif; ?>
 
-                                <?php foreach ($productVariants as $variant): ?>
-                                    <?php if ($variant['disc_price'] > 0): ?>
-                                        <div class="product_offer" data-measure="<?= $variant['measure'] ?>"
-                                            style="<?= $variant === $productVariants[0] ? '' : 'display:none;' ?>">
-                                            <?= $variant['disc_type'] == 1 ? '-₹' : '' ?>
-                                            <?= $variant['disc_price'] ?><?= $variant['disc_type'] == 2 ? '%' : '' ?>
+                                <?php if ($product['is_variant'] == 1): ?>
+
+                                    <?php foreach ($productVariants as $variant): ?>
+                                        <?php if ($variant['disc_price'] > 0): ?>
+                                            <div class="product_offer" data-measure="<?= $variant['measure'] ?>"
+                                                style="<?= $variant === $productVariants[0] ? '' : 'display:none;' ?>">
+                                                <?= $variant['disc_type'] == 1 ? '-₹' : '' ?>
+                                                <?= $variant['disc_price'] ?><?= $variant['disc_type'] == 2 ? '%' : '' ?>
+                                            </div>
+                                    <?php endif;
+                                    endforeach; ?>
+                                <?php else: ?>
+                                    <?php if ($product['disc_value'] > 0): ?>
+                                        <div class="product_offer">
+                                            <?= $product['disc_type'] == 1 ? '-₹' : '' ?>
+                                            <?= $product['disc_value'] ?><?= $product['disc_type'] == 2 ? '%' : '' ?>
                                         </div>
-                                <?php endif;
-                                endforeach; ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </div>
                             <div class="mb-2 prodpriceh">
                                 <?php
-                                // Show final price of first/default variant
-                                $firstVariant = $productVariants[0] ?? null;
-                                if ($firstVariant) {
-                                    $originalPrice =  $product['is_variant'] == 1 ? $firstVariant['price'] : $product['prod_price'];
+                                // Default initialization
+                                $finalPrice = 0;
+                                $originalPrice = 0;
 
-                                    $firstVariant['disc_price'] =  $product['is_variant'] == 1 ? $firstVariant['disc_price'] : $product['disc_value'];
-                                    $firstVariant['disc_type'] =  $product['is_variant'] == 1 ? $firstVariant['disc_type'] : $product['disc_type'];
-                                    $finalPrice = $originalPrice;
+                                if (!empty($product['is_variant']) && $product['is_variant'] == 1 && !empty($productVariants)) {
+                                    // Variant product → use first variant
+                                    $firstVariant = $productVariants[0];
 
-                                    if (!empty($firstVariant['disc_price']) && $firstVariant['disc_price'] > 0) {
-                                        if ($firstVariant['disc_type'] == 1) { // Fixed amount discount
-                                            $finalPrice -= $firstVariant['disc_price'];
-                                        } else { // Percentage discount
-                                            $finalPrice -= ($firstVariant['disc_price'] * $originalPrice / 100);
-                                        }
+                                    $originalPrice = (float)($firstVariant['price'] ?? 0);
+                                    $discPrice     = (float)($firstVariant['disc_price'] ?? 0);
+                                    $discType      = (int)($firstVariant['disc_type'] ?? 0);
+                                } else {
+                                    // Non-variant product → use main product data
+                                    $originalPrice = (float)($product['prod_price'] ?? 0);
+                                    $discPrice     = (float)($product['disc_value'] ?? 0);
+                                    $discType      = (int)($product['disc_type'] ?? 0);
+                                }
+
+                                // Apply discount if available
+                                $finalPrice = $originalPrice;
+                                if ($discPrice > 0) {
+                                    if ($discType == 1) {
+                                        // Fixed discount
+                                        $finalPrice -= $discPrice;
+                                    } else {
+                                        // Percentage discount
+                                        $finalPrice -= ($discPrice * $originalPrice / 100);
                                     }
                                 }
                                 ?>
 
-
-
-                                <div class=" selected-price-display">
-                                    <?php if (isset($firstVariant) && !empty($firstVariant['disc_price']) && $firstVariant['disc_price'] > 0): ?>
+                                <div class="selected-price-display">
+                                    <?php if (!empty($discPrice) && $discPrice > 0): ?>
                                         <span class="text-muted" style="text-decoration: line-through;">
                                             ₹<?= number_format($originalPrice, 2) ?>
                                         </span>
@@ -456,6 +483,7 @@ $image_url = $img_url;
                                     <?php endif; ?>
                                 </div>
                             </div>
+
                             <div class="mt-auto d-flex align-items-center gap-2 ct-add ">
                                 <button class="btn btnadd btn-sm add-to-cart-btn  fw-semibold text-white" id="addCart3"
                                     style="width: 80px; font-size:0.9rem;">
@@ -567,9 +595,19 @@ $image_url = $img_url;
         const productId = productItem.dataset.productId;
         const productName = (card.querySelector('.product-name, .product-name-s')?.textContent || '').trim();
         const select = card.querySelector('.qty-select');
-        const selectedOption = select.options[select.selectedIndex];
-        const price = parseFloat(selectedOption.value);
-        const measure = selectedOption.getAttribute('data-measure');
+        let price = 0;
+        let measure = '';
+        if (select) {
+            const selectedOption = select.options[select.selectedIndex];
+            price = parseFloat(selectedOption.value);
+            measure = selectedOption.getAttribute('data-measure');
+        } else {
+            // Non-variant: derive from displayed price and label
+            const priceEl = card.querySelector('.product-price');
+            price = priceEl ? parseFloat((priceEl.textContent || '').replace(/[^0-9.]/g, '')) : 0;
+            const labelEl = card.querySelector('.fw-semibold');
+            measure = (labelEl ? labelEl.textContent : '').trim();
+        }
         const image = card.querySelector('img')?.src || '';
         const imageName = card.querySelector('#image_name')?.value || '';
 
@@ -584,7 +622,7 @@ $image_url = $img_url;
                 name: productName,
                 price: price,
                 measure: measure,
-                quantity: 0,
+                quantity: 1,
                 image: image,
                 image_name: imageName
             });
@@ -636,9 +674,9 @@ $image_url = $img_url;
             let currentQty = parseInt(qtyInput.value) || 1;
 
             if (action === 'increment') {
-                qtyInput.value = currentQty + 0;
+                qtyInput.value = currentQty + 1;
             } else if (action === 'decrement' && currentQty > 1) {
-                qtyInput.value = currentQty - 0;
+                qtyInput.value = currentQty - 1;
             }
 
             // Reflect change in cart storage immediately
@@ -646,9 +684,18 @@ $image_url = $img_url;
             const productId = card.dataset.productId;
             const productName = card.querySelector('.product-name, .product-name-s').textContent.trim();
             const select = card.querySelector('.qty-select');
-            const selectedOption = select.options[select.selectedIndex];
-            const price = parseFloat(selectedOption.value);
-            const measure = selectedOption.dataset.measure;
+            let price = 0;
+            let measure = '';
+            if (select) {
+                const selectedOption = select.options[select.selectedIndex];
+                price = parseFloat(selectedOption.value);
+                measure = selectedOption.dataset.measure;
+            } else {
+                const priceEl = card.querySelector('.product-price');
+                price = priceEl ? parseFloat((priceEl.textContent || '').replace(/[^0-9.]/g, '')) : 0;
+                const labelEl = card.querySelector('.fw-semibold');
+                measure = (labelEl ? labelEl.textContent : '').trim();
+            }
             const image = card.querySelector('img').src;
 
             let cart = getCart();
@@ -721,9 +768,18 @@ $image_url = $img_url;
             const productId = card.dataset.productId;
             const productName = card.querySelector('.product-name, .product-name-s').textContent.trim();
             const select = card.querySelector('.qty-select');
-            const selectedOption = select.options[select.selectedIndex];
-            const price = parseFloat(selectedOption.value);
-            const measure = selectedOption.dataset.measure;
+            let price = 0;
+            let measure = '';
+            if (select) {
+                const selectedOption = select.options[select.selectedIndex];
+                price = parseFloat(selectedOption.value);
+                measure = selectedOption.dataset.measure;
+            } else {
+                const priceEl = card.querySelector('.product-price');
+                price = priceEl ? parseFloat((priceEl.textContent || '').replace(/[^0-9.]/g, '')) : 0;
+                const labelEl = card.querySelector('.fw-semibold');
+                measure = (labelEl ? labelEl.textContent : '').trim();
+            }
             const image = card.querySelector('img').src;
 
             // Update cart quantity (overwrite existing)

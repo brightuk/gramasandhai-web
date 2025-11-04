@@ -6,9 +6,22 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'LandingController::index');
-$routes->get('about-us-privacy-policy', 'LandingController::about_us_privacy_policy');
+$routes->get('content/privacy-policy', 'LandingController::privacy_policy');
+$routes->get('content/refund-policy', 'LandingController::refund_policy');
+$routes->get('content/cancellation-policy', 'LandingController::cancellation_policy');
+$routes->get('content/cookies-policy', 'LandingController::cookies_Policy');
+$routes->get('content/terms-of-service', 'LandingController::terms_of_service');
+$routes->get('content/about-us', 'LandingController::about_us');
+
+$routes->get('join/partner-with-us', 'LandingController::partner_with_us');
+$routes->post('join/check-pending-shop', 'LandingController::checkPendingShop');
+$routes->post('join/partner-with-us', 'LandingController::partner_JoinProcess');
+$routes->get('join/register_completed', 'LandingController::regCompleted');
+
+
 $routes->get('orderhistory', 'LandingController::orderhistory');
 $routes->get('login', 'StoresController::lo');
+
 
 
 

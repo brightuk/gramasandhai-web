@@ -811,13 +811,19 @@ class ShopAdminController extends BaseController
 
             $is_variant = $this->request->getPost('is_variant');
 
+
+
+            
+
             // Inputs - with validation
             $measurement = $this->request->getPost('measurement') ?? [];
             $measure_unit = $this->request->getPost('measureUnit') ?? [];
             $prices = $this->request->getPost('prices') ?? [];
-            $discount_type = $this->request->getPost('discount_type') ?? [];
+            $disc_type = $this->request->getPost('disc_type') ;
+            $discount_type = $this->request->getPost('discount_type') ?? [] ;
             $discount_price = $this->request->getPost('discount_price') ?? [];
             $stock = $this->request->getPost('stock') ?? [];
+            $stocks = $this->request->getPost('stocks') ?? 0;
             $stock_unit = $this->request->getPost('stock_unit') ?? [];
             $status = $this->request->getPost('status') ?? [];
             $sku_code = $this->request->getPost('sku_code') ?? [];
@@ -826,10 +832,20 @@ class ShopAdminController extends BaseController
             $product_id = $this->request->getPost('productid');
 
             // Validate arrays have same length
-            $count = count($measurement);
-            if ($count !== count($measure_unit) || $count !== count($prices)) {
-                throw new \Exception('Variant data arrays must have the same length');
+            $count = 0;
+            if(is_array($measurement) && is_array($measure_unit) && is_array($prices)){
+                $count = count($measurement);
+                if ($count !== count($measure_unit) || $count !== count($prices)) {
+                    throw new \Exception('Variant data arrays must have the same length');
+                }
             }
+     
+            // return $this->response->setJSON([
+            //     'status' => 'success',
+            //     'disc_type' => $disc_type,
+            //     'discount_type' => $discount_type,
+            // ]);
+
 
             $mainImage = $this->request->getFile('main_image');
             $sizeChart = $this->request->getFile('size_chart');
@@ -900,31 +916,32 @@ class ShopAdminController extends BaseController
             // Prepare product data with proper null coalescing
             $data = [
                 'shop_id' => $shop_id,
-                'prod_name' => $this->request->getPost('product_name'),
-                'qty_type' => $this->request->getPost('qtytype'),
-                'tax_id' => $this->request->getPost('tax'),
-                'fssai_no' => $this->request->getPost('fssai_no'),
+                'prod_name' => $this->request->getPost('product_name') ?? '',
+                'qty_type' => $this->request->getPost('qtytype') ?? 0,
+                'tax_id' => $this->request->getPost('tax') ?? null,
+                'fssai_no' => $this->request->getPost('fssai_no') ?? bin2hex(random_bytes(5)),
                 'category_id' => $this->request->getPost('category'),
                 'subcategory_id' => $this->request->getPost('sub_category'),
-                'prod_type' => $this->request->getPost('productType'),
-                'manufacturer' => $this->request->getPost('manufacturer'),
-                'made_in' => $this->request->getPost('made_in'),
+                'prod_type' => $this->request->getPost('productType') ?? 0,
+                'manufacturer' => $this->request->getPost('manufacturer') ?? '',
+                'made_in' => $this->request->getPost('made_in') ?? "India",
                 'return_status' => $this->request->getPost('returnable') ?? 0,
                 'cancelable_status' => $this->request->getPost('cancelable') ?? 0,
                 'cod_allowed' => $this->request->getPost('cod_allowed') ?? 0,
-                'total_quantity' => $this->request->getPost('total_quantity'),
+                'total_quantity' => $this->request->getPost('total_quantity') ?? 0,
                 'other_images' => !empty($otherImagesName) ? json_encode($otherImagesName) :
                     (isset($existing['other_images']) ? $existing['other_images'] : null),
                 'main_image' => $mainImageName ?? (isset($existing['main_image']) ? $existing['main_image'] : null),
                 'size_chart' => $sizeChartName ?? (isset($existing['size_chart']) ? $existing['size_chart'] : null),
-                'description' => $this->request->getPost('product_description'),
-                'shipping_policy' => $this->request->getPost('shippingPolicy'),
+                'description' => $this->request->getPost('product_description') ?? '',
+                'shipping_policy' => $this->request->getPost('shippingPolicy') ?? '',
                 'is_variant' => $is_variant,
-                'stock'   => trim(($stock[0] ?? '') . ' ' . ($stock_unit[0] ?? '')),
-                'sku_code'     => $sku_code[0] ?? 'NVT',
-                'hsn_code'     => $hsn_code[0] ?? 'NVT',
+                'stock'   => trim((!empty($stocks) ? $stocks : $stock[0] ) . ' ' . ($stock_unit[0] ?? "")),
+                'sku_code'     => $sku_code[0] ?? '',
+                'hsn_code'     => $hsn_code[0] ?? '',
             ];
 
+        
 
             // For NON-variant product (single value)
             if ($is_variant != 1) {
@@ -946,6 +963,10 @@ class ShopAdminController extends BaseController
                 $data['disc_value'] = (int) (
                     is_array($discount_price) ? ($discount_price[0] ?? 0) : $discount_price
                 );
+
+            //   $data['stock'] = (int) (
+            //         is_array($stock) ? ($stock[0] ?? 0) : $stock[0] ?? 0
+            //     );
             }
 
             // Insert/update product
@@ -967,6 +988,7 @@ class ShopAdminController extends BaseController
                     ->delete();
             }
             if ($is_variant != 0) {
+            $discount_type = $this->request->getPost('discount_type') ?? [] ;
 
                 // Insert/update product variants
                 for ($i = 0; $i < $count; $i++) {
@@ -1007,8 +1029,8 @@ class ShopAdminController extends BaseController
                 'type' => $existing ? 'updated' : 'create',
                 'product_id' => $product_id,
                 'data' => $data,
-                'dd' => gettype($data['prod_label']),
-                'variants_count' => $count
+                // 'dd' => gettype($data['prod_label']),
+                // 'variants_count' => $count
 
             ]);
 
@@ -1154,6 +1176,40 @@ public function addProductVariant()
             'products_variants' => $variants ?? 0,
             'categories' => $raw['categories'],
             'subcategories' => $raw['subcategories'],
+            
+        ]);
+    }
+
+    public function productstest($shop_id)
+    {
+
+        $products = new ApiModel();
+        $products->tables('products', 'id', $this->productsFieldt);
+        $product_var = new ApiModel();
+        $product_var->tables('product_variants', 'id', $this->products_varFieldt);
+
+        $products = $products->where('shop_id', $shop_id)
+            // ->where('status', 1)
+            ->orderby('id', 'DESC')->limit(20)->findAll();
+            
+
+        foreach ($products as $key => $product) {
+            $variants[$key] = $product_var->where('prod_id', $product['id'])->where('off', 1)->findAll();
+        }
+        $raw = $this->filterCategory_Sub($shop_id);
+        foreach($raw['categories'] as $key => $category){
+            $raw['categories'][$key]['subcategory_count'] = $this->sucategory_count($category['category_id'], $raw['subcategories']);
+        }
+   
+        foreach($raw['subcategories'] as $key => $subcategory){
+            $raw['subcategories'][$key]['products_count'] = $this->products_count($subcategory['subcategory_id']);
+        }
+        return $this->response->setJSON([
+            'status' => 'success',
+            'products' => $products,
+            'products_variants' => $variants ?? 0,
+            // 'categories' => $raw['categories'],
+            // 'subcategories' => $raw['subcategories'],
             
         ]);
     }
@@ -1504,6 +1560,14 @@ public function addProductVariant()
         $product_var->tables('product_variants', 'id', $this->products_varFieldt);
 
         $data = $this->request->getPost();
+
+        $data = [
+            'measure' => $this->request->getPost('measurement'). ' ' . $this->request->getPost('measureUnit'),
+            'price' => (int) $this->request->getPost('price'),
+            'disc_type' => (int) $this->request->getPost('discount_type'),
+            'disc_price' => (int) $this->request->getPost('discount_price'),
+            'stock' => $this->request->getPost('stock') . ' ' . $this->request->getPost('stock_unit'),
+        ];
         
         if($product_var->update($var_id, $data)){
             return $this->response->setJSON([
@@ -1529,34 +1593,41 @@ public function addProductVariant()
    
         $price =  $this->request->getPost('prod_price');
         $prod_name = $this->request->getPost('prod_name');
+        $discount_price =  $this->request->getPost('disc_value');
+        $discount_type =  $this->request->getPost('disc_type');
         $image = $this->handleImageUpload('main_image');
-
-        
-
-        
-
-
+    
         $data =[
             'prod_price' => (int) $price,
             'prod_name' => $prod_name,
-            'main_image' => $image,
+            'disc_value' => (int) $discount_price,
+            'disc_type' => (int) $discount_type,
         ];
-        // if(empty($price)){
-        //     $data = $this->request->getPost();
-        // }
 
-        // $products->update($prod_id, $data);
-        return $this->response->setJSON([
-            'status' => true,
-            'message' => 'Product updated successfully',
-            'data' => $data,
-        ]);
+        if(!empty($image) && $image != ''){
+            $data['main_image'] = $image;
+        }
+        if($products->update($prod_id, $data)  && $products->affectedRows() > 0){
+            return $this->response->setJSON([
+                'status' => true,
+                'message' => 'Product updated successfull',
+                'data' => $data,
+            ]);
+        }else{
+            return $this->response->setJSON([
+                'status' => false,
+                'message' => 'Product update failed',
+                'data' => $data,
+            ]);
+        }
 
     }
 
+
+
+
     public function shopOrders($id)
     {
-
         $customer = new ApiModel();
         $customer->tables('customers', 'id', $this->customerRegFields);
         $ordersModel = $this->shopOrders;
@@ -1591,7 +1662,7 @@ public function addProductVariant()
             'status' => 'success',
             'message' => 'Customer orders fetched successfully',
             'orders' => $orders,
-            // 'order_details' => $allOrderDetails,
+            'order_details' => $allOrderDetails,
         ]);
     }
 
@@ -1605,25 +1676,28 @@ public function addProductVariant()
             ->countAllResults();
 
         $totalord = $ordersModel
-            ->where('ordered_date', date('Y-m-d'))
+            // ->where('ordered_date', date('Y-m-d'))
+            ->where("MONTH(ordered_date)", date('m'))
             ->where('shop_id', $id)
             ->countAllResults();
 
         $process = $ordersModel
             ->where('shop_id', $id)
-            ->where('ordered_date', date('Y-m-d'))
+            // ->where('ordered_date', date('Y-m-d'))
+            ->where("MONTH(ordered_date)", date('m'))
             ->where('order_status', 'PRS')
             ->countAllResults();
 
         $complete = $ordersModel
             ->where('shop_id', $id)
-            ->where('ordered_date', date('Y-m-d'))
+            // ->where('ordered_date', date('Y-m-d'))
+            ->where("MONTH(ordered_date)", date('m'))
             ->where('order_status', 'COM')
             ->countAllResults();
 
         $revenue = $ordersModel
             ->where('shop_id', $id)
-            ->where('ordered_date', date('Y-m-d'))
+            ->where("MONTH(ordered_date)", date('m'))
             ->where('order_status', 'COM')
             ->selectSum('amount')
             ->first();
@@ -1637,36 +1711,34 @@ public function addProductVariant()
             'completed' => $complete,
             'revenue' => (int) $revenue['amount'] ?? 0,
         ]);
-
-
     }
 
 
-public function orderUpdate(int $id)
-{
-    $ordersModel = $this->shopOrders;
-    $data = $this->request->getPost();
-    // Find record either by order_id or direct id
-    $order = $ordersModel->where('order_id', $id)->orWhere('id', $id)->first();
+    public function orderUpdate(int $id)
+    {
+        $ordersModel = $this->shopOrders;
+        $data = $this->request->getPost();
+        // Find record either by order_id or direct id
+        $order = $ordersModel->where('order_id', $id)->orWhere('id', $id)->first();
 
-    if (!$order) {
+        if (!$order) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Order not found'
+            ]);
+        }
+
+        // Update based on actual DB id
+        $ordersModel->update($order['id'], $data);
+
         return $this->response->setJSON([
-            'status' => 'error',
-            'message' => 'Order not found'
+            'status' => 'success',
+            'message' => 'Order updated successfully',
+            'updated_id' => $order['id'],
+            'original_input' => $id,
+            'data' => $data
         ]);
     }
-
-    // Update based on actual DB id
-    $ordersModel->update($order['id'], $data);
-
-    return $this->response->setJSON([
-        'status' => 'success',
-        'message' => 'Order updated successfully',
-        'updated_id' => $order['id'],
-        'original_input' => $id,
-        'data' => $data
-    ]);
-}
 
 
 

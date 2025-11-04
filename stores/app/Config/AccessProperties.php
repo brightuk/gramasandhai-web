@@ -18,6 +18,10 @@ class AccessProperties extends BaseConfig
     public string $uploads = 'https://gramasandhai.in/uploads/';
     public string $img_url = 'https://gramasandhai.in/uploads/images/';
 
+    public string $company_name = 'Bright Technologies';
+    public string $supportEmail = 'support@gramasandhai.in';
+
+
 
     // public $sapi = ['url' => 'https://gramasandhai.in/api/index.php/', 'key' => 'SEC195C79FC4CCB09B48AA8'];
     public string $key = 'SEC195C79FC4CCB09B48AA8';

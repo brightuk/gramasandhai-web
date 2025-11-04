@@ -21,6 +21,9 @@ class ApiModel extends Model
   
     private $postsfield = ['shop_id', 'title', 'content', 'url','image','status','created_at'];
 
+    public $shopfields = ['id', 'shop_id', 'shop_name', 'url_name', 'shop_logo', 'shop_images', 'owner_name', 'email', 'is_verified', 'shop_url', 'category_id', 'qr_img', 'discount', 'state_id', 'district_id', 'city_id', 'shop_address', 'pincode', 'shop_phone', 'password', 'latitude', 'longitude', 'status', 'created_at'];
+      
+    public $shopDocsFields = ['shop_id', 'pan_card', 'fssai_license_no', 'fssai_license', 'gstin_certificate_no', 'gstin_certificate', 'terms_agreement', 'updated_at'];
 
 
     public function tables(string $tableName, string $id, array $allowedFields)
@@ -81,8 +84,10 @@ class ApiModel extends Model
     {
         $this->table = 'ecom_shop';
         $this->primaryKey = 'id';
-        $this->allowedFields = ['id', 'shop_id', 'shop_name', 'url_name', 'shop_logo', 'shop_images', 'owner_name', 'email', 'shop_url', 'category_id', 'qr_img', 'discount', 'state_id', 'district_id', 'city_id', 'shop_address', 'pincode', 'shop_phone', 'latitude', 'longitude', 'status', 'created_at'];
+        $this->allowedFields = $this->shopfields;
     }
+
+
 
     public function banner()
     {
@@ -164,6 +169,15 @@ class ApiModel extends Model
     }
 
 
+    public function shops()
+    {
+        return $this->custometable('ecom_shop', 'id', $this->shopfields);
+    }
+
+    public function shopDocs()
+    {
+        return $this->custometable('shop_documents', 'id', $this->shopDocsFields);
+    }
 
 
 
@@ -174,15 +188,36 @@ class ApiModel extends Model
 
 
 
+    public function createShopUrl($shopname)
+    {
+        do {
+            $urlName = strtolower(trim(str_replace(' ', '_', $shopname ?? '')));
+            $exists = $this->shops()
+                ->where('url_name', $urlName)
+                ->first();
+        } while ($exists);
+        return $urlName;
+    }
 
 
 
 
 
+    public function createShopId()
+    {
+        do {
+            $id = random_int(10000, 999959);
 
+            $exists = $this->shops()
+                ->select('shop_id')
+                ->where('shop_id', $id)
+                ->get()
+                ->getRowArray();
 
+        } while ($exists);
 
-
+        return $id;
+    }
 
 
 
@@ -219,6 +254,8 @@ class ApiModel extends Model
         if (!empty($endDate)) {
             $builder->where('ordered_date <=', $endDate);
         }
+
+        $builder->orderBy('id', 'DESC');
 
         return $builder->get()->getResultArray();
     }

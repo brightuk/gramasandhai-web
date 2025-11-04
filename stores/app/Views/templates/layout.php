@@ -17,123 +17,195 @@ include(APPPATH . 'Views/base.php');
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <style>
-    a {
-        text-decoration: none;
-    }
+        @media screen and (max-width: 768px) {
+            .small-device-bottom {
+                height: 14vh;
+            }
 
-    .all-shops {
-        position: relative;
-        margin-top: -40px;
-        left: 90%;
-    }
-
-    .all-shops:hover .back-btn {
-        color: white !important;
-    }
-
-    .account-user {
-        position: relative;
-        top: 10%;
-        left: 32%;
-        z-index: 10000;
-    }
-
-    .lheaher {
-        background:
-            <?=$lColor ?>;
-    }
-
-    .brand-logo {
-        color:
-            <?=$tcolor ?>;
-    }
-
-    .btn-secondary {
-        color:
-            <?=$tcolor ?>;
-    }
-
-    .address-btn,
-    .address-btn svg {
-        color:
-            <?=$tcolor ?>;
-    }
-
-    .address-btn:hover {
-        background-color: #f0f0f0;
-        color:
-            <?=$label ?>;
-    }
-
-    .btn-secondary:hover {
-        color:
-            <?=$label ?>;
-    }
-
-    #main-footer {
-        background:
-            <?=$lColor ?> !important;
-        color: <?=$tcolor ?> !important;
-    }
-
-    .footer-nav-link {
-        color:
-            <?=$tcolor ?>;
-    }
-
-    .footer-legal-link {
-        color:
-            <?=$label ?>;
-    }
-
-    .footer-copyright {
-        color:
-            <?=$label ?>;
-    }
-
-    .mobile-bottom-nav a {
-        flex: 1;
-        /* Make links take equal width */
-    }
-
-    .mobile-bottom-nav i {
-        display: block;
-    }
-
-    @media screen and (max-width: 568px) {
-        #orderHistoryLink {
-            display: none !important;
         }
 
-    }
 
-    .siderbar-header {
-        background:
-            <?=$lColor ?> !important;
-        color: rgb(211, 235, 239) !important;
-    }
+        a {
+            text-decoration: none;
+        }
 
-    .mobile-bottom-nav {
-        background:
-            <?=$lColor ?> !important;
-        color: rgb(211, 235, 239) !important;
-        font-weight: 500;
+        .all-shops {
+            position: relative;
+            margin-top: -40px;
+            left: 90%;
+        }
 
-    }
+        .all-shops:hover .back-btn {
+            color: white !important;
+        }
 
-    .mobile-bottom-nav1 a {
-        color: rgb(211, 235, 239) !important;
-    }
+        .account-user {
+            position: relative;
+            top: 10%;
+            left: 32%;
+            z-index: 10000;
+        }
 
-    .mobile-bottom-nav1 a:hover {
-        color: #ffb300 !important;
-    }
+        .lheaher {
+            background:
+                <?= $lColor ?>;
+        }
 
-    .menu-btn i {
-        color: rgb(211, 235, 239) !important;
-        font-weight: 500;
-        font-size: 20px;
-    }
+        .brand-logo {
+            color:
+                <?= $tcolor ?>;
+        }
+
+        .btn-secondary {
+            color:
+                <?= $tcolor ?>;
+        }
+
+        .address-btn,
+        .address-btn svg {
+            color:
+                <?= $tcolor ?>;
+        }
+
+        .address-btn:hover {
+            background-color: #f0f0f0;
+            color:
+                <?= $label ?>;
+        }
+
+        .btn-secondary:hover {
+            color:
+                <?= $label ?>;
+        }
+
+        #main-footer {
+            background:
+                <?= $lColor ?> !important;
+            color: <?= $tcolor ?> !important;
+        }
+
+        .footer-nav-link {
+            color:
+                <?= $tcolor ?>;
+        }
+
+        .footer-legal-link {
+            color:
+                <?= $label ?>;
+        }
+
+        .footer-copyright {
+            color:
+                <?= $label ?>;
+        }
+
+        .mobile-bottom-nav a {
+            flex: 1;
+            /* Make links take equal width */
+        }
+
+        .mobile-bottom-nav i {
+            display: block;
+        }
+
+        @media screen and (max-width: 568px) {
+            #orderHistoryLink {
+                display: none !important;
+            }
+
+        }
+
+        .siderbar-header {
+            background:
+                <?= $lColor ?> !important;
+            color: rgb(211, 235, 239) !important;
+        }
+
+        .mobile-bottom-nav {
+            background:
+                <?= $lColor ?> !important;
+            color: rgb(211, 235, 239) !important;
+            font-weight: 500;
+
+        }
+
+        .mobile-bottom-nav1 a {
+            color: rgb(211, 235, 239) !important;
+        }
+
+        .mobile-bottom-nav1 a:hover {
+            color: #ffb300 !important;
+        }
+
+        .menu-btn i {
+            color: rgb(211, 235, 239) !important;
+            font-weight: 500;
+            font-size: 20px;
+        }
+    </style>
+
+    <style>
+        .partner-us {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 15px;
+            background: linear-gradient(135deg,
+                    rgb(211, 235, 239) 0%,
+                    /* light blue start */
+                    #85c1e9 20%,
+                    /* mid color */
+                    #233a95 80%
+                    /* deep blue end */
+                );
+
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .partner-us::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+            transition: left 0.5s ease;
+        }
+
+        .partner-us:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .partner-us:hover::before {
+            left: 100%;
+        }
+
+        .partner-us::after {
+            content: '→';
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .partner-us:hover::after {
+            transform: translateX(5px);
+        }
+
+        .partner-us:active {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+
     </style>
 </head>
 
@@ -151,11 +223,13 @@ include(APPPATH . 'Views/base.php');
                 </div>
 
                 <!-- <div class="search-container">
-                <input type="text" class="search-input" placeholder="Search on Gramasandhai">
-            </div> -->
+                    <input type="text" class="search-input" placeholder="Search on Gramasandhai">
+                </div> -->
 
 
                 <div class="right-section">
+
+                    <a href="<?= base_url() ?>join/partner-with-us" class="partner-us d-none d-xl-block" id="partner_us">Partner with us</a>
 
                     <button class="icon-btn btn-secondary  d-none d-lg-block" data-bs-toggle="modal"
                         data-bs-target="#accountModal"><i class="bi bi-person-fill fs-4"></i>
@@ -188,7 +262,7 @@ include(APPPATH . 'Views/base.php');
     </header>
 
     <script>
-    document.cookie = "userId=" + encodeURIComponent(localStorage.getItem('userId')) + "; path=/";
+        document.cookie = "userId=" + encodeURIComponent(localStorage.getItem('userId')) + "; path=/";
     </script>
 
 
@@ -260,20 +334,23 @@ include(APPPATH . 'Views/base.php');
                     </a>
 
 
-                    <div class="app-drawer-divider"></div>
+                    <div class="app-drawer-divider  d-xl-none"></div>
 
                     <!-- Viewed Products -->
-                    <a href="<?= $burl ?>/about-us-privacy-policy" class="app-drawer-link">
-                        <i class="bi bi-telephone fs-4"></i>
-                        <span>Contacts</span>
+                    <a href="<?= base_url() ?>join/partner-with-us" class="app-drawer-link d-xl-none">
+                        <i class="bi bi-person-add fs-4"></i>
+                        <span>Partner with us</span>
                     </a>
-
+                    <div class="app-drawer-divider"></div>
+                    <a href="<?= base_url() ?>/content/privacy-policy" class="app-drawer-link">
+                        <i class="bi bi-shield-lock fs-4"></i>
+                        <span>Privacy policy</span>
+                    </a>
                     <div class="app-drawer-divider"></div>
 
-                    <!-- Viewed Products -->
-                    <a href="<?= $burl ?>/about-us-privacy-policy" class="app-drawer-link">
-                        <i class="bi bi-newspaper"></i>
-                        <span>Privacy policy</span>
+                    <a href="<?= base_url() ?>/content/terms-of-service" class="app-drawer-link">
+                        <i class="bi bi-file-earmark-text fs-4"></i>
+                        <span>Terms of Service</span>
                     </a>
                     <div class="app-drawer-divider"></div>
                 </div>
@@ -281,7 +358,7 @@ include(APPPATH . 'Views/base.php');
         </div>
     </div>
 
-
+    <div class="small-device-bottom"></div>
 
 
     <!-- <div style="height: 50vh;"></div> -->
@@ -312,26 +389,26 @@ include(APPPATH . 'Views/base.php');
 
 
     <!-- Recreated Footer with improved class names and IDs -->
-    <div class=" d-none d-md-block mt-5 pt-xl-5 " id="footer">
+    <div class=" d-none d-md-block mt-5 pt-xl-5 footer" id="footer">
         <!--  footer-container -->
         <footer id="main-footer">
             <div class="nutras-footer nutras-footer-bottom text-center ">
+
                 <span>&copy; 2025 Gramasandhai. All Rights Reserved.</span>
                 <span class="footer-bottom-links ms-3 hfooter">
-                    <a href="#">Terms of Service</a> &nbsp;|&nbsp;
-                    <a href="#">Privacy Policy</a>
+                    <a href="<?= $burl ?>content/terms-of-service">Terms of Service</a> &nbsp;|&nbsp;
+                    <a href="<?= $burl ?>content/privacy-policy">Privacy Policy</a> &nbsp;|&nbsp;
+                    <a href="<?= $burl ?>content/refund-policy">Refund Policy</a> &nbsp;|&nbsp;
+                    <a href="<?= $burl ?>content/cancellation-policy">Cancellation Policy</a>
                 </span>
             </div>
         </footer>
     </div>
 
     <style>
-    .shop-card-header {
-        background: #42A5F5;
-    }
-
-
-
+        .shop-card-header {
+            background: #42A5F5;
+        }
     </style>
     <div class="modal fade" id="locationModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
         aria-labelledby="locationModalLabel">
@@ -342,7 +419,7 @@ include(APPPATH . 'Views/base.php');
 
                     <div class="modal-header location-header">
                         <h5 class="modal-title" id="locationModalLabel">Specify Your Location</h5>
-                        <button type="button" id="btnCloseModallocation" class="btn-close d-none" 
+                        <button type="button" id="btnCloseModallocation" class="btn-close d-none"
                             data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
                     </div>
 
@@ -448,234 +525,234 @@ include(APPPATH . 'Views/base.php');
 
 
     <script>
-    ['orderHistoryLink2', 'orderHistoryLink', 'ord-label'].forEach(function(id) {
-        const orderLink = document.getElementById(id);
-        const userId = localStorage.getItem('userId'); // replace 'userId' with your key
+        ['orderHistoryLink2', 'orderHistoryLink', 'ord-label'].forEach(function(id) {
+            const orderLink = document.getElementById(id);
+            const userId = localStorage.getItem('userId'); // replace 'userId' with your key
 
-        if (orderLink && userId) {
-            orderLink.classList.remove('d-none'); // show link if userId exists
-        }
-    });
-
-
-    const responseData = {
-        "states": <?php echo json_encode($location['states']); ?>,
-
-        "districts": <?php echo json_encode($location['districts']); ?>,
-
-        "citylist": <?php echo json_encode($location['citylist']); ?>,
-
-    };
-
-    // DOM elements
-    const stateSelect = document.getElementById('stateSelect');
-    const districtSelect = document.getElementById('districtSelect');
-    const citySelect = document.getElementById('citySelect');
-    const locationForm = document.getElementById('locationForm');
-    const searchLocation = document.getElementById('searchLocation');
-    const searchResults = document.getElementById('searchResults');
-    const btnClearSearch = document.getElementById('btnClearSearch');
-
-    // Populate states
-    responseData.states.forEach(state => {
-        const opt = document.createElement('option');
-        opt.value = state.id;
-        opt.textContent = state.state;
-        stateSelect.appendChild(opt);
-    });
-
-    // On state change → populate districts
-    stateSelect.addEventListener('change', () => {
-        districtSelect.innerHTML = '<option value="">Select District</option>';
-        citySelect.innerHTML = '<option value="">Select City</option>';
-        const districts = responseData.districts.filter(d => d.state_id === stateSelect.value);
-        districts.forEach(dist => {
-            const opt = document.createElement('option');
-            opt.value = dist.id;
-            opt.textContent = dist.district_name;
-            districtSelect.appendChild(opt);
-        });
-    });
-
-    // On district change → populate areas
-    districtSelect.addEventListener('change', () => {
-        citySelect.innerHTML = '<option value="">Select Area</option>';
-        const cities = responseData.citylist.filter(c => c.district_id === districtSelect.value);
-        cities.forEach(city => {
-            const opt = document.createElement('option');
-            opt.value = city.id;
-            opt.textContent = city.city_name;
-            citySelect.appendChild(opt);
-        });
-    });
-
-    // Search functionality
-    searchLocation.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.trim().toLowerCase();
-
-        if (searchTerm.length < 2) {
-            searchResults.style.display = 'none';
-            return;
-        }
-
-        // Search in areas and districts
-        const cities = responseData.citylist.filter(city =>
-            city.city_name.toLowerCase().includes(searchTerm)
-        );
-
-        const districts = responseData.districts.filter(district =>
-            district.district_name.toLowerCase().includes(searchTerm)
-        );
-
-        // Clear previous results
-        searchResults.innerHTML = '';
-
-        if (cities.length === 0 && districts.length === 0) {
-            searchResults.innerHTML = '<div class="list-group-item text-muted">No results found</div>';
-            searchResults.style.display = 'block';
-            return;
-        }
-
-        // Add district results
-        districts.forEach(district => {
-            const state = responseData.states.find(s => s.id === district.state_id);
-            const item = document.createElement('div');
-            item.className = 'list-group-item list-group-item-action';
-            item.innerHTML = `
-            <div class="fw-bold">${district.district_name}</div>
-            <small class="text-muted">District in ${state ? state.state : 'Unknown State'}</small>
-        `;
-            item.addEventListener('click', () => selectFromSearch('district', district.id, district
-                .state_id));
-            searchResults.appendChild(item);
-        });
-
-        // Add area results
-        cities.forEach(city => {
-            const district = responseData.districts.find(d => d.id === city.district_id);
-            const state = responseData.states.find(s => s.id === district?.state_id);
-            const item = document.createElement('div');
-            item.className = 'list-group-item list-group-item-action';
-            item.innerHTML = `
-            <div class="fw-bold">${city.city_name}</div>
-            <small class="text-muted">Area in ${district ? district.district_name : 'Unknown District'}, ${state ? state.state : 'Unknown State'}</small>
-        `;
-            item.addEventListener('click', () => selectFromSearch('city', city.id, city.district_id,
-                district?.state_id));
-            searchResults.appendChild(item);
-        });
-
-        searchResults.style.display = 'block';
-    });
-
-    // Function to handle selection from search results
-    function selectFromSearch(type, id, parentId, grandParentId) {
-        if (type === 'district') {
-            // Set state first
-            stateSelect.value = parentId;
-            stateSelect.dispatchEvent(new Event('change'));
-
-            // Then set district
-            setTimeout(() => {
-                districtSelect.value = id;
-                districtSelect.dispatchEvent(new Event('change'));
-            }, 100);
-        } else if (type === 'city') {
-            // Set state first
-            stateSelect.value = grandParentId;
-            stateSelect.dispatchEvent(new Event('change'));
-
-            // Then set district
-            setTimeout(() => {
-                districtSelect.value = parentId;
-                districtSelect.dispatchEvent(new Event('change'));
-
-                // Finally set area
-                setTimeout(() => {
-                    citySelect.value = id;
-                }, 100);
-            }, 100);
-        }
-
-        // Clear search
-        searchLocation.value = '';
-        searchResults.style.display = 'none';
-    }
-
-    // Clear search button
-    btnClearSearch.addEventListener('click', () => {
-        searchLocation.value = '';
-        searchResults.style.display = 'none';
-    });
-
-    // Hide search results when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!searchLocation.contains(e.target) && !searchResults.contains(e.target)) {
-            searchResults.style.display = 'none';
-        }
-    });
-
-    // Form submission
-    locationForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // Validate selections
-        if (!stateSelect.value || !districtSelect.value || !citySelect.value) {
-            alert('Please select State, District, and Area');
-            return;
-        }
-        locationForm.submit();
-
-
-    });
-
-
-
-    // --- Cookie helpers ---
-    function setCookie(name, value, days) {
-        const d = new Date();
-        d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-        let expires = "expires=" + d.toUTCString();
-        document.cookie = name + "=" + value + ";" + expires + ";path=/";
-    }
-
-    function getCookie(name) {
-        let cname = name + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i].trim();
-            if (c.indexOf(cname) == 0) return c.substring(cname.length, c.length);
-        }
-        return "";
-    }
-
-    // --- Modal auto open ---
-    document.addEventListener("DOMContentLoaded", function() {
-        // Check cookie
-        if (!getCookie("locationModalClosed")) {
-            var myModal = new bootstrap.Modal(document.getElementById('locationModal'));
-            myModal.show();
-        } else {
-            ['location_close', 'btnCloseModallocation'].forEach(function(id) {
-                const el = document.getElementById(id);
-                if (el) el.classList.remove('d-none');
-            });
-        }
-
-        // When close button clicked → save cookie
-        // Array of button IDs to attach the same action
-        ['btnCloseModallocation', 'btnConfirm'].forEach(function(id) {
-            const btn = document.getElementById(id);
-
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    setCookie('locationModalClosed', 'yes', 7); // valid for 7 days
-                });
+            if (orderLink && userId) {
+                orderLink.classList.remove('d-none'); // show link if userId exists
             }
         });
 
 
-    });
+        const responseData = {
+            "states": <?php echo json_encode($location['states']); ?>,
+
+            "districts": <?php echo json_encode($location['districts']); ?>,
+
+            "citylist": <?php echo json_encode($location['citylist']); ?>,
+
+        };
+
+        // DOM elements
+        const stateSelect = document.getElementById('stateSelect');
+        const districtSelect = document.getElementById('districtSelect');
+        const citySelect = document.getElementById('citySelect');
+        const locationForm = document.getElementById('locationForm');
+        const searchLocation = document.getElementById('searchLocation');
+        const searchResults = document.getElementById('searchResults');
+        const btnClearSearch = document.getElementById('btnClearSearch');
+
+        // Populate states
+        responseData.states.forEach(state => {
+            const opt = document.createElement('option');
+            opt.value = state.id;
+            opt.textContent = state.state;
+            stateSelect.appendChild(opt);
+        });
+
+        // On state change → populate districts
+        stateSelect.addEventListener('change', () => {
+            districtSelect.innerHTML = '<option value="">Select District</option>';
+            citySelect.innerHTML = '<option value="">Select City</option>';
+            const districts = responseData.districts.filter(d => d.state_id === stateSelect.value);
+            districts.forEach(dist => {
+                const opt = document.createElement('option');
+                opt.value = dist.id;
+                opt.textContent = dist.district_name;
+                districtSelect.appendChild(opt);
+            });
+        });
+
+        // On district change → populate areas
+        districtSelect.addEventListener('change', () => {
+            citySelect.innerHTML = '<option value="">Select Area</option>';
+            const cities = responseData.citylist.filter(c => c.district_id === districtSelect.value);
+            cities.forEach(city => {
+                const opt = document.createElement('option');
+                opt.value = city.id;
+                opt.textContent = city.city_name;
+                citySelect.appendChild(opt);
+            });
+        });
+
+        // Search functionality
+        searchLocation.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.trim().toLowerCase();
+
+            if (searchTerm.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            // Search in areas and districts
+            const cities = responseData.citylist.filter(city =>
+                city.city_name.toLowerCase().includes(searchTerm)
+            );
+
+            const districts = responseData.districts.filter(district =>
+                district.district_name.toLowerCase().includes(searchTerm)
+            );
+
+            // Clear previous results
+            searchResults.innerHTML = '';
+
+            if (cities.length === 0 && districts.length === 0) {
+                searchResults.innerHTML = '<div class="list-group-item text-muted">No results found</div>';
+                searchResults.style.display = 'block';
+                return;
+            }
+
+            // Add district results
+            districts.forEach(district => {
+                const state = responseData.states.find(s => s.id === district.state_id);
+                const item = document.createElement('div');
+                item.className = 'list-group-item list-group-item-action';
+                item.innerHTML = `
+            <div class="fw-bold">${district.district_name}</div>
+            <small class="text-muted">District in ${state ? state.state : 'Unknown State'}</small>
+        `;
+                item.addEventListener('click', () => selectFromSearch('district', district.id, district
+                    .state_id));
+                searchResults.appendChild(item);
+            });
+
+            // Add area results
+            cities.forEach(city => {
+                const district = responseData.districts.find(d => d.id === city.district_id);
+                const state = responseData.states.find(s => s.id === district?.state_id);
+                const item = document.createElement('div');
+                item.className = 'list-group-item list-group-item-action';
+                item.innerHTML = `
+            <div class="fw-bold">${city.city_name}</div>
+            <small class="text-muted">Area in ${district ? district.district_name : 'Unknown District'}, ${state ? state.state : 'Unknown State'}</small>
+        `;
+                item.addEventListener('click', () => selectFromSearch('city', city.id, city.district_id,
+                    district?.state_id));
+                searchResults.appendChild(item);
+            });
+
+            searchResults.style.display = 'block';
+        });
+
+        // Function to handle selection from search results
+        function selectFromSearch(type, id, parentId, grandParentId) {
+            if (type === 'district') {
+                // Set state first
+                stateSelect.value = parentId;
+                stateSelect.dispatchEvent(new Event('change'));
+
+                // Then set district
+                setTimeout(() => {
+                    districtSelect.value = id;
+                    districtSelect.dispatchEvent(new Event('change'));
+                }, 100);
+            } else if (type === 'city') {
+                // Set state first
+                stateSelect.value = grandParentId;
+                stateSelect.dispatchEvent(new Event('change'));
+
+                // Then set district
+                setTimeout(() => {
+                    districtSelect.value = parentId;
+                    districtSelect.dispatchEvent(new Event('change'));
+
+                    // Finally set area
+                    setTimeout(() => {
+                        citySelect.value = id;
+                    }, 100);
+                }, 100);
+            }
+
+            // Clear search
+            searchLocation.value = '';
+            searchResults.style.display = 'none';
+        }
+
+        // Clear search button
+        btnClearSearch.addEventListener('click', () => {
+            searchLocation.value = '';
+            searchResults.style.display = 'none';
+        });
+
+        // Hide search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchLocation.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Form submission
+        locationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Validate selections
+            if (!stateSelect.value || !districtSelect.value || !citySelect.value) {
+                alert('Please select State, District, and Area');
+                return;
+            }
+            locationForm.submit();
+
+
+        });
+
+
+
+        // --- Cookie helpers ---
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            let cname = name + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(cname) == 0) return c.substring(cname.length, c.length);
+            }
+            return "";
+        }
+
+        // --- Modal auto open ---
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check cookie
+            if (!getCookie("locationModalClosed")) {
+                var myModal = new bootstrap.Modal(document.getElementById('locationModal'));
+                myModal.show();
+            } else {
+                ['location_close', 'btnCloseModallocation'].forEach(function(id) {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.remove('d-none');
+                });
+            }
+
+            // When close button clicked → save cookie
+            // Array of button IDs to attach the same action
+            ['btnCloseModallocation', 'btnConfirm'].forEach(function(id) {
+                const btn = document.getElementById(id);
+
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        setCookie('locationModalClosed', 'yes', 7); // valid for 7 days
+                    });
+                }
+            });
+
+
+        });
     </script>
 
 

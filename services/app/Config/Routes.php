@@ -16,8 +16,16 @@ $routes->match(['get', 'post'], 'add_shop', 'ApiController::add_shop');
 $routes->get('shop_list', 'ApiController::shop_list');
 $routes->get('shop/edit/(:num)', 'ApiController::shopEdit/$1');
 
+$routes->post('join/partner-with-us', 'ApiController::partner_Joinprocess');
+
+
+
 $routes->match(['get', 'post'], 'posts', 'FirebaseController::web_posts');
 $routes->get('posts_list', 'ApiController::postsList');
+$routes->match(['get', 'post'], 'check/(:segment)', 'ApiController::shoplist_check/$1');
+
+
+
 
 
 $routes->get('sendPost/(:num)', 'FirebaseController::sendPost/$1');
@@ -128,6 +136,7 @@ $routes->group('shop/(:num)', function ($routes) {
     $routes->post('subcategory_add', 'ShopAdminController::subCategoryAdd/$1');
 
     $routes->get('products', 'ShopAdminController::products/$1');
+    $routes->get('temp_products', 'ShopAdminController::productstest/$1');
     $routes->post('productUpdate/(:num)', 'ShopAdminController::productUpdate/$2');
     $routes->get('addproduct', 'ShopAdminController::addProductPage/$1');
     $routes->post('addproduct', 'ShopAdminController::addUpProduct/$1');

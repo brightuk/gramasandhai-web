@@ -350,6 +350,8 @@ class AdminController extends Authenticated
                 'shop_name' => ucwords($postData['shop_name'] ?? ''),
                 'owner_name' => $postData['owner_name'] ?? '',
                 'email' => $postData['email'] ?? '',
+                'password' => $postData['password'] ?? '',
+                'is_verified' => $postData['is_verified'] ?? '',
                 'urlname' => $this->request->getPost('urlname') ?? '',
                 'phone' => $postData['shop_phone'] ?? '',
                 'address' => $postData['shop_address'] ?? '',
@@ -365,7 +367,8 @@ class AdminController extends Authenticated
                 'latitude' => trim($postData['latitude'] ?? ''),
                 'longitude' => trim($postData['longitude'] ?? ''),
             ];
-
+            //  echo "<pre>", print_r($fields, true), "</pre>";
+            //     die;
 
             $result = $this->apiPostFetch($fields, $this->api_url . 'add_shop');
             // echo "<pre>", print_r($result, true), "</pre>";
@@ -390,6 +393,7 @@ class AdminController extends Authenticated
         return view('path/add_shop', $data);
 
     }
+
 
 
     public function shop_list()

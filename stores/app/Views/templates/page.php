@@ -985,6 +985,7 @@ $page = $request->getUri()->getSegment(2,'home');
         }
     }
     </style>
+    
     <div class="second-header">
         <div class="container" id="products">
             <div class=" subcat-container py-2">

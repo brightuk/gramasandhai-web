@@ -4,10 +4,58 @@
 <?= $this->section('content') ?>
 
 <?php if (session()->getFlashdata('success')): ?>
-    <div class="flash-popup alert alert-success">
-        <?= session()->getFlashdata('success') ?>
-    </div>
+<div class="flash-popup alert alert-success">
+    <?= session()->getFlashdata('success') ?>
+</div>
 <?php endif; ?>
+
+<style>
+/* Custom switch styling */
+.form-switch .form-check-input {
+    width: 3em;
+    height: 1.5em;
+    background-color: #ccc;
+    border-radius: 1.5em;
+    border: none;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: #0d6efd;
+    /* Bootstrap primary color */
+    box-shadow: 0 0 6px rgba(13, 110, 253, 0.6);
+}
+
+.form-switch .form-check-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.verify-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.status-text {
+    font-weight: 600;
+    margin-left: 10px;
+    color: #6c757d;
+    transition: color 0.3s;
+}
+
+.status-text.verified {
+    color: #198754;
+    /* Bootstrap success */
+}
+
+.status-text.not-verified {
+    color: #dc3545;
+    /* Bootstrap danger */
+}
+</style>
 
 <form id="addShopForm" action="<?= base_url() ?>/shop/add" method="post" enctype="multipart/form-data">
     <div class="container-fluid">
@@ -16,7 +64,7 @@
         <!-- Shop Basic Information -->
         <div class="row">
             <!-- Shop Name -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="mb-3">
                     <label for="shop_name" class="form-label">Shop Name <span class="text-danger">*</span></label>
                     <input type="text" name="shop_name" id="shop_name" class="form-control"
@@ -26,11 +74,11 @@
                 </div>
             </div>
             <?php if (isset($shop)): ?>
-                <input type="hidden" name="shop_id" value="<?= esc($shop['id']) ?>">
-                <input type="hidden" name="old_shop_images" value="<?= esc($shop['shop_images']) ?>">
+            <input type="hidden" name="shop_id" value="<?= esc($shop['id']) ?>">
+            <input type="hidden" name="old_shop_images" value="<?= esc($shop['shop_images']) ?>">
             <?php endif; ?>
             <!-- Owner Name -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="mb-3">
                     <label for="owner_name" class="form-label">Owner Name <span class="text-danger">*</span></label>
                     <input type="text" name="owner_name" id="owner_name" class="form-control"
@@ -41,13 +89,22 @@
             </div>
 
             <!-- Email -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                     <input type="email" name="email" id="email" class="form-control"
                         value="<?= isset($shop) ? esc($shop['email']) : '' ?>" placeholder="Enter email" required
                         maxlength="50">
                     <div class="invalid-feedback">Please enter email.</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Password <span class="text-danger">*</span></label>
+                    <input type="password" name="password" id="password" class="form-control" id="password"
+                        class="form-control" value="<?= isset($shop) ? esc($shop['password']) : '' ?>"
+                        placeholder="Enter password" required maxlength="100">
+                    <div class="invalid-feedback">Please enter password.</div>
                 </div>
             </div>
         </div>
@@ -80,9 +137,9 @@
                             $imgs = json_decode($shop['shop_images'], true);
                             if ($imgs):
                                 foreach ($imgs as $img): ?>
-                                    <img src="<?= $img_url . $img ?>"
-                                        style="width:80px; height:80px; object-fit:cover; border:1px solid #ddd; border-radius:4px;">
-                                <?php endforeach; endif;
+                        <img src="<?= $img_url . $img ?>"
+                            style="width:80px; height:80px; object-fit:cover; border:1px solid #ddd; border-radius:4px;">
+                        <?php endforeach; endif;
                         endif; ?>
                     </div>
                 </div>
@@ -126,9 +183,10 @@
                     <select id="shop_category" name="shop_category" class="form-control" required>
                         <option value="">-- Select Category --</option>
                         <?php foreach ($categories as $cat): ?>
-                            <option value="<?= $cat['id'] ?>" <?= isset($shop) && $shop['category_id'] == $cat['id'] ? 'selected' : '' ?>>
-                                <?= esc($cat['label_name']) ?>
-                            </option>
+                        <option value="<?= $cat['id'] ?>"
+                            <?= isset($shop) && $shop['category_id'] == $cat['id'] ? 'selected' : '' ?>>
+                            <?= esc($cat['label_name']) ?>
+                        </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -145,15 +203,14 @@
             </div>
 
             <?php if (isset($shop)): ?>
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <label for="urlname" class="form-label">Url name</label>
-                        <input type="text" name="urlname" id="urlname" class="form-control"
-                            value="<?= isset($shop) ? esc($shop['url_name']) : '' ?>" placeholder="Enter url name">
-                    </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="urlname" class="form-label">Url name</label>
+                    <input type="text" name="urlname" id="urlname" class="form-control"
+                        value="<?= isset($shop) ? esc($shop['url_name']) : '' ?>" placeholder="Enter url name">
                 </div>
+            </div>
             <?php endif; ?>
-
         </div>
 
         <!-- Location -->
@@ -165,9 +222,10 @@
                     <select name="state_id" id="state_id" class="form-control" required>
                         <option value="">Select State</option>
                         <?php foreach ($states as $state): ?>
-                            <option value="<?= $state['id']; ?>" <?= isset($shop) && $shop['state_id'] == $state['id'] ? 'selected' : '' ?>>
-                                <?= esc($state['state']); ?>
-                            </option>
+                        <option value="<?= $state['id']; ?>"
+                            <?= isset($shop) && $shop['state_id'] == $state['id'] ? 'selected' : '' ?>>
+                            <?= esc($state['state']); ?>
+                        </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -180,9 +238,10 @@
                     <select name="district_id" id="district_id" class="form-control" required>
                         <option value="">Select District</option>
                         <?php foreach ($districts as $district): ?>
-                            <option value="<?= $district['id']; ?>" <?= isset($shop) && $shop['district_id'] == $district['id'] ? 'selected' : '' ?>>
-                                <?= esc($district['district_name']); ?>
-                            </option>
+                        <option value="<?= $district['id']; ?>"
+                            <?= isset($shop) && $shop['district_id'] == $district['id'] ? 'selected' : '' ?>>
+                            <?= esc($district['district_name']); ?>
+                        </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -195,9 +254,10 @@
                     <select name="city_id" id="city_id" class="form-control">
                         <option value="">Select area</option>
                         <?php foreach ($citylist as $city): ?>
-                            <option value="<?= $city['id']; ?>" <?= isset($shop) && $shop['city_id'] == $city['id'] ? 'selected' : '' ?>>
-                                <?= esc($city['city_name']); ?>
-                            </option>
+                        <option value="<?= $city['id']; ?>"
+                            <?= isset($shop) && $shop['city_id'] == $city['id'] ? 'selected' : '' ?>>
+                            <?= esc($city['city_name']); ?>
+                        </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -215,7 +275,25 @@
                 <input type="text" name="longitude" id="longitude" class="form-control"
                     value="<?= isset($shop) ? esc($shop['longitude']) : '' ?>" placeholder="00.000000" maxlength="25">
             </div>
+
+
+            <div class="col-md-2 mt-3">
+                <label for="is_verified" class="verify-label">Verify Shop</label>
+                <div class="form-check form-switch d-flex align-items-center">
+                    <input class="form-check-input" type="checkbox" id="is_verified" name="is_verified" value="1"
+                        <?= isset($shop) && $shop['is_verified'] == 1 ? 'checked' : '' ?>>
+
+                    <span id="verifyStatus"
+                        class="status-text <?= isset($shop) && $shop['is_verified'] == 1 ? 'verified' : 'not-verified' ?>">
+                        <?= isset($shop) && $shop['is_verified'] == 1 ? 'Verified' : 'Not Verified' ?>
+                    </span>
+                </div>
+            </div>
         </div>
+
+
+
+
 
         <!-- Address, Pincode, Phone -->
         <div class="row">
@@ -257,141 +335,157 @@
 
 <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;"></div>
 <?php if(isset($shop)): ?>
+
 <script>
-    // Pass otherShops data to JavaScript
-    const otherShops = <?= json_encode($otherShops) ?>;
+document.addEventListener("DOMContentLoaded", function() {
+    const checkbox = document.getElementById("is_verified");
+    const label = document.getElementById("verifyStatus");
 
-    // URL name validation script
-    document.addEventListener('DOMContentLoaded', function () {
-        const urlnameInput = document.getElementById('urlname');
-        if (!urlnameInput) return;
-
-        const form = urlnameInput.closest('form');
-        const currentShopId = <?= isset($shop) ? $shop['id'] : 'null' ?>;
-
-        // Create error message element
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'text-danger mt-1 small';
-        errorDiv.id = 'urlname-error';
-        errorDiv.style.display = 'none';
-        urlnameInput.parentNode.appendChild(errorDiv);
-
-        // Real-time validation
-        urlnameInput.addEventListener('input', validateUrlName);
-        urlnameInput.addEventListener('blur', validateUrlName);
-
-        // Form submission validation
-        if (form) {
-            form.addEventListener('submit', function (e) {
-                if (!validateUrlName()) {
-                    e.preventDefault();
-                    urlnameInput.focus();
-                }
-            });
-        }
-
-        function validateUrlName() {
-            const inputValue = urlnameInput.value.trim().toLowerCase();
-            const errorElement = document.getElementById('urlname-error');
-
-            // Clear previous error
-            errorElement.style.display = 'none';
-            errorElement.textContent = '';
-            urlnameInput.classList.remove('is-invalid', 'border-danger');
-
-            if (inputValue === '') {
-                return true; // Let server handle empty validation
-            }
-
-            // Check for duplicates (excluding current shop if editing)
-            const isDuplicate = otherShops.some(shop =>
-                shop.url_name.toLowerCase() === inputValue &&
-                shop.id !== currentShopId
-            );
-
-            if (isDuplicate) {
-                const conflictShop = otherShops.find(shop =>
-                    shop.url_name.toLowerCase() === inputValue
-                );
-
-                errorElement.textContent = `URL name already taken by "${conflictShop.shop_name}"`;
-                errorElement.style.display = 'block';
-                urlnameInput.classList.add('is-invalid', 'border-danger');
-                return false;
-            }
-
-            // Valid URL name
-            urlnameInput.classList.remove('is-invalid', 'border-danger');
-            urlnameInput.classList.add('border-success');
-            return true;
+    checkbox.addEventListener("change", function() {
+        if (checkbox.checked) {
+            label.textContent = "Verified";
+            label.classList.add("verified");
+            label.classList.remove("not-verified");
+        } else {
+            label.textContent = "Not Verified";
+            label.classList.add("not-verified");
+            label.classList.remove("verified");
         }
     });
+});
 
+// Pass otherShops data to JavaScript
+const otherShops = <?= json_encode($otherShops) ?>;
+
+// URL name validation script
+document.addEventListener('DOMContentLoaded', function() {
+    const urlnameInput = document.getElementById('urlname');
+    if (!urlnameInput) return;
+
+    const form = urlnameInput.closest('form');
+    const currentShopId = <?= isset($shop) ? $shop['id'] : 'null' ?>;
+
+    // Create error message element
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'text-danger mt-1 small';
+    errorDiv.id = 'urlname-error';
+    errorDiv.style.display = 'none';
+    urlnameInput.parentNode.appendChild(errorDiv);
+
+    // Real-time validation
+    urlnameInput.addEventListener('input', validateUrlName);
+    urlnameInput.addEventListener('blur', validateUrlName);
+
+    // Form submission validation
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (!validateUrlName()) {
+                e.preventDefault();
+                urlnameInput.focus();
+            }
+        });
+    }
+
+    function validateUrlName() {
+        const inputValue = urlnameInput.value.trim().toLowerCase();
+        const errorElement = document.getElementById('urlname-error');
+
+        // Clear previous error
+        errorElement.style.display = 'none';
+        errorElement.textContent = '';
+        urlnameInput.classList.remove('is-invalid', 'border-danger');
+
+        if (inputValue === '') {
+            return true; // Let server handle empty validation
+        }
+
+        // Check for duplicates (excluding current shop if editing)
+        const isDuplicate = otherShops.some(shop =>
+            shop.url_name.toLowerCase() === inputValue &&
+            shop.id !== currentShopId
+        );
+
+        if (isDuplicate) {
+            const conflictShop = otherShops.find(shop =>
+                shop.url_name.toLowerCase() === inputValue
+            );
+
+            errorElement.textContent = `URL name already taken by "${conflictShop.shop_name}"`;
+            errorElement.style.display = 'block';
+            urlnameInput.classList.add('is-invalid', 'border-danger');
+            return false;
+        }
+
+        // Valid URL name
+        urlnameInput.classList.remove('is-invalid', 'border-danger');
+        urlnameInput.classList.add('border-success');
+        return true;
+    }
+});
 </script>
 <?php endif; ?>
 
 
 <script>
-    
-    // Pass PHP arrays into JavaScript
-    const locationData = {
-        districts: <?= json_encode($districts) ?>,
-        citylist: <?= json_encode($citylist) ?>
-    };
+// Pass PHP arrays into JavaScript
+const locationData = {
+    districts: <?= json_encode($districts) ?>,
+    citylist: <?= json_encode($citylist) ?>
+};
 
-    // Filter districts when state changes
-    document.getElementById('state_id').addEventListener('change', function () {
-        const stateId = this.value;
-        const districtSelect = document.getElementById('district_id');
-        const citySelect = document.getElementById('city_id');
+// Filter districts when state changes
+document.getElementById('state_id').addEventListener('change', function() {
+    const stateId = this.value;
+    const districtSelect = document.getElementById('district_id');
+    const citySelect = document.getElementById('city_id');
 
-        // Reset dropdowns
-        districtSelect.innerHTML = '<option value="">Select District</option>';
-        citySelect.innerHTML = '<option value="">Select City</option>';
+    // Reset dropdowns
+    districtSelect.innerHTML = '<option value="">Select District</option>';
+    citySelect.innerHTML = '<option value="">Select City</option>';
 
-        if (!stateId) return;
+    if (!stateId) return;
 
-        const filteredDistricts = locationData.districts.filter(d => d.state_id === stateId);
+    const filteredDistricts = locationData.districts.filter(d => d.state_id === stateId);
 
-        filteredDistricts.forEach(district => {
-            const option = document.createElement('option');
-            option.value = district.id;
-            option.textContent = district.district_name;
-            districtSelect.appendChild(option);
-        });
+    filteredDistricts.forEach(district => {
+        const option = document.createElement('option');
+        option.value = district.id;
+        option.textContent = district.district_name;
+        districtSelect.appendChild(option);
     });
+});
 
-    // Filter cities when district changes
-    document.getElementById('district_id').addEventListener('change', function () {
-        const districtId = this.value;
-        const citySelect = document.getElementById('city_id');
+// Filter cities when district changes
+document.getElementById('district_id').addEventListener('change', function() {
+    const districtId = this.value;
+    const citySelect = document.getElementById('city_id');
 
-        // Reset cities
-        citySelect.innerHTML = '<option value="">Select City</option>';
+    // Reset cities
+    citySelect.innerHTML = '<option value="">Select City</option>';
 
-        if (!districtId) return;
+    if (!districtId) return;
 
-        const filteredCities = locationData.citylist.filter(c => c.district_id === districtId);
+    const filteredCities = locationData.citylist.filter(c => c.district_id === districtId);
 
-        filteredCities.forEach(city => {
-            const option = document.createElement('option');
-            option.value = city.id;
-            option.textContent = city.city_name;
-            citySelect.appendChild(option);
-        });
+    filteredCities.forEach(city => {
+        const option = document.createElement('option');
+        option.value = city.id;
+        option.textContent = city.city_name;
+        citySelect.appendChild(option);
     });
+});
 </script>
 
 <script>
-    // Toast function
-    function showToast(message, type = 'info') {
-        const bgClass = type === 'success' ? 'bg-success' :
-            type === 'error' ? 'bg-danger' :
-                type === 'warning' ? 'bg-warning text-dark' :
-                    'bg-info';
+// Toast function
+function showToast(message, type = 'info') {
+    const bgClass = type === 'success' ? 'bg-success' :
+        type === 'error' ? 'bg-danger' :
+        type === 'warning' ? 'bg-warning text-dark' :
+        'bg-info';
 
-        const toastId = 'toast-' + Date.now();
-        const toastHtml = `
+    const toastId = 'toast-' + Date.now();
+    const toastHtml = `
         <div id="${toastId}" class="toast align-items-center text-white ${bgClass} border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">${message}</div>
@@ -400,119 +494,119 @@
         </div>
     `;
 
-        const toastContainer = document.getElementById('toast-container');
-        toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+    const toastContainer = document.getElementById('toast-container');
+    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
 
-        const toastElement = document.getElementById(toastId);
-        const toast = new bootstrap.Toast(toastElement, {
-            delay: 3000
-        });
-        toast.show();
+    const toastElement = document.getElementById(toastId);
+    const toast = new bootstrap.Toast(toastElement, {
+        delay: 3000
+    });
+    toast.show();
 
-        toastElement.addEventListener('hidden.bs.toast', () => {
-            toastElement.remove();
-        });
-    }
+    toastElement.addEventListener('hidden.bs.toast', () => {
+        toastElement.remove();
+    });
+}
 
-    // Single image preview
-    function previewImage(input, previewId) {
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const preview = document.getElementById(previewId);
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            }
-            reader.readAsDataURL(input.files[0]);
+// Single image preview
+function previewImage(input, previewId) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById(previewId);
+            preview.src = e.target.result;
+            preview.style.display = 'block';
         }
+        reader.readAsDataURL(input.files[0]);
     }
+}
 
-    // Multiple image preview
-    function previewMultipleImages(input, previewContainerId) {
-        const container = document.getElementById(previewContainerId);
-        container.innerHTML = '';
+// Multiple image preview
+function previewMultipleImages(input, previewContainerId) {
+    const container = document.getElementById(previewContainerId);
+    container.innerHTML = '';
 
-        if (input.files) {
-            Array.from(input.files).forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const imgDiv = document.createElement('div');
-                    imgDiv.innerHTML = `
+    if (input.files) {
+        Array.from(input.files).forEach((file, index) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgDiv = document.createElement('div');
+                imgDiv.innerHTML = `
                     <img src="${e.target.result}" alt="Preview ${index + 1}" 
                          style="width: 80px; height: 80px; object-fit: cover; border: 1px solid #ddd; border-radius: 4px;">
                 `;
-                    container.appendChild(imgDiv);
-                }
-                reader.readAsDataURL(file);
-            });
-        }
+                container.appendChild(imgDiv);
+            }
+            reader.readAsDataURL(file);
+        });
+    }
+}
+
+// QR generator
+function generateQR() {
+    const shopName = document.getElementById('shop_name').value;
+
+    if (!shopName) {
+        showToast('Please enter shop name first to generate QR code', 'warning');
+        return;
     }
 
-    // QR generator
-    function generateQR() {
-        const shopName = document.getElementById('shop_name').value;
+    const baseUrl = window.location.origin;
+    const shopSlug = shopName.replace(/\s+/g, '_').toLowerCase();
+    const shopUrl = `${baseUrl}/${shopSlug}`;
+    const qrApiUrl =
+        `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shopUrl)}&format=png`;
 
-        if (!shopName) {
-            showToast('Please enter shop name first to generate QR code', 'warning');
-            return;
-        }
-
-        const baseUrl = window.location.origin;
-        const shopSlug = shopName.replace(/\s+/g, '_').toLowerCase();
-        const shopUrl = `${baseUrl}/${shopSlug}`;
-        const qrApiUrl =
-            `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shopUrl)}&format=png`;
-
-        fetch(qrApiUrl)
-            .then(response => response.blob())
-            .then(blob => {
-                const file = new File([blob], `${shopSlug}_qr.png`, {
-                    type: 'image/png'
-                });
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-
-                const qrInput = document.getElementById('qr_image');
-                qrInput.files = dataTransfer.files;
-                previewImage(qrInput, 'qr_preview');
-
-                showToast('QR code generated successfully! URL: ' + shopUrl, 'success');
-            })
-            .catch(error => {
-                console.error('QR generation failed:', error);
-                showToast('Failed to generate QR code. Please check your internet connection.', 'error');
+    fetch(qrApiUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            const file = new File([blob], `${shopSlug}_qr.png`, {
+                type: 'image/png'
             });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+
+            const qrInput = document.getElementById('qr_image');
+            qrInput.files = dataTransfer.files;
+            previewImage(qrInput, 'qr_preview');
+
+            showToast('QR code generated successfully! URL: ' + shopUrl, 'success');
+        })
+        .catch(error => {
+            console.error('QR generation failed:', error);
+            showToast('Failed to generate QR code. Please check your internet connection.', 'error');
+        });
+}
+
+// Form validation
+document.getElementById('addShopForm').addEventListener('submit', function(e) {
+    const shopName = document.getElementById('shop_name').value.trim();
+    const ownerName = document.getElementById('owner_name').value.trim();
+    const stateId = document.getElementById('state_id').value;
+    const districtId = document.getElementById('district_id').value;
+
+    if (!shopName || !ownerName || !stateId || !districtId) {
+        e.preventDefault();
+        showToast('Please fill in all required fields', 'warning');
+        return false;
     }
+});
 
-    // Form validation
-    document.getElementById('addShopForm').addEventListener('submit', function (e) {
-        const shopName = document.getElementById('shop_name').value.trim();
-        const ownerName = document.getElementById('owner_name').value.trim();
-        const stateId = document.getElementById('state_id').value;
-        const districtId = document.getElementById('district_id').value;
+// State change (load districts dynamically)
+document.getElementById('state_id').addEventListener('change', function() {
+    const stateId = this.value;
+    if (stateId) {
+        console.log('Loading districts for state ID:', stateId);
+    }
+});
 
-        if (!shopName || !ownerName || !stateId || !districtId) {
-            e.preventDefault();
-            showToast('Please fill in all required fields', 'warning');
-            return false;
-        }
-    });
-
-    // State change (load districts dynamically)
-    document.getElementById('state_id').addEventListener('change', function () {
-        const stateId = this.value;
-        if (stateId) {
-            console.log('Loading districts for state ID:', stateId);
-        }
-    });
-
-    // District change (load cities dynamically)
-    document.getElementById('district_id').addEventListener('change', function () {
-        const districtId = this.value;
-        if (districtId) {
-            console.log('Loading cities for district ID:', districtId);
-        }
-    });
+// District change (load cities dynamically)
+document.getElementById('district_id').addEventListener('change', function() {
+    const districtId = this.value;
+    if (districtId) {
+        console.log('Loading cities for district ID:', districtId);
+    }
+});
 </script>
 
 <?= $this->endSection() ?>

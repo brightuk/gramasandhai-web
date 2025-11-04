@@ -103,6 +103,7 @@ class StoresController extends BaseController
                 'shop_url_name' => $shop_url_name
             ];
 
+            // echo "<pre>", print_r($product_details, true), "</pre>"; die;
             return view('mainHeader', $product_details);
 
         } else {
@@ -630,16 +631,16 @@ class StoresController extends BaseController
         
         // Use the segment parameter passed from the route, which is the shop URL name
         // $shop_url_name = $seg;
-
-        $product_details = [
             // 'product' => $data['products'],
             // 'variant' => $data['products_variants'],
+
+        $product_details = [
             'categories' => $funcdata['categories'],
             'subcategories' => $funcdata['subcategories'],
             'allvariants' => $funcdata['products_variants'],
             'allproducts' => $funcdata['products'],
             'category_id' => $category_id,
-            // 'shop_url_name' => $shop_url_name,
+            // 'subcategory_id' => $subcategory_id, // some not pass only category filter
             'isProductShow' => true
         ];
 
