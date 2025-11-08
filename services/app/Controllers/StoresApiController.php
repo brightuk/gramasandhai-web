@@ -16,6 +16,7 @@ class StoresApiController extends BaseController
     }
 
     private $districtField = ['state_id', 'district_name', 'status'];
+        private $subcategoriesFieldt = ['category_id', 'main_category', 'sub_category_name', 'sub_category_subtitle', 'sub_category_image', 'status'];
     private $customerRegFields = ['user_id', 'mobile_no', 'otp', 'is_verified','token', 'status', 'created_at', 'updated_at'];
     private $addressfields = ['cust_id', 'name', 'street_address', 'phone_no', 'city', 'state', 'pincode', 'country', 'pr_address', 'address_id', 'status'];
 
@@ -109,17 +110,35 @@ class StoresApiController extends BaseController
         }
         $shops = new ApiModel();
         $shops->shop();
+    
 
         $data = $shops
             ->where('status', '1')
             ->orderBy('id', 'DESC')->findAll();
 
+        foreach($data as $key => $value){
+            $data[$key]['city_name'] = $this->findCity($value['city_id']);
+        }
+
+
         return $this->response->setJSON([
             'status' => 'success',
             'shops' => $data,
+    
         ]);
 
     }
+
+    public function findCity($id)
+    {
+        $city = $this->cityModel->find($id);
+
+        return $city['city_name'] ?? "";
+           
+    }
+
+
+
     public function findShop($url_name)
     {
         $shop = $this->shops->where('url_name', $url_name)->first();
@@ -143,6 +162,30 @@ class StoresApiController extends BaseController
         return $this->response->setJSON([
             'status' => 'success',
             'shop' => $shop,
+        ]);
+    }
+
+
+        public function subcategories()
+    {
+        if (!$this->authorized) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Unauthorized access'
+            ])->setStatusCode(401);
+        }
+
+        $model = new ApiModel();
+        $model->tables('ecom_subcategories', 'id', $this->subcategoriesFieldt);
+        // $this->categoriestb->tables('categories', 'id', $this->subcategoriesFieldt);
+        // $categories = $this->categoriestb->where('status', 1)->orderby('position', 'asc')->findAll();
+
+        $subcategories = $model->where('status', 1)->orderby('id', 'DESC')->findAll();
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'subcategories' => $subcategories,
+            // 'categories' => $categories
         ]);
     }
 
@@ -172,6 +215,99 @@ class StoresApiController extends BaseController
             'subcategories' => $raw['subcategories'],
             'products' => $products,
             'products_variants' => $variants ?? 0,
+        ]);
+    }
+
+    public function categories($shop_id)
+    {
+        $raw = $this->filterCategory_Sub($shop_id);
+        foreach($raw['categories'] as $key => $category){
+            $raw['categories'][$key]['subcategory_count'] = $this->sucategory_count($category['category_id'], $raw['subcategories']);
+        }
+        return $this->response->setJSON([
+            'status' => 'success',
+            'categories' => $raw['categories'],
+        ]);
+    }
+
+
+    public function subcategory($shop_id)
+    {
+        $raw = $this->filterCategory_Sub($shop_id);
+        foreach($raw['subcategories'] as $key => $subcategory){
+            $raw['subcategories'][$key]['products_count'] = $this->products_count($subcategory['subcategory_id']);
+        }
+        return $this->response->setJSON([
+            'status' => 'success',
+            'subcategories' => $raw['subcategories'],
+        ]);
+    }
+
+    public function shopBanner($shop_id)
+    {
+        $builder = $this->shopBanner
+            ->where('status', '1')
+            ->where('shop_id', $shop_id)->orderBy('id', 'DESC');
+
+        $sliders = $builder->findAll();
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'banners' => $sliders,
+        ]);
+    }
+
+    public function sucategory_count($id, $array){
+        $count = 0;
+        foreach($array as $key => $value){
+            if($value['category_id'] == $id){
+                $count++;
+            }
+        }
+        return $count;
+    }
+
+    public function products_count($id){
+        $count = 0;
+        $products = new ApiModel();
+        $products->tables('products', 'id', $this->productsFieldt);
+        $count = $products->where('subcategory_id', $id)->countAllResults();
+
+        return $count;
+    }
+
+
+    public function products($shop_id)
+    {
+        $productModel = new ApiModel();
+        $productModel->tables('products', 'id', $this->productsFieldt);
+        $productVarModel = new ApiModel();
+        $productVarModel->tables('product_variants', 'id', $this->products_varFieldt);
+
+        $raw = $this->filterCategory_Sub($shop_id);
+
+        $ids = array_column($raw['categories'], 'category_id');
+       
+
+        $products = $productModel
+            ->where('shop_id', $shop_id)
+            ->where('status', 1)
+            ->whereIn('category_id', $ids)
+            ->orderBy('id', 'DESC')
+            // ->limit(5)
+            ->findAll();
+
+        $ids = array_column($products, 'id');
+
+        $variants = !empty($ids)
+            ? $productVarModel->whereIn('prod_id', $ids)->findAll()
+            : [];
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'product_count' => count($products),
+            'products' => $products,
+            'products_variants' => $variants ?? 0,         
         ]);
     }
 
@@ -217,6 +353,7 @@ class StoresApiController extends BaseController
             'sub.id = ess.subcategory_id AND ess.shop_id = ' . $db->escape($shop_id)
         );
         $subcategory_sel->join('ecom_categories cat', 'sub.category_id = cat.category_id');
+        $subcategory_sel->where('ess.shop_id', $shop_id);
         $subcategory_sel->where('sub.status', 1);
         $subcategory_sel->where('cat.status', 1);
         $subcategory_sel->where('ess.status', 1);
@@ -228,6 +365,7 @@ class StoresApiController extends BaseController
             'subcategories' => $subcategories,
         ];
     }
+
 
 
 

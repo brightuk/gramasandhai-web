@@ -125,7 +125,6 @@ class StoresController extends BaseController
         $this->shop_name = $raw['shop']['shop_name'] ?? '';
         $this->shop_id = $raw['shop']['shop_id'] ?? '';
         $this->color = $raw['shop']['color'] ?? 'no';
-
     }
 
     public function registrationProcess()
@@ -484,9 +483,9 @@ class StoresController extends BaseController
                 'message' => 'Address not found',
                 'raw' => $raw
             ]);
-
         }
     }
+
     public function orderplaced($shop_id, $userId)
     {
         // die();
@@ -549,8 +548,6 @@ class StoresController extends BaseController
         // echo "<pre>", print_r($result, true), "</pre>"; die;
 
         if (isset($result['status']) && $result['status'] === 'success') {
-
-
 
             $data = $this->productsReturn();
 

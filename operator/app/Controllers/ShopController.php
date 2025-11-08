@@ -10,7 +10,7 @@ class ShopController extends Authenticated
 
 
     private $products_varFieldt = ['prod_id', 'measure', 'price', 'disc_type', 'disc_price', 'stock', 'sku_code', 'hsn_code', 'variant_image'];
-    private $productsFieldt = ['id', 'prod_name', 'qty_type', 'tax_id', 'fssai_no', 'category_id', 'subcategory_id', 'prod_label','prod_price','disc_type','disc_value','stock','sku_code','hsn_code','prod_type','manufacturer', 'made_in', 'return_status', 'cancelable_status', 'cod_allowed', 'total_quantity', 'main_image', 'other_images', 'size_chart', 'description', 'shipping_policy'];
+    private $productsFieldt = ['id', 'prod_name', 'qty_type', 'tax_id', 'fssai_no', 'category_id', 'subcategory_id', 'is_variant', 'prod_label','prod_price','disc_type','disc_value','stock','sku_code','hsn_code','prod_type','manufacturer', 'made_in', 'return_status', 'cancelable_status', 'cod_allowed', 'total_quantity', 'main_image', 'other_images', 'size_chart', 'description', 'shipping_policy'];
 
 
     public function __construct()
@@ -31,6 +31,13 @@ class ShopController extends Authenticated
         // Models
 
     }
+
+
+    public function error()
+    {
+        print_r("Access Denied");
+    }
+
 
     public function index()
     {

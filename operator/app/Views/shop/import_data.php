@@ -430,13 +430,14 @@
         <div class="filter-group">
             <label for="typeFilter">Show:</label>
             <select id="typeFilter" class="filter-select">
-                <option value="all">Categories & Subcategories</option>
+                <option value="subcategories"  checked>Subcategories Only</option>
                 <option value="categories">Categories Only</option>
-                <option value="subcategories">Subcategories Only</option>
+                <option value="all">Categories & Subcategories</option>
             </select>
         </div>
     </div>
     
+
     <div class="filter-row">
         <div class="filter-group">
             <button type="button" class="clear-filters-btn" id="clearFilters">Clear All Filters</button>
@@ -598,7 +599,7 @@
     function clearFilters() {
         document.getElementById('searchInput').value = '';
         document.getElementById('categoryFilter').value = '';
-        document.getElementById('typeFilter').value = 'all';
+        document.getElementById('typeFilter').value = 'subcategories';
         filterItems();
     }
 

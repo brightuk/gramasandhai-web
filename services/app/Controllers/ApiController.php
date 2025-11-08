@@ -332,9 +332,9 @@ class ApiController extends BaseController
         } else {
             // Insert
             $shops->insert($data);
+            
             $message = 'Shop added successfully';
             $type = 'insert';
-
         }
 
         return $this->response->setJSON([
@@ -572,10 +572,12 @@ class ApiController extends BaseController
         $data = $shops
             // ->where('status', '1')
             ->orderBy('id', 'DESC')->findAll();
+        $categories = $this->categories->where('status', '1')->orderBy('id', 'DESC')->findAll();
 
         return $this->response->setJSON([
             'status' => 'success',
             'shops' => $data,
+            'categories' =>  $categories,
         ]);
 
     }

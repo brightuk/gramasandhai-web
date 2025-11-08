@@ -43,7 +43,7 @@
                             <option value="">All Categories</option>
                             <?php if (isset($categories)): ?>
                                 <?php foreach ($categories as $category): ?>
-                                    <option value="<?= $category['id'] ?>"><?= $category['category_name'] ?></option>
+                                    <option value="<?= $category['id'] ?>"><?= $category['label_name'] ?></option>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </select>

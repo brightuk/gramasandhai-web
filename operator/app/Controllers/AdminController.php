@@ -351,7 +351,7 @@ class AdminController extends Authenticated
                 'owner_name' => $postData['owner_name'] ?? '',
                 'email' => $postData['email'] ?? '',
                 'password' => $postData['password'] ?? '',
-                'is_verified' => $postData['is_verified'] ?? '',
+                'is_verified' => $postData['is_verified'] ?? 0,
                 'urlname' => $this->request->getPost('urlname') ?? '',
                 'phone' => $postData['shop_phone'] ?? '',
                 'address' => $postData['shop_address'] ?? '',
@@ -363,16 +363,17 @@ class AdminController extends Authenticated
                 'shop_logo' => $shop_logo,
                 'shop_images' => $uploadedFiles != null ? json_encode($uploadedFiles) : $old_shop_images,
                 'qr_image' => $qr_image,
-                'discount' => $postData['discount'] ?? '',
                 'latitude' => trim($postData['latitude'] ?? ''),
                 'longitude' => trim($postData['longitude'] ?? ''),
             ];
             //  echo "<pre>", print_r($fields, true), "</pre>";
-            //     die;
+            //  die;
 
             $result = $this->apiPostFetch($fields, $this->api_url . 'add_shop');
             // echo "<pre>", print_r($result, true), "</pre>";
             // die;
+
+
             if ($result['status'] == 'success') {
                 $redirect = $result['type'] == 'insert' ? previous_url() : 'shop/list';
                 return redirect()->to($redirect)->with($result['status'], $result['message']);
@@ -404,8 +405,6 @@ class AdminController extends Authenticated
         ];
         // echo "<pre>", print_r($data, true), "</pre>";
         return view('path/shop_list', $data);
-
-
     }
 
     public function shopManagement()
@@ -413,12 +412,12 @@ class AdminController extends Authenticated
         $raw = $this->apiGetfetch($this->api_url . 'shop_list');
         $data = [
             'shoplist' => $raw['shops'],
+            'categories' => $raw['categories'] ,
         ];
-        // echo "<pre>", print_r($data, true), "</pre>";
+        // echo "<pre>", print_r($raw, true), "</pre>"; die;
         return view('shop/shops', $data);
 
     }
-
 
 
 
@@ -503,7 +502,7 @@ class AdminController extends Authenticated
         }
         $raw = $this->apiGetfetch($url);
         // echo "<pre>", print_r($raw, true), "</pre>"; 
-// die;
+        // die;
         return redirect()->back()->with($raw['status'], $raw['message']);
 
     }

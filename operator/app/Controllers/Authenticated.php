@@ -15,6 +15,7 @@ class Authenticated extends BaseController
         $currentRoute = $controller . '/' . $method;
         $excludedRoutes = [
             'AdminController/login',  
+            'Authenticated/error',  
         ];
         $isLoggedIn = $this->session->get('loggedIn');
         if (empty($isLoggedIn) && !in_array($currentRoute, $excludedRoutes, true)) {
@@ -23,4 +24,22 @@ class Authenticated extends BaseController
             die();
         }
     }
+
+
+
+    public function error()
+    {
+        print_r("Access Denied");
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -4,6 +4,28 @@
 <?= $this->section('index') ?>
 
 <style>
+.page-loader {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    z-index: 2000;
+}
+
+body.loaded .page-loader {
+    display: none;
+}
+
+body:not(.loaded) {
+    overflow: hidden;
+}
+
 .sidebar {
     width: 320px;
     /* Increased sidebar width */
@@ -731,6 +753,15 @@
 }
 </style>
 
+<div id="loader" class="page-loader">
+    <div class="text-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="mt-2 text-muted">Loading...</div>
+    </div>
+</div>
+
 <?php if (isset($category_id)) : ?>
 <div class="category_id d-none" id="category_id"> <?= esc($category_id) ?></div>
 <?php endif; ?>
@@ -876,8 +907,8 @@
                             <div class="me-2 flex-shrink-0 d-flex align-items-center justify-content-center"
                                 style="width:90px;height:90px;">
                                 <img src="<?= $img_url . $product['main_image'] ?>" class="img-fluid rounded border"
-                                    data-bs-toggle="modal" data-bs-target="#imagemodel"
-                                    alt="<?= esc($product['prod_name']) ?>"
+                                    loading="lazy" decoding="async" fetchpriority="low" data-bs-toggle="modal"
+                                    data-bs-target="#imagemodel" alt="<?= esc($product['prod_name']) ?>"
                                     style="object-fit:contain; cursor:pointer; background:#f8f9fa; max-width:100%; max-height:100%;"
                                     data-image="<?= $img_url . $product['main_image'] ?>"
                                     onerror="this.onerror=null;this.src='<?= $img_sat ?>no-image.jpg';">
@@ -906,7 +937,9 @@
                                 </div>
                                 <?php endif;
                                         endforeach; ?>
-                                <?php if ($product['is_variant'] == 1): ?>
+                                <?php $prodVarCo = count($productVariants);?>
+                                <?php if (!empty($product['is_variant']) && $product['is_variant'] == 1  && is_array($productVariants) && $prodVarCo > 0): ?>
+
 
                                 <div class="mb-2">
                                     <select class="form-select-sm qty-select w-100 rounded-pill bg-light border-0 px-2"
@@ -914,15 +947,15 @@
                                         <?php foreach ($productVariants as $index => $variant): ?>
                                         <?php
                                                         // Calculate final price after discount for mobile
-                                                        $finalPrice = $variant['price'];
-                                                        if (!empty($variant['disc_price']) && $variant['disc_price'] > 0) {
-                                                            if ($variant['disc_type'] == 1) { // Fixed amount discount
-                                                                $finalPrice -= $variant['disc_price'];
-                                                            } else { // Percentage discount
-                                                                $finalPrice -= ($variant['disc_price'] * $variant['price'] / 100);
-                                                            }
-                                                        }
-                                                        ?>
+                                                $finalPrice = $variant['price'];
+                                                if (!empty($variant['disc_price']) && $variant['disc_price'] > 0) {
+                                                    if ($variant['disc_type'] == 1) { // Fixed amount discount
+                                                        $finalPrice -= $variant['disc_price'];
+                                                    } else { // Percentage discount
+                                                        $finalPrice -= ($variant['disc_price'] * $variant['price'] / 100);
+                                                    }
+                                                }
+                                                ?>
                                         <option value="<?= $finalPrice ?>"
                                             data-measure="<?= esc($variant['measure']) ?>"
                                             data-original-price="<?= $variant['price'] ?>"
@@ -940,7 +973,7 @@
                                 <div class="text-center mb-3">
                                     <span class="fw-semibold rounded-pill bg-light px-4 py-1 d-inline-block"
                                         style="font-size:0.8rem;">
-                                        <?= esc($product['prod_label']) ?>
+                                        <?= esc($productVariants[0]['measure'] ?? '') ?>
                                     </span>
                                 </div>
                                 <?php endif; ?>
@@ -949,33 +982,15 @@
                                             // Show final price of first/default variant
                                         $firstVariant = $productVariants[0] ?? null;
                                         if ($firstVariant || $product['is_variant'] == 0) {
-                                             $originalPrice = $product['is_variant'] == 1 
-                                            ? $firstVariant['price'] 
-                                            : $product['prod_price'];
-
-                                        // Assign only if disc_type is not 0
-                                        if (($product['is_variant'] == 1 && $firstVariant['disc_type'] != 0) || 
-                                            ($product['is_variant'] != 1 && $product['disc_type'] != 0)) {
-
-                                            $firstVariant['disc_price'] = $product['is_variant'] == 1 
-                                                ? $firstVariant['disc_price'] 
-                                                : $product['disc_value'];
-
-                                            $firstVariant['disc_type'] = $product['is_variant'] == 1 
-                                                ? $firstVariant['disc_type'] 
-                                                : $product['disc_type'];
-                                        } else {
-                                            // Set discount values to 0 if disc_type == 0
-                                            $firstVariant['disc_price'] = 0;
-                                            $firstVariant['disc_type']  = 0;
-                                        }
+                                             $originalPrice =  $firstVariant['price'] ;
+                                     
 
                                             $finalPrice = $originalPrice;
 
                                             if (!empty($firstVariant['disc_price']) && $firstVariant['disc_price'] > 0) {
-                                                if ($firstVariant['disc_type'] == 1) { // Fixed amount discount
+                                                if ($firstVariant['disc_type'] == 1) { 
                                                     $finalPrice -= $firstVariant['disc_price'];
-                                                } else { // Percentage discount
+                                                } else { 
                                                     $finalPrice -= ($firstVariant['disc_price'] * $originalPrice / 100);
                                                 }
                                             }
@@ -1024,8 +1039,8 @@
                     <div
                         class="card product-card desktop-only d-flex flex-column h-100 shadow-sm border-0 rounded-3 overflow-hidden">
                         <div class="desktop-card-img-container">
-                            <img src="<?= $img_url . $product['main_image'] ?>" class="card-img-top"
-                                alt="<?= esc($product['prod_name']) ?>"
+                            <img src="<?= $img_url . $product['main_image'] ?>" class="card-img-top" loading="lazy"
+                                decoding="async" fetchpriority="low" alt="<?= esc($product['prod_name']) ?>"
                                 style="max-height: 100%; max-width: 100%; object-fit: contain;"
                                 data-image="<?= $img_url . $product['main_image'] ?>" data-bs-toggle="modal"
                                 data-bs-target="#imagemodel"
@@ -1042,9 +1057,8 @@
                                 <strong class="product-name-s d-block" style="font-size:0.9rem; line-height:1.3;">
                                     <?= esc($product['prod_name']) ?>
                                 </strong>
-
                             </div>
-                            <?php if ($product['is_variant'] == 1): ?>
+
                             <?php foreach ($productVariants as $variant): ?>
                             <?php if ($variant['disc_price'] > 0  && $variant['disc_type'] > 0): ?>
                             <div class="product_offer" data-measure="<?= $variant['measure'] ?>"
@@ -1054,36 +1068,30 @@
                             </div>
                             <?php endif; ?>
                             <?php endforeach; ?>
-                            <?php else: ?>
-                            <?php if ($product['disc_value'] > 0 && $product['disc_type'] > 0): ?>
-                            <div class="product_offer">
-                                <?= $product['disc_type'] == 1 ? '-₹' : '' ?>
-                                <?= $product['disc_value'] ?><?= $product['disc_type'] == 2 ? '%' : '' ?>
-                            </div>
-                            <?php endif; ?>
-                            <?php endif; ?>
 
-                            <?php if ($product['is_variant'] == 1): ?>
+                            <?php $prodVarCo = count($productVariants);?>
+                            <?php if (!empty($product['is_variant']) && $product['is_variant'] == 1  && is_array($productVariants) && $prodVarCo > 0): ?>
 
                             <div class="mb-3 text-center">
                                 <select class="form-select qty-select rounded-pill bg-light border-0 px-2 mx-auto"
                                     style="font-size:0.8rem;" id="variantSelect">
                                     <?php foreach ($productVariants as $index => $variant): ?>
                                     <?php
-                                                    // Calculate final price after discount
-                                                    $finalPrice = $variant['price'];
-                                                    if (!empty($variant['disc_price']) && $variant['disc_price'] > 0) {
-                                                        if ($variant['disc_type'] == 1) { // Fixed amount discount
-                                                            $finalPrice -= $variant['disc_price'];
-                                                        } else { // Percentage discount
-                                                            $finalPrice -= ($variant['disc_price'] * $variant['price'] / 100);
-                                                        }
-                                                    }
-                                                    ?>
-                                    <option value="<?= $finalPrice ?>" data-measure="<?= esc($variant['measure']) ?>"
-                                        data-original-price="<?= $variant['price'] ?>"
-                                        data-disc="<?= !empty($variant['disc_price']) ? $variant['disc_price'] : 0 ?>"
-                                        data-disc-type="<?= $variant['disc_type'] ?>"
+                                            // Calculate final price after discount
+                                            $finalPrice = $variant['price'];
+                                            if (!empty($variant['disc_price']) && $variant['disc_price'] > 0) {
+                                                if ($variant['disc_type'] == 1) { // Fixed amount discount
+                                                    $finalPrice -= $variant['disc_price'];
+                                                } else { // Percentage discount
+                                                    $finalPrice -= ($variant['disc_price'] * $variant['price'] / 100);
+                                                }
+                                            }
+                                        ?>
+                                    <option value="<?= esc($finalPrice) ?>"
+                                        data-measure="<?= esc($variant['measure']) ?>"
+                                        data-original-price="<?= esc($variant['price']) ?>"
+                                        data-disc="<?= esc(!empty($variant['disc_price']) ? $variant['disc_price'] : 0) ?>"
+                                        data-disc-type="<?= esc($variant['disc_type']) ?>"
                                         <?= $index === 0 ? 'selected' : '' ?>>
                                         <?= esc($variant['measure']) ?>
                                     </option>
@@ -1091,16 +1099,21 @@
                                 </select>
                             </div>
 
+
+
                             <?php else: ?>
 
                             <div class="text-center mb-3">
                                 <span class="fw-semibold rounded-pill bg-light px-3 py-1 d-inline-block"
                                     style="font-size:0.8rem;">
-                                    <?= esc($product['prod_label']) ?>
+                                    <?= esc($productVariants[0]['measure'] ?? '') ?>
                                 </span>
                             </div>
 
+
+
                             <?php endif; ?>
+
 
 
                             <div class="mb-2 text-center prodprice mb-lg-4">
@@ -1108,27 +1121,8 @@
                                         // Show final price of first/default variant
                                         $firstVariant = $productVariants[0] ?? null;
                                         if ($firstVariant || $product['is_variant'] == 0) {
-                                                $originalPrice = $product['is_variant'] == 1 
-                                            ? $firstVariant['price'] 
-                                            : $product['prod_price'];
-
-                                        // Assign only if disc_type is not 0
-                                        if (($product['is_variant'] == 1 && $firstVariant['disc_type'] != 0) || 
-                                            ($product['is_variant'] != 1 && $product['disc_type'] != 0)) {
-
-                                            $firstVariant['disc_price'] = $product['is_variant'] == 1 
-                                                ? $firstVariant['disc_price'] 
-                                                : $product['disc_value'];
-
-                                            $firstVariant['disc_type'] = $product['is_variant'] == 1 
-                                                ? $firstVariant['disc_type'] 
-                                                : $product['disc_type'];
-                                        } else {
-                                            // Set discount values to 0 if disc_type == 0
-                                            $firstVariant['disc_price'] = 0;
-                                            $firstVariant['disc_type']  = 0;
-                                        }
-
+                                            $originalPrice = $firstVariant['price'] ;
+                             
                                             $finalPrice = $originalPrice;
 
                                             if (!empty($firstVariant['disc_price']) && $firstVariant['disc_price'] > 0) {
@@ -1180,9 +1174,15 @@
                 </div>
                 <?php endforeach; ?>
                 <div class="text-center my-4 " id="loadproducts">
-                    <button id="loadMoreBtn" class="btn btn-primary" onclick="loadMoreProducts()">
+                    <button id="loadMoreBtn" class="btn btn-primary mx-auto d-inline-block"
+                        onclick="loadMoreProducts()">
                         Load More Products
                     </button>
+                </div>
+
+                <!-- No results content (shown when no products match) -->
+                <div id="noResults" class="d-none text-center py-5">
+                    <div class="fs-5 text-muted">Content Sometext</div>
                 </div>
 
                 <?php else: ?>
@@ -1207,6 +1207,18 @@
 
 
 
+<style>
+.img-skeleton {
+    background-color: #f0f0f0 !important;
+}
+</style>
+
+<script>
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+});
+</script>
+
 <script>
 // ========== LAZY LOADING IMPLEMENTATION ==========
 const PRODUCTS_PER_PAGE = 16;
@@ -1214,6 +1226,7 @@ let currentPage = 1;
 let allProductElements = [];
 let isLoading = false;
 let lazyLoadObserver = null;
+let firstBatchBoostCount = 4;
 
 // Initialize lazy loading on page load
 document.addEventListener('DOMContentLoaded', function() {
@@ -1254,8 +1267,28 @@ function loadMoreProducts() {
     // Load products in current range
     const productsToLoad = visibleProducts.slice(0, PRODUCTS_PER_PAGE);
 
-    productsToLoad.forEach(el => {
+    productsToLoad.forEach((el, idx) => {
         el.style.display = '';
+        const img = el.querySelector('img');
+        if (img) {
+            img.classList.add('img-skeleton');
+            if (img.complete) {
+                img.classList.remove('img-skeleton');
+            } else {
+                img.addEventListener('load', () => img.classList.remove('img-skeleton'), {
+                    once: true
+                });
+                img.addEventListener('error', () => img.classList.remove('img-skeleton'), {
+                    once: true
+                });
+            }
+
+            if (currentPage === 1 && idx < firstBatchBoostCount) {
+                try {
+                    img.setAttribute('fetchpriority', 'high');
+                } catch (e) {}
+            }
+        }
     });
 
     // Check if there are more products to load
@@ -1272,6 +1305,9 @@ function loadMoreProducts() {
 
     // Update no results message
     updateNoResultsMessage();
+
+    // Preload images for the next batch to reduce perceived load time
+    preloadNextImages();
 }
 
 function setupInfiniteScroll() {
@@ -1353,6 +1389,36 @@ function resetLazyLoading() {
     loadMoreProducts();
 }
 
+// Preload images of the next hidden products for smoother experience
+function preloadNextImages() {
+    const upcoming = allProductElements
+        .filter(el => el.style.display === 'none' && !el.classList.contains('filtered-out'))
+        .slice(0, PRODUCTS_PER_PAGE * 2);
+
+    const urls = [];
+    upcoming.forEach(el => {
+        const img = el.querySelector('img');
+        if (img && img.dataset && img.dataset.image) {
+            const url = img.dataset.image;
+            urls.push(url);
+
+            const preImg = new Image();
+            preImg.decoding = 'async';
+            preImg.loading = 'eager';
+            preImg.src = url;
+        }
+    });
+
+    urls.slice(0, 8).forEach(url => {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.as = 'image';
+        link.href = url;
+        document.head.appendChild(link);
+        setTimeout(() => link.remove(), 10000);
+    });
+}
+
 // ========== INTEGRATION WITH EXISTING FILTER FUNCTIONS ==========
 
 // Override the existing filterProducts function to work with lazy loading
@@ -1420,12 +1486,15 @@ window.filterByCategory = function(categoryId) {
     if (typeof updateSubcategoryVisibility === 'function') {
         updateSubcategoryVisibility(categoryId);
     }
-    
+
     // Scroll to products section
     const productContainer = document.getElementById('productContainer1');
     if (productContainer) {
         setTimeout(() => {
-            productContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            productContainer.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }, 100);
     }
 };
@@ -1519,12 +1588,15 @@ function filterByCategory(categoryId) {
     currentCategoryFilter = categoryId;
     filterProducts();
     updateSubcategoryVisibility(categoryId);
-    
+
     // Scroll to products section
     const productContainer = document.getElementById('productContainer1');
     if (productContainer) {
         setTimeout(() => {
-            productContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            productContainer.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }, 100);
     }
 }
@@ -2378,12 +2450,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 'subcategoryContainer');
             if (cont) cont.querySelectorAll('.subcategory-filter-btn').forEach(b => b.classList.remove(
                 'active'));
-            
+
             // Scroll to products section
             const productContainer = document.getElementById('productContainer1');
             if (productContainer) {
                 setTimeout(() => {
-                    productContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    productContainer.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }, 100);
             }
         };
@@ -2484,7 +2559,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 for (const link of links) {
                     const span = link.querySelector('span');
                     const text = span ? (span.textContent || '').toLowerCase() : '';
-                    if (text.includes('fruits')) {
+                    if (text.includes('fruits')  ) {
                         const onv = link.getAttribute('onclick') || '';
                         const m = onv.match(/filterByCategory\('([^']+)'\)/);
                         if (m && m[1]) {

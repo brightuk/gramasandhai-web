@@ -57,7 +57,7 @@
 }
 </style>
 
-<form id="addShopForm" action="<?= base_url() ?>/shop/add" method="post" enctype="multipart/form-data">
+<form id="addShopForm" action="<?= base_url() ?>shop/add" method="post" enctype="multipart/form-data">
     <div class="container-fluid">
         <h3><?= isset($shop) ? 'Edit' : 'Add' ?> Shop</h3>
 
@@ -176,7 +176,7 @@
         <!-- Category & Discount -->
         <div class="row">
             <!-- Category -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="mb-3">
                     <label for="shop_category" class="form-label">Shop Category <span
                             class="text-danger">*</span></label>
@@ -192,15 +192,19 @@
                 </div>
             </div>
 
-            <!-- Discount -->
-            <div class="col-md-4">
-                <div class="mb-3">
-                    <label for="discount" class="form-label">Discount</label>
-                    <input type="text" name="discount" id="discount" class="form-control"
-                        value="<?= isset($shop) ? esc($shop['discount']) : '' ?>" placeholder="Enter discount"
-                        maxlength="10">
-                </div>
+                        <!-- Lat/Long -->
+            <div class="col-md-3">
+                <label class="form-label">Latitude</label>
+                <input type="text" name="latitude" id="latitude" class="form-control"
+                    value="<?= isset($shop) ? esc($shop['latitude']) : '' ?>" placeholder="00.000000" maxlength="25">
             </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Longitude</label>
+                <input type="text" name="longitude" id="longitude" class="form-control"
+                    value="<?= isset($shop) ? esc($shop['longitude']) : '' ?>" placeholder="00.000000" maxlength="25">
+            </div>
+
 
             <?php if (isset($shop)): ?>
             <div class="col-md-4">
@@ -216,7 +220,7 @@
         <!-- Location -->
         <div class="row">
             <!-- State -->
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="mb-3">
                     <label for="state_id" class="form-label">State <span class="text-danger">*</span></label>
                     <select name="state_id" id="state_id" class="form-control" required>
@@ -232,7 +236,7 @@
             </div>
 
             <!-- District -->
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="mb-3">
                     <label class="form-label">District <span class="text-danger">*</span></label>
                     <select name="district_id" id="district_id" class="form-control" required>
@@ -248,7 +252,7 @@
             </div>
 
             <!-- City -->
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="mb-3">
                     <label class="form-label">Area</label>
                     <select name="city_id" id="city_id" class="form-control">
@@ -263,21 +267,10 @@
                 </div>
             </div>
 
-            <!-- Lat/Long -->
-            <div class="col-md-2">
-                <label class="form-label">Latitude</label>
-                <input type="text" name="latitude" id="latitude" class="form-control"
-                    value="<?= isset($shop) ? esc($shop['latitude']) : '' ?>" placeholder="00.000000" maxlength="25">
-            </div>
-
-            <div class="col-md-2">
-                <label class="form-label">Longitude</label>
-                <input type="text" name="longitude" id="longitude" class="form-control"
-                    value="<?= isset($shop) ? esc($shop['longitude']) : '' ?>" placeholder="00.000000" maxlength="25">
-            </div>
 
 
-            <div class="col-md-2 mt-3">
+
+            <div class="col-md-3 ">
                 <label for="is_verified" class="verify-label">Verify Shop</label>
                 <div class="form-check form-switch d-flex align-items-center">
                     <input class="form-check-input" type="checkbox" id="is_verified" name="is_verified" value="1"
@@ -297,7 +290,7 @@
 
         <!-- Address, Pincode, Phone -->
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <label for="shop_address" class="form-label">Shop Address</label>
                 <textarea name="shop_address" id="shop_address" class="form-control" rows="3"
                     placeholder="Enter shop address"
@@ -308,7 +301,7 @@
                 <input type="text" name="pincode" id="pincode" class="form-control"
                     value="<?= isset($shop) ? esc($shop['pincode']) : '' ?>" placeholder="Enter pincode" maxlength="6">
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label for="shop_phone" class="form-label">Contact Number</label>
                 <input type="tel" name="shop_phone" id="shop_phone" class="form-control"
                     value="<?= isset($shop) ? esc($shop['shop_phone']) : '' ?>" placeholder="Enter contact number"

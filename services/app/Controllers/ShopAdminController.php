@@ -811,6 +811,7 @@ class ShopAdminController extends BaseController
 
             $is_variant = $this->request->getPost('is_variant');
 
+            
 
 
             
@@ -832,7 +833,7 @@ class ShopAdminController extends BaseController
             $product_id = $this->request->getPost('productid');
 
             // Validate arrays have same length
-            $count = 0;
+            $count = 1;
             if(is_array($measurement) && is_array($measure_unit) && is_array($prices)){
                 $count = count($measurement);
                 if ($count !== count($measure_unit) || $count !== count($prices)) {
@@ -936,38 +937,35 @@ class ShopAdminController extends BaseController
                 'description' => $this->request->getPost('product_description') ?? '',
                 'shipping_policy' => $this->request->getPost('shippingPolicy') ?? '',
                 'is_variant' => $is_variant,
-                'stock'   => trim((!empty($stocks) ? $stocks : $stock[0] ) . ' ' . ($stock_unit[0] ?? "")),
-                'sku_code'     => $sku_code[0] ?? '',
-                'hsn_code'     => $hsn_code[0] ?? '',
+  
             ];
 
         
 
             // For NON-variant product (single value)
-            if ($is_variant != 1) {
+            // if ($is_variant != 1) {
 
-                $data['prod_label'] = trim(
-                    (is_array($measurement) ? ($measurement[0] ?? '') : $measurement) 
-                    . ' ' .
-                    (is_array($measure_unit) ? ($measure_unit[0] ?? '') : $measure_unit)
-                );
-
-                $data['prod_price'] = (int) (
-                    is_array($prices) ? ($prices[0] ?? 0) : $prices
-                );
-
-                $data['disc_type']  = (int) (
-                    is_array($discount_type) ? ($discount_type[0] ?? 0) : $discount_type
-                );
-
-                $data['disc_value'] = (int) (
-                    is_array($discount_price) ? ($discount_price[0] ?? 0) : $discount_price
-                );
-
-            //   $data['stock'] = (int) (
-            //         is_array($stock) ? ($stock[0] ?? 0) : $stock[0] ?? 0
+            //     $data['prod_label'] = trim(
+            //         (is_array($measurement) ? ($measurement[0] ?? '') : $measurement) 
+            //         . ' ' .
+            //         (is_array($measure_unit) ? ($measure_unit[0] ?? '') : $measure_unit)
             //     );
-            }
+
+            //     $data['prod_price'] = (int) (
+            //         is_array($prices) ? ($prices[0] ?? 0) : $prices
+            //     );
+
+            //     $data['disc_type']  = (int) (
+            //         is_array($discount_type) ? ($discount_type[0] ?? 0) : $discount_type
+            //     );
+
+            //     $data['disc_value'] = (int) (
+            //         is_array($discount_price) ? ($discount_price[0] ?? 0) : $discount_price
+            //     );
+     
+            // }
+
+  
 
             // Insert/update product
             if ($existing) {
@@ -984,10 +982,29 @@ class ShopAdminController extends BaseController
             // Delete variants not in the current update (only for existing products)
             if (!empty($existing) && !empty($existvar_id)) {
                 $product_var->where('prod_id', $product_id)
-                    ->whereNotIn('id', array_filter($existvar_id)) // Filter out empty values
-                    ->delete();
+                    ->whereNotIn('id', array_filter($existvar_id))
+                   ->set(['status' => 0])->update();
             }
-            if ($is_variant != 0) {
+            // Single variant - Insert into product_variants
+            // if (($is_variant != 1)  ) {
+
+            //     $vart = [
+            //         'prod_id'    => $product_id,
+            //         'measure'    => trim(($measurement[0] ?? '') . ' ' . ($measure_unit[0] ?? '')),
+            //         'price'      => $prices[0] ?? 0,
+            //         'disc_type'  => $discount_type[0] ?? 0,
+            //         'disc_price' => $discount_price[0] ?? 0,
+            //         'stock'      => trim(($stocks[0] ?? 0) . ' ' . ($stock_unit[0] ?? '')),
+            //         'sku_code'   => $sku_code[0] ?? '',
+            //         'hsn_code'   => $hsn_code[0] ?? '',
+            //     ];
+     
+            //     // $product_var->insert($vart);
+     
+            // }
+
+
+            // if ($is_variant != 0  ) {
             $discount_type = $this->request->getPost('discount_type') ?? [] ;
 
                 // Insert/update product variants
@@ -1022,15 +1039,14 @@ class ShopAdminController extends BaseController
                         }
                     }
                 }
-            }
+
+            // }
 
             return $this->response->setJSON([
                 'status' => 'success',
                 'type' => $existing ? 'updated' : 'create',
                 'product_id' => $product_id,
                 'data' => $data,
-                // 'dd' => gettype($data['prod_label']),
-                // 'variants_count' => $count
 
             ]);
 
@@ -1447,7 +1463,7 @@ public function addProductVariant()
         ]);
     }
 
-    public function importData($shop_id)
+    public function importDat($shop_id)
     {
         if (!$this->authorized) {
             return $this->response->setJSON([
@@ -1541,6 +1557,101 @@ public function addProductVariant()
                         }
                     }
                 }
+            }
+        }
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Import completed successfully'
+        ]);
+    }
+
+    public function importData($shop_id)
+    {
+        // Check authorization
+        if (!$this->authorized) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Unauthorized access'
+            ])->setStatusCode(401);
+        }
+
+        // Load models
+        $products = new ApiModel();
+        $products->tables('products', 'id', $this->productsFieldt);
+
+        $product_var = new ApiModel();
+        $product_var->tables('product_variants', 'id', $this->products_varFieldt);
+
+        // Get and decode JSON data
+        $data = json_decode($this->request->getBody(), true);
+
+        if (!$data || !is_array($data)) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Invalid JSON data'
+            ]);
+        }
+
+        // Priority block
+        $prodData = $data[0]['data'] ?? [];
+
+        if (empty($prodData)) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'No product data found'
+            ]);
+        }
+
+        // Process each product
+        foreach ($prodData as $row) {
+            try {
+                $product = [
+                    'shop_id'         => $shop_id,
+                    'prod_name'       => $row['prod_name'] ?? '',
+                    'qty_type'        => $row['qty_type'] ?? '',
+                    'tax_id'          => $row['tax_id'] ?? null,
+                    'fssai_no'        => $row['fssai_no'] ?? '',
+                    'category_id'     => $row['category_id'] ?? null,
+                    'subcategory_id'  => $row['subcategory_id'] ?? null,
+                    'is_variant'      => $row['is_variant'] ?? 0,
+                    'prod_type'       => $row['prod_type'] ?? '',
+                    'manufacturer'    => $row['manufacturer'] ?? '',
+                    'made_in'         => $row['made_in'] ?? '',
+                    'return_status'   => $row['return_status'] ?? 0,
+                    'cancelable_status' => $row['cancelable_status'] ?? 0,
+                    'cod_allowed'     => $row['cod_allowed'] ?? 1,
+                    'total_quantity'  => $row['total_quantity'] ?? 0,
+                    'main_image'      => $row['main_image'] ?? '',
+                    'other_images'    => $row['other_images'] ?? '',
+                    'size_chart'      => $row['size_chart'] ?? '',
+                    'description'     => $row['description'] ?? '',
+                    'shipping_policy' => $row['shipping_policy'] ?? '',
+                ];
+
+                // Insert product
+                if ($products->insert($product)) {
+                    $prod_id = $products->insertID();
+
+                    $prod_var = [
+                        'prod_id'       => $prod_id,
+                        'measure'       => $row['prod_label'] ?? '',
+                        'price'         => $row['prod_price'] ?? 0,
+                        'disc_type'     => $row['disc_type'] ?? '',
+                        'disc_price'    => $row['disc_value'] ?? 0,
+                        'stock'         => $row['stock'] ?? 0,
+                        'sku_code'      => $row['sku_code'] ?? '',
+                        'hsn_code'      => $row['hsn_code'] ?? '',
+                        'variant_image' => $row['variant_image'] ?? '',
+                    ];
+
+                    $product_var->insert($prod_var);
+                }
+            } catch (\Exception $e) {
+                return $this->response->setJSON([
+                    'status' => 'error',
+                    'message' => 'Insert failed: ' . $e->getMessage()
+                ]);
             }
         }
 

@@ -93,6 +93,11 @@ $routes->group('store', function ($routes) {
 
 $routes->group('store/(:num)/', function ($routes) {
     $routes->get('all', 'StoresApiController::all/$1');
+    $routes->get('categories', 'StoresApiController::categories/$1');
+    $routes->get('banner', 'StoresApiController::shopBanner/$1');
+    $routes->get('subcategories', 'StoresApiController::subcategory/$1');
+    $routes->get('products', 'StoresApiController::products/$1');
+
     $routes->get('productsfilter/(:num)/(:num)', 'StoresApiController::productsfilter/$1/$2/$3');
     $routes->get('productsfilter/(:num)/(:num)/(:num)', 'StoresApiController::productsfilter/$1/$2/$3/$4');
     $routes->get('shop_cash_details', 'StoresApiController::shop_cashDetails/$1');
@@ -106,6 +111,7 @@ $routes->group('store/(:num)/', function ($routes) {
     $routes->get('offers/(:num)/(:num)', 'StoresApiController::offers/$1/$2');
     $routes->get('categoryFilter/(:num)', 'StoresApiController::categoryFilter/$1/$2');
     $routes->get('(:segment)/delete/(:num)', 'ShopAdminController::hider/$1/$2');
+
 
 
 
@@ -203,6 +209,9 @@ $routes->group('shop/(:num)', function ($routes) {
 });
 
 
+    $routes->get('test/(:num)', 'storesApiController::findCity/$1');
 
 
 
+
+    

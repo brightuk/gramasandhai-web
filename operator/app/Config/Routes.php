@@ -102,6 +102,11 @@ $routes->get('dash', 'ShopController::dash');
 $routes->get('orders_history', 'ShopController::orderHistory');
 
 
+$routes->set404Override(function() {
+    echo view('errors/custom_404');
+});
+
+
 
 
 
@@ -110,7 +115,7 @@ $routes->get('position/(:segment)/(:num)', 'ShopController::updatePosition/$1/$2
 
 
 
-// $routes->get('addproductview', 'ShopController::addProductView');c
+// $routes->get('addproductview', 'ShopController::addProductView');
 
 // $routes->get('productsview', 'ShopController::productsview');
 // $routes->get('productsProcess', 'ShopController::productLoadProcess');
@@ -121,6 +126,8 @@ $routes->get('position/(:segment)/(:num)', 'ShopController::updatePosition/$1/$2
 // $routes->post('subcategories', 'ApiController::subcategories');
 // $routes->post('products', 'ApiController::products');
 // $routes->post('productshow', 'ApiController::productshow');
+
+
 
 
 
