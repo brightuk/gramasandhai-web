@@ -1445,12 +1445,23 @@ function scrollToProductList() {
     if (!productContainer) return;
 
     setTimeout(() => {
+        // Ensure body is scrollable (in case loader/body lock lingered)
+        try { document.body.classList.add('loaded'); } catch (_) {}
+        try { document.body.style.overflow = ''; } catch (_) {}
+        try { document.documentElement.style.overflow = ''; } catch (_) {}
+
+        // Account for fixed headers
+        const fixedHeader = document.querySelector('.fixed-top, header.fixed-top, .navbar.fixed-top');
+        const headerHeight = fixedHeader ? fixedHeader.getBoundingClientRect().height : 0;
+        const rect = productContainer.getBoundingClientRect();
+        const absoluteTop = window.pageYOffset + rect.top - Math.max(0, headerHeight + 10);
+
         try {
-            productContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.scrollTo({ top: absoluteTop, behavior: 'smooth' });
         } catch (err) {
-            productContainer.scrollIntoView();
+            window.scrollTo(0, absoluteTop);
         }
-    }, 100);
+    }, 50);
 }
 
 function handlePriceFilterChange() {
@@ -1476,6 +1487,10 @@ function filterByCategory(categoryId) {
     // CRITICAL: Reset subcategory filter first
     currentCategoryFilter = categoryId;
     currentSubcategoryFilter = 'all';
+    // Ensure page is scrollable before jumping
+    try { document.body.classList.add('loaded'); } catch (_) {}
+    try { document.body.style.overflow = ''; } catch (_) {}
+    try { document.documentElement.style.overflow = ''; } catch (_) {}
     
     // Clear active subcategory chips
     const chipContainer = document.getElementById('scrollContainer') || document.getElementById('subcategoryContainer');
@@ -1503,6 +1518,10 @@ function filterBySubcategory(subcategoryId, buttonElement = null) {
     console.log('Filtering by subcategory:', subcategoryId);
     
     currentSubcategoryFilter = subcategoryId;
+    // Ensure page is scrollable before jumping
+    try { document.body.classList.add('loaded'); } catch (_) {}
+    try { document.body.style.overflow = ''; } catch (_) {}
+    try { document.documentElement.style.overflow = ''; } catch (_) {}
 
     // Update chip button states
     const chipContainer = document.getElementById('scrollContainer') || document.getElementById('subcategoryContainer');
@@ -1925,28 +1944,86 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize with category/subcategory from page
-    setTimeout(function() {
+    setTimeout(function initializeCategorySelection() {
         const catEl = document.getElementById('category_id');
         const subEl = document.getElementById('subcategory_id');
-        const categoryId = catEl ? catEl.textContent.trim() : '';
-        const subcategoryId = subEl ? subEl.textContent.trim() : '';
+        const cid = catEl ? catEl.textContent.trim() : '';
+        const sid = subEl ? subEl.textContent.trim() : '';
 
-        if (subcategoryId) {
-            filterBySubcategory(subcategoryId);
-        } else if (categoryId) {
-            filterByCategory(categoryId);
-        } else {
-            // Default to first category or "Fruits"
-            const firstCatLink = sidebar?.querySelector('.myoffcanvas-menu-link');
-            if (firstCatLink) {
-                const onclick = firstCatLink.getAttribute('onclick') || '';
-                const match = onclick.match(/filterByCategory\('([^']+)'\)/);
-                if (match && match[1]) {
-                    filterByCategory(match[1]);
-                }
+        function safeFilterByCategory(categoryId) {
+            if (!categoryId) return;
+            try { expandSidebarCategoryById(categoryId); } catch (_) {}
+            try { updateSubcategoryVisibility(categoryId); } catch (_) {}
+            if (typeof window.filterByCategory === 'function') {
+                try { window.filterByCategory(categoryId); } catch (_) {}
+            } else if (typeof window.filterProducts === 'function') {
+                window.currentCategoryFilter = categoryId;
+                try { window.filterProducts(); } catch (_) {}
             }
         }
-    }, 100);
+
+        function safeFilterBySubcategory(subcategoryId) {
+            if (!subcategoryId) return;
+            if (typeof window.filterBySubcategory === 'function') {
+                try { window.filterBySubcategory(subcategoryId); } catch (_) {}
+            } else if (typeof window.filterProducts === 'function') {
+                window.currentSubcategoryFilter = subcategoryId;
+                try { window.filterProducts(); } catch (_) {}
+            }
+        }
+
+        if (sid) {
+            // Prioritize explicit subcategory
+            safeFilterBySubcategory(sid);
+            if (cid) {
+                try { updateSubcategoryVisibility(cid); } catch (_) {}
+            }
+            return;
+        }
+
+        if (cid) {
+            // Fallback to explicit category
+            safeFilterByCategory(cid);
+            return;
+        }
+
+        // Default: auto-select category containing "fruits"
+        const sidebar = document.getElementById('sidebar');
+        const links = sidebar ? Array.from(sidebar.querySelectorAll('.myoffcanvas-menu-link')) : [];
+        let pickedId = '';
+        for (const link of links) {
+            const span = link.querySelector('span');
+            const text = span ? (span.textContent || '').toLowerCase() : '';
+            if (text.includes('fruits')) {
+                const onv = link.getAttribute('onclick') || '';
+                const m = onv.match(/filterByCategory\('([^']+)'\)/);
+                if (m && m[1]) {
+                    pickedId = m[1];
+                    // Visually expand and mark active
+                    try {
+                        link.click();
+                    } catch (_) {
+                        const li = link.closest('.myoffcanvas-menu-item');
+                        const submenu = li ? li.querySelector('.myoffcanvas-submenu') : null;
+                        if (submenu) submenu.style.display = '';
+                        link.classList.add('active');
+                    }
+                }
+                break;
+            }
+        }
+        if (pickedId) {
+            safeFilterByCategory(pickedId);
+        } else {
+            // Fallback to first category if no "fruits" match
+            const firstCatLink = links[0];
+            if (firstCatLink) {
+                const onv = firstCatLink.getAttribute('onclick') || '';
+                const m = onv.match(/filterByCategory\('([^']+)'\)/);
+                if (m && m[1]) safeFilterByCategory(m[1]);
+            }
+        }
+    }, 0);
 });
 </script>
 
