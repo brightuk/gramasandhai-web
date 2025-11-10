@@ -2559,7 +2559,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 for (const link of links) {
                     const span = link.querySelector('span');
                     const text = span ? (span.textContent || '').toLowerCase() : '';
-                    if (text.includes('fruits')) {
+                    if (text.includes('fruits')  ) {
                         const onv = link.getAttribute('onclick') || '';
                         const m = onv.match(/filterByCategory\('([^']+)'\)/);
                         if (m && m[1]) {

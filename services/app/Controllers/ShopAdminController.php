@@ -812,7 +812,10 @@ class ShopAdminController extends BaseController
             $is_variant = $this->request->getPost('is_variant');
 
             
-
+            // return $this->response->setJSON([
+            //     'status' => 'success',
+            //     "Postdata" => $this->request->getPost(),
+            // ]);
 
             
 
@@ -820,17 +823,29 @@ class ShopAdminController extends BaseController
             $measurement = $this->request->getPost('measurement') ?? [];
             $measure_unit = $this->request->getPost('measureUnit') ?? [];
             $prices = $this->request->getPost('prices') ?? [];
-            $disc_type = $this->request->getPost('disc_type') ;
+    
             $discount_type = $this->request->getPost('discount_type') ?? [] ;
             $discount_price = $this->request->getPost('discount_price') ?? [];
             $stock = $this->request->getPost('stock') ?? [];
-            $stocks = $this->request->getPost('stocks') ?? 0;
             $stock_unit = $this->request->getPost('stock_unit') ?? [];
             $status = $this->request->getPost('status') ?? [];
             $sku_code = $this->request->getPost('sku_code') ?? [];
             $hsn_code = $this->request->getPost('hsn_code') ?? [];
             $existvar_id = $this->request->getPost('variantexist') ?? [];
             $product_id = $this->request->getPost('productid');
+
+
+            $mMeasurement = $this->request->getPost('measurement');
+            $mMeasure_unit = $this->request->getPost('measureUnit');
+            $mPrices = $this->request->getPost('prices');
+            $mDiscount_type = $this->request->getPost('discount_type');
+            $mDiscount_price = $this->request->getPost('discount_price');
+            $mStocks = $this->request->getPost('stocks');
+            $mStock_unit = $this->request->getPost('stock_unit');
+            $mSku_code = $this->request->getPost('sku_code');
+            $mHsn_code = $this->request->getPost('hsn_code');
+
+
 
             // Validate arrays have same length
             $count = 1;
@@ -841,13 +856,7 @@ class ShopAdminController extends BaseController
                 }
             }
      
-            // return $this->response->setJSON([
-            //     'status' => 'success',
-            //     'disc_type' => $disc_type,
-            //     'discount_type' => $discount_type,
-            // ]);
-
-
+   
             $mainImage = $this->request->getFile('main_image');
             $sizeChart = $this->request->getFile('size_chart');
             $files = $this->request->getFiles();
@@ -942,28 +951,6 @@ class ShopAdminController extends BaseController
 
         
 
-            // For NON-variant product (single value)
-            // if ($is_variant != 1) {
-
-            //     $data['prod_label'] = trim(
-            //         (is_array($measurement) ? ($measurement[0] ?? '') : $measurement) 
-            //         . ' ' .
-            //         (is_array($measure_unit) ? ($measure_unit[0] ?? '') : $measure_unit)
-            //     );
-
-            //     $data['prod_price'] = (int) (
-            //         is_array($prices) ? ($prices[0] ?? 0) : $prices
-            //     );
-
-            //     $data['disc_type']  = (int) (
-            //         is_array($discount_type) ? ($discount_type[0] ?? 0) : $discount_type
-            //     );
-
-            //     $data['disc_value'] = (int) (
-            //         is_array($discount_price) ? ($discount_price[0] ?? 0) : $discount_price
-            //     );
-     
-            // }
 
   
 
@@ -986,26 +973,28 @@ class ShopAdminController extends BaseController
                    ->set(['status' => 0])->update();
             }
             // Single variant - Insert into product_variants
-            // if (($is_variant != 1)  ) {
+            if ((!is_array($measurement) && !is_array($measure_unit) && !is_array($prices)) ){
 
-            //     $vart = [
-            //         'prod_id'    => $product_id,
-            //         'measure'    => trim(($measurement[0] ?? '') . ' ' . ($measure_unit[0] ?? '')),
-            //         'price'      => $prices[0] ?? 0,
-            //         'disc_type'  => $discount_type[0] ?? 0,
-            //         'disc_price' => $discount_price[0] ?? 0,
-            //         'stock'      => trim(($stocks[0] ?? 0) . ' ' . ($stock_unit[0] ?? '')),
-            //         'sku_code'   => $sku_code[0] ?? '',
-            //         'hsn_code'   => $hsn_code[0] ?? '',
-            //     ];
+                $vart = [
+                    'prod_id'    => $product_id,
+                    'measure'    => trim(($mMeasurement ?? '') . ' ' . ($mMeasure_unit ?? '')),
+                    'price'      => $mPrices ?? 0,
+                    'disc_type'  => $mDiscount_type ?? 0,
+                    'disc_price' => $mDiscount_price ?? 0,
+                    'stock'      => trim(($mStocks ?? 10) ),
+                    'sku_code'   => $mSku_code ?? '',
+                    'hsn_code'   => $mHsn_code ?? '',
+                ];
      
-            //     // $product_var->insert($vart);
-     
-            // }
+                $product_var->insert($vart);     
+
+            }
 
 
-            // if ($is_variant != 0  ) {
-            $discount_type = $this->request->getPost('discount_type') ?? [] ;
+            if ($is_variant != 0  || (is_array($measurement) && is_array($measure_unit) && is_array($prices))) {
+                // Multi-variant - process arrays
+                $discount_price = $this->request->getPost('discount_price') ?? [];
+                $discount_type = $this->request->getPost('discount_type') ?? [] ;
 
                 // Insert/update product variants
                 for ($i = 0; $i < $count; $i++) {
@@ -1040,13 +1029,16 @@ class ShopAdminController extends BaseController
                     }
                 }
 
-            // }
+            }
 
             return $this->response->setJSON([
                 'status' => 'success',
                 'type' => $existing ? 'updated' : 'create',
                 'product_id' => $product_id,
                 'data' => $data,
+                // 'data2' => $data2,
+                "Postdata" => $this->request->getPost(),
+
 
             ]);
 
@@ -1120,7 +1112,7 @@ public function addProductVariant()
         $data2 = [
             'prod_id'     => $product_id,
             'measure'     => trim(($measurement[$i] ?? '') . ' ' . ($measure_unit[$i] ?? '')),
-            'price'       => isset($prices[$i]) ? (int)$prices[$i] : 0,
+            'price'       => is_array($prices) ? (int)$prices[$i] : $prices,
             'disc_type'   => $discountType,
             'disc_price'  => $discountPrice,
             'stock'       => trim((isset($stock[$i]) ? (int)$stock[$i] : 0) . ' ' . ($stock_unit[$i] ?? '')),

@@ -812,7 +812,7 @@ body:not(.loaded) {
 
                 <label class="form-label fw-bold ps-2 mt-4">Filter by price</label>
                 <div class="mb-3">
-                    <select class="form-select filter-search" id="priceFilter" onchange="filterProducts()">
+                    <select class="form-select filter-search" id="priceFilter" onchange="handlePriceFilterChange()">
                         <option value="">All Prices</option>
                         <option value="0-50">₹0 - ₹50</option>
                         <option value="50-100">₹50 - ₹100</option>
@@ -1174,15 +1174,15 @@ body:not(.loaded) {
                 </div>
                 <?php endforeach; ?>
                 <div class="text-center my-4 " id="loadproducts">
-                    <button id="loadMoreBtn" class="btn btn-primary mx-auto d-inline-block"
+                    <!-- <button id="loadMoreBtn" class="btn btn-primary mx-auto d-inline-block"
                         onclick="loadMoreProducts()">
                         Load More Products
-                    </button>
+                    </button> -->
                 </div>
 
                 <!-- No results content (shown when no products match) -->
                 <div id="noResults" class="d-none text-center py-5">
-                    <div class="fs-5 text-muted">Content Sometext</div>
+                    <div class="fs-5 text-muted">No more products</div>
                 </div>
 
                 <?php else: ?>
@@ -1220,7 +1220,7 @@ window.addEventListener('load', () => {
 </script>
 
 <script>
-// ========== LAZY LOADING IMPLEMENTATION ==========
+    // ========== LAZY LOADING IMPLEMENTATION ==========
 const PRODUCTS_PER_PAGE = 16;
 let currentPage = 1;
 let allProductElements = [];
@@ -1237,34 +1237,23 @@ function initializeLazyLoading() {
     const productContainer = document.getElementById('productContainer1');
     if (!productContainer) return;
 
-    // Get all product items
     allProductElements = Array.from(productContainer.querySelectorAll('.product-item'));
-
-    // Hide all products initially
     allProductElements.forEach(el => el.style.display = 'none');
-
-    // Load first batch
     loadMoreProducts();
-
-    // Set up intersection observer for infinite scroll
     setupInfiniteScroll();
 }
 
 function loadMoreProducts() {
     if (isLoading) return;
-
     isLoading = true;
 
-    // Calculate range
     const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
     const end = start + PRODUCTS_PER_PAGE;
 
-    // Get visible products based on current filters (not hidden by filter)
     const visibleProducts = allProductElements.filter(el => {
         return el.style.display === 'none' && !el.classList.contains('filtered-out');
     });
 
-    // Load products in current range
     const productsToLoad = visibleProducts.slice(0, PRODUCTS_PER_PAGE);
 
     productsToLoad.forEach((el, idx) => {
@@ -1275,26 +1264,16 @@ function loadMoreProducts() {
             if (img.complete) {
                 img.classList.remove('img-skeleton');
             } else {
-                img.addEventListener('load', () => img.classList.remove('img-skeleton'), {
-                    once: true
-                });
-                img.addEventListener('error', () => img.classList.remove('img-skeleton'), {
-                    once: true
-                });
+                img.addEventListener('load', () => img.classList.remove('img-skeleton'), { once: true });
+                img.addEventListener('error', () => img.classList.remove('img-skeleton'), { once: true });
             }
-
             if (currentPage === 1 && idx < firstBatchBoostCount) {
-                try {
-                    img.setAttribute('fetchpriority', 'high');
-                } catch (e) {}
+                try { img.setAttribute('fetchpriority', 'high'); } catch (e) {}
             }
         }
     });
 
-    // Check if there are more products to load
     const hasMore = visibleProducts.length > PRODUCTS_PER_PAGE;
-
-    // Show/hide loading indicator
     toggleLoadingIndicator(hasMore);
 
     if (productsToLoad.length > 0) {
@@ -1302,16 +1281,11 @@ function loadMoreProducts() {
     }
 
     isLoading = false;
-
-    // Update no results message
     updateNoResultsMessage();
-
-    // Preload images for the next batch to reduce perceived load time
     preloadNextImages();
 }
 
 function setupInfiniteScroll() {
-    // Create loading indicator if it doesn't exist
     let loadingIndicator = document.getElementById('loadingIndicator');
 
     if (!loadingIndicator) {
@@ -1330,23 +1304,18 @@ function setupInfiniteScroll() {
         productContainer.parentElement.appendChild(loadingIndicator);
     }
 
-    // Disconnect existing observer if any
     if (lazyLoadObserver) {
         lazyLoadObserver.disconnect();
     }
 
-    // Create intersection observer
     lazyLoadObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !isLoading) {
                 loadMoreProducts();
             }
         });
-    }, {
-        rootMargin: '200px' // Start loading 200px before reaching the bottom
-    });
+    }, { rootMargin: '200px' });
 
-    // Observe the loading indicator
     lazyLoadObserver.observe(loadingIndicator);
 }
 
@@ -1358,38 +1327,29 @@ function toggleLoadingIndicator(show) {
 }
 
 function updateNoResultsMessage() {
-    const displayedProducts = allProductElements.filter(el =>
-        el.style.display !== 'none'
-    );
-
+    const displayedProducts = allProductElements.filter(el => el.style.display !== 'none');
     const noResults = document.getElementById('noResults');
     const sidebar = document.getElementById('sidebar');
 
     if (displayedProducts.length === 0 && !isLoading) {
         if (noResults) noResults.classList.remove('d-none');
-        if (sidebar) sidebar.classList.add('d-none');
+        // if (sidebar) sidebar.classList.add('d-none');
     } else {
         if (noResults) noResults.classList.add('d-none');
-        if (sidebar) sidebar.classList.remove('d-none');
+        // if (sidebar) sidebar.classList.remove('d-none');
     }
 }
 
-// Reset lazy loading when filters change
 function resetLazyLoading() {
     currentPage = 1;
-
-    // Hide all products that are not filtered out
     allProductElements.forEach(el => {
         if (!el.classList.contains('filtered-out')) {
             el.style.display = 'none';
         }
     });
-
-    // Load first batch
     loadMoreProducts();
 }
 
-// Preload images of the next hidden products for smoother experience
 function preloadNextImages() {
     const upcoming = allProductElements
         .filter(el => el.style.display === 'none' && !el.classList.contains('filtered-out'))
@@ -1401,7 +1361,6 @@ function preloadNextImages() {
         if (img && img.dataset && img.dataset.image) {
             const url = img.dataset.image;
             urls.push(url);
-
             const preImg = new Image();
             preImg.decoding = 'async';
             preImg.loading = 'eager';
@@ -1419,212 +1378,21 @@ function preloadNextImages() {
     });
 }
 
-// ========== INTEGRATION WITH EXISTING FILTER FUNCTIONS ==========
-
-// Override the existing filterProducts function to work with lazy loading
-const originalFilterProducts = window.filterProducts;
-window.filterProducts = function() {
-    const searchTerm = document.getElementById('productSearch')?.value.toLowerCase() || '';
-    const priceFilter = document.getElementById('priceFilter').value;
-
-    window.currentSearchTerm = searchTerm;
-    window.currentPriceFilter = priceFilter;
-
-    const productItems = document.querySelectorAll('.product-item');
-
-    productItems.forEach(item => {
-        let showItem = true;
-
-        // Category filter
-        if (window.currentCategoryFilter && window.currentCategoryFilter !== 'all') {
-            const itemCategoryId = item.dataset.categoryId;
-            if (itemCategoryId !== window.currentCategoryFilter) {
-                showItem = false;
-            }
-        }
-
-        // Subcategory filter
-        if (showItem && window.currentSubcategoryFilter && window.currentSubcategoryFilter !== 'all') {
-            const itemSubcategoryId = item.dataset.subcategoryId;
-            if (itemSubcategoryId !== window.currentSubcategoryFilter) {
-                showItem = false;
-            }
-        }
-
-        // Search filter
-        if (showItem && searchTerm) {
-            const productName = item.dataset.productName;
-            if (!productName.includes(searchTerm)) {
-                showItem = false;
-            }
-        }
-
-        // Price filter
-        if (showItem && priceFilter) {
-            const itemPrice = parseFloat(item.dataset.price);
-            showItem = matchesPriceFilter(itemPrice, priceFilter);
-        }
-
-        // Mark items as filtered or not
-        if (showItem) {
-            item.classList.remove('filtered-out');
-        } else {
-            item.classList.add('filtered-out');
-            item.style.display = 'none';
-        }
-    });
-
-    // Reset lazy loading to show first batch of filtered products
-    resetLazyLoading();
-};
-
-// Override filterByCategory to work with lazy loading
-const originalFilterByCategory = window.filterByCategory;
-window.filterByCategory = function(categoryId) {
-    window.currentCategoryFilter = categoryId;
-    filterProducts();
-    if (typeof updateSubcategoryVisibility === 'function') {
-        updateSubcategoryVisibility(categoryId);
-    }
-
-    // Scroll to products section
-    const productContainer = document.getElementById('productContainer1');
-    if (productContainer) {
-        setTimeout(() => {
-            productContainer.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }, 100);
-    }
-};
-
-// Override filterBySubcategory to work with lazy loading
-const originalFilterBySubcategory = window.filterBySubcategory;
-window.filterBySubcategory = function(subcategoryId, buttonElement = null) {
-    window.currentSubcategoryFilter = subcategoryId;
-
-    // Update button states
-    if (buttonElement) {
-        document.querySelectorAll('.subcategory-filter-btn').forEach(btn => btn.classList.remove('active'));
-        buttonElement.classList.add('active');
-    }
-
-    // Filter products
-    filterProducts();
-};
-</script>
-
-
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const sliderWrapper = document.getElementById('subcategoryContainer');
-    const prevBtn = document.getElementById('prevBtn4');
-    const nextBtn = document.getElementById('nextBtn4');
-
-    const scrollAmount = 250; // pixels to scroll each click
-
-    nextBtn.addEventListener('click', () => {
-        sliderWrapper.scrollBy({
-            left: scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-
-    prevBtn.addEventListener('click', () => {
-        sliderWrapper.scrollBy({
-            left: -scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-});
-</script>
-
-<script>
+// ========== FILTER SYSTEM ==========
 let currentCategoryFilter = 'all';
 let currentSubcategoryFilter = 'all';
 let currentSearchTerm = '';
 let currentPriceFilter = '';
 
-// Initialize filter system
-document.addEventListener('DOMContentLoaded', function() {
-    updateProductCount();
-
-    // Add event listeners for add to cart buttons
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const card = this.closest('.product-item');
-            const productId = card.dataset.productId;
-            const productName = card.querySelector('.product-name, .product-name-s')
-                .textContent;
-            const select = card.querySelector('.qty-select');
-            const selectedOption = select.options[select.selectedIndex];
-            const price = selectedOption.value;
-            const measure = selectedOption.dataset.measure;
-
-            addToCart(productId, productName, price, measure);
-        });
-    });
-});
-
-// Subcategory filtering
-function filterBySubcategory(subcategoryId, buttonElement = null) {
-    currentSubcategoryFilter = subcategoryId;
-
-    // Update button states
-    if (buttonElement) {
-        document.querySelectorAll('.subcategory-filter-btn').forEach(btn => btn.classList.remove('active'));
-        buttonElement.classList.add('active');
-    }
-
-    // Filter products
-    filterProducts();
-}
-
-// Category filtering
-function filterByCategory(categoryId) {
-    currentCategoryFilter = categoryId;
-    filterProducts();
-    updateSubcategoryVisibility(categoryId);
-
-    // Scroll to products section
-    const productContainer = document.getElementById('productContainer1');
-    if (productContainer) {
-        setTimeout(() => {
-            productContainer.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }, 100);
-    }
-}
-
-// Update subcategory visibility based on selected category
-function updateSubcategoryVisibility(categoryId) {
-    // Get category name from categories data (this would need to be implemented)
-    // For now, we'll just show all subcategories when a category is selected
-    document.querySelectorAll('.subcategory-filter-btn').forEach(btn => {
-        if (categoryId === 'all' || btn.dataset.subcategory === 'all') {
-            btn.style.display = 'inline-block';
-        } else {
-            // In a real implementation, you would check if the subcategory belongs to the category
-            btn.style.display = 'inline-block';
-        }
-    });
-}
-
 // Main product filtering function
 function filterProducts() {
     const searchTerm = document.getElementById('productSearch')?.value.toLowerCase() || '';
-    const priceFilter = document.getElementById('priceFilter').value;
+    const priceFilter = document.getElementById('priceFilter')?.value || '';
 
     currentSearchTerm = searchTerm;
     currentPriceFilter = priceFilter;
 
     const productItems = document.querySelectorAll('.product-item');
-    let visibleCount = 0;
 
     productItems.forEach(item => {
         let showItem = true;
@@ -1659,160 +1427,232 @@ function filterProducts() {
             showItem = matchesPriceFilter(itemPrice, priceFilter);
         }
 
-        // Show/hide item
+        // Mark items as filtered or not
         if (showItem) {
-            item.style.display = '';
-            visibleCount++;
+            item.classList.remove('filtered-out');
         } else {
+            item.classList.add('filtered-out');
             item.style.display = 'none';
-
-
         }
     });
 
-    // Show/hide no results message
-    const noResults = document.getElementById('noResults');
-    const sidebar = document.getElementById('sidebar');
-    const loadProducts = document.getElementById('loadproducts');
-
-    if (visibleCount === 0) {
-        noResults.classList.remove('d-none');
-        // sidebar.classList.add('d-none');
-        loadProducts.classList.add('d-none');
-
-    } else {
-        noResults.classList.add('d-none');
-        // sidebar.classList.remove('d-none');
-        loadProducts.classList.remove('d-none');
-    }
-
-    updateProductCount();
+    // Reset lazy loading to show first batch of filtered products
+    resetLazyLoading();
 }
 
+function scrollToProductList() {
+    const productContainer = document.getElementById('productContainer1');
+    if (!productContainer) return;
 
-// Check if price matches filter
+    setTimeout(() => {
+        try {
+            productContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } catch (err) {
+            productContainer.scrollIntoView();
+        }
+    }, 100);
+}
+
+function handlePriceFilterChange() {
+    filterProducts();
+    scrollToProductList();
+}
+
 function matchesPriceFilter(price, filter) {
     switch (filter) {
-        case '0-50':
-            return price >= 0 && price <= 50;
-        case '50-100':
-            return price > 50 && price <= 100;
-        case '100-200':
-            return price > 100 && price <= 200;
-        case '200-500':
-            return price > 200 && price <= 500;
-        case '500+':
-            return price > 500;
-        default:
-            return true;
+        case '0-50': return price >= 0 && price <= 50;
+        case '50-100': return price > 50 && price <= 100;
+        case '100-200': return price > 100 && price <= 200;
+        case '200-500': return price > 200 && price <= 500;
+        case '500+': return price > 500;
+        default: return true;
     }
 }
 
-
-
-
-
-// Initialize cart on page load
-document.addEventListener('DOMContentLoaded', function() {
-    initializeCart();
-
-    // Add event listeners for variant selection changes
-    document.querySelectorAll('#variantSelect, .qty-select').forEach(select => {
-        select.addEventListener('change', function() {
-            updatePriceDisplay(this);
+// Category filtering with proper reset
+function filterByCategory(categoryId) {
+    console.log('Filtering by category:', categoryId);
+    
+    // CRITICAL: Reset subcategory filter first
+    currentCategoryFilter = categoryId;
+    currentSubcategoryFilter = 'all';
+    
+    // Clear active subcategory chips
+    const chipContainer = document.getElementById('scrollContainer') || document.getElementById('subcategoryContainer');
+    if (chipContainer) {
+        chipContainer.querySelectorAll('.subcategory-filter-btn').forEach(btn => {
+            btn.classList.remove('active');
         });
-    });
-});
+    }
+    
+    // Update which subcategories are visible
+    updateSubcategoryVisibility(categoryId);
+    
+    // Expand sidebar category
+    expandSidebarCategoryById(categoryId);
+    
+    // Apply filters
+    filterProducts();
+    
+    // Scroll to products
+    scrollToProductList();
+}
 
-// Update price display when variant is changed
-function updatePriceDisplay(selectElement) {
-    const card = selectElement.closest('.product-item');
-    const selectedOption = selectElement.options[selectElement.selectedIndex];
-    const originalPrice = parseFloat(selectedOption.dataset.originalPrice);
-    const discAmount = parseFloat(selectedOption.dataset.disc || 0);
-    const discType = selectedOption.dataset.discType;
+// Subcategory filtering
+function filterBySubcategory(subcategoryId, buttonElement = null) {
+    console.log('Filtering by subcategory:', subcategoryId);
+    
+    currentSubcategoryFilter = subcategoryId;
 
-    // Calculate final price based on discount
-    let finalPrice = originalPrice;
-    if (discAmount > 0) {
-        if (discType == 1) { // Fixed amount discount
-            finalPrice = originalPrice - discAmount;
-        } else { // Percentage discount
-            finalPrice = originalPrice - (discAmount * originalPrice / 100);
+    // Update chip button states
+    const chipContainer = document.getElementById('scrollContainer') || document.getElementById('subcategoryContainer');
+    if (chipContainer) {
+        chipContainer.querySelectorAll('.subcategory-filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+    }
+    
+    if (buttonElement) {
+        buttonElement.classList.add('active');
+    } else {
+        // Find and activate the chip
+        const chip = chipContainer?.querySelector(`.subcategory-filter-btn[data-subcategory="${subcategoryId}"]`);
+        if (chip) {
+            chip.classList.add('active');
+            try {
+                chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            } catch (e) {}
         }
     }
 
-    // Update the select option value with calculated price
-    selectedOption.value = finalPrice;
+    // Highlight in sidebar
+    highlightSidebarSubcategory(subcategoryId);
+    
+    // Apply filters
+    filterProducts();
+    
+    // Scroll to products
+    scrollToProductList();
+}
 
-    // Update price display in the card
-    const priceElement = card.querySelector('.prodprice');
-    if (priceElement) {
-        if (discAmount > 0) {
-            // Show strikethrough original price and discounted price
-            priceElement.innerHTML = `
-                <span class="text-muted" style="text-decoration: line-through;">
-                    ₹${originalPrice.toFixed(2)}
-                </span>
-                &nbsp;
-                <span class="product-price fw-bold fs-6 text-success">
-                    ₹${finalPrice.toFixed(2)}
-                </span>
-            `;
-        } else {
-            // Just show the regular price
-            priceElement.innerHTML = `
-                <span class="product-price fw-bold fs-6 text-success">
-                    ₹${finalPrice.toFixed(2)}
-                </span>
-            `;
-        }
+// Update subcategory chip visibility based on selected category
+function updateSubcategoryVisibility(categoryId) {
+    const container = document.getElementById('scrollContainer') || document.getElementById('subcategoryContainer');
+    if (!container) return;
+    
+    const chips = Array.from(container.querySelectorAll('.subcategory-filter-btn'));
+
+    if (!categoryId || categoryId === 'all') {
+        chips.forEach(c => c.style.display = '');
+        updateScrollButtons(container);
+        return;
     }
 
-    // Update offer label
-    const offerLabel = card.querySelector('.product_offer');
-    if (offerLabel) {
-        if (discAmount > 0) {
-            // Show offer label with discount
-            if (discType == 1) {
-                offerLabel.textContent = `-₹${discAmount}`;
-            } else {
-                offerLabel.textContent = `${discAmount}% OFF`;
+    // Get allowed subcategories for this category
+    let allowed = new Set();
+    
+    // Strategy 1: From sidebar structure
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        const catItems = Array.from(sidebar.querySelectorAll('.myoffcanvas-menu-item'));
+        for (const li of catItems) {
+            const link = li.querySelector('.myoffcanvas-menu-link');
+            if (!link) continue;
+            const onclick = link.getAttribute('onclick') || '';
+            if (onclick.includes(`filterByCategory('${categoryId}')`)) {
+                const subLinks = li.querySelectorAll('.myoffcanvas-submenu-link');
+                subLinks.forEach(a => {
+                    const subOnclick = a.getAttribute('onclick') || '';
+                    const match = subOnclick.match(/filterBySubcategory\('([^']+)'\)/);
+                    if (match && match[1]) allowed.add(match[1]);
+                });
+                break;
             }
-            offerLabel.style.display = 'block';
-        } else {
-            // Hide offer label if no discount
-            offerLabel.style.display = 'none';
         }
     }
 
-    // Update data-price attribute for filtering
-    card.dataset.price = finalPrice;
+    // Strategy 2: From product data
+    if (allowed.size === 0) {
+        allowed = new Set(
+            Array.from(document.querySelectorAll('.product-item'))
+                .filter(el => el.dataset.categoryId === categoryId)
+                .map(el => el.dataset.subcategoryId)
+        );
+    }
+
+    // Show/hide chips
+    chips.forEach(c => {
+        const subcatId = c.getAttribute('data-subcategory');
+        c.style.display = (subcatId === 'all' || allowed.has(subcatId)) ? '' : 'none';
+    });
+
+    updateScrollButtons(container);
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners for variant selection changes
-    document.querySelectorAll('#variantSelect, .qty-select').forEach(select => {
-        select.addEventListener('change', function() {
-            updatePriceDisplay(this);
-        });
-    });
+function updateScrollButtons(container) {
+    const leftBtn = document.querySelector('.scroll-button.left');
+    const rightBtn = document.querySelector('.scroll-button.right');
+    if (!leftBtn || !rightBtn || !container) return;
+    
+    const visibleChips = Array.from(container.querySelectorAll('.subcategory-filter-btn'))
+        .filter(b => b.style.display !== 'none');
+    const hasOverflow = visibleChips.length > 1 && container.scrollWidth > container.clientWidth + 1;
+    
+    leftBtn.style.display = hasOverflow ? 'flex' : 'none';
+    rightBtn.style.display = hasOverflow ? 'flex' : 'none';
+}
 
-    // Initialize all product cards with default variant prices
-    document.querySelectorAll('.product-item').forEach(item => {
-        const select = item.querySelector('#variantSelect, .qty-select');
-        if (select) {
-            updatePriceDisplay(select);
+// Expand sidebar category
+function expandSidebarCategoryById(categoryId) {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar || !categoryId) return;
+    
+    const items = Array.from(sidebar.querySelectorAll('.myoffcanvas-menu-item'));
+    items.forEach(li => {
+        const link = li.querySelector('.myoffcanvas-menu-link');
+        const submenu = li.querySelector('.myoffcanvas-submenu');
+        if (!link) return;
+        
+        const onclick = link.getAttribute('onclick') || '';
+        const isMatch = onclick.includes(`filterByCategory('${categoryId}')`);
+        
+        // Collapse all first
+        if (submenu) submenu.style.display = 'none';
+        link.classList.remove('active');
+        
+        // Expand matched category
+        if (isMatch) {
+            if (submenu) submenu.style.display = '';
+            link.classList.add('active');
         }
     });
-});
-</script>
+}
 
+// Highlight sidebar subcategory
+function highlightSidebarSubcategory(subcategoryId) {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar || !subcategoryId) return;
+    
+    const items = Array.from(sidebar.querySelectorAll('.myoffcanvas-menu-item'));
+    items.forEach(li => {
+        const link = li.querySelector('.myoffcanvas-menu-link');
+        const submenu = li.querySelector('.myoffcanvas-submenu');
+        const subLinks = li.querySelectorAll('.myoffcanvas-submenu-link');
+        
+        subLinks.forEach(a => {
+            const onclick = a.getAttribute('onclick') || '';
+            if (onclick.includes(`filterBySubcategory('${subcategoryId}')`)) {
+                if (submenu) submenu.style.display = '';
+                if (link) link.classList.add('active');
+                a.classList.add('active');
+            } else {
+                a.classList.remove('active');
+            }
+        });
+    });
+}
 
-
-<script>
-// --- CART STORAGE HELPERS ---
+// ========== CART FUNCTIONS ==========
 function getCart() {
     try {
         const cartData = localStorage.getItem('cart');
@@ -1829,10 +1669,9 @@ function saveCart(cart) {
 
 function updateCartCount() {
     const cart = getCart();
-    const totalItems = cart.length; // count only total unique items
+    const totalItems = cart.length;
     document.querySelectorAll('.cart-count').forEach(el => el.textContent = totalItems);
 }
-
 
 function initializeCart() {
     updateCartCount();
@@ -1841,7 +1680,6 @@ function initializeCart() {
 
 function initializeQuantityControls() {
     const cart = getCart();
-
     document.querySelectorAll('.product-card').forEach(card => {
         const productItem = card.closest('.product-item');
         if (!productItem) return;
@@ -1890,18 +1728,15 @@ function handleAddToCart(button) {
     const image = card.querySelector('img')?.src || '';
     const imageName = card.querySelector('#image_name')?.value || '';
 
-    // check if variant
     const select = card.querySelector('.qty-select');
     let price = 0;
     let measure = '';
 
     if (select) {
-        // VARIANT product
-        const selectedOption = select.options[select.selectedIndex] || '';
+        const selectedOption = select.options[select.selectedIndex];
         price = parseFloat(selectedOption.value) || 0;
         measure = selectedOption.getAttribute('data-measure') || '';
     } else {
-        // NON-VARIANT product
         measure = (card.querySelector('.fw-semibold')?.textContent || '').trim();
         price = parseFloat(card.querySelector('.product-price')?.textContent.replace(/[₹,]/g, '')) || 0;
     }
@@ -1923,730 +1758,9 @@ function handleAddToCart(button) {
 
     saveCart(cart);
     updateCartCount();
-
-    toggleCartUI(card, true, existingItemIndex !== -1 ? cart[existingItemIndex].quantity : 1);
+    toggleCartUI(card, true, 1);
 }
 
-
-// --- ADD TO CART helper (used by multiple listeners) ---
-function addToCart(productId, productName, price, measure, image) {
-    let cart = getCart();
-    const priceNum = parseFloat(price);
-    const index = cart.findIndex(item => item.id === productId && item.measure === measure && item.price === priceNum);
-
-    if (index !== -1) {
-        cart[index].quantity += 1;
-    } else {
-        cart.push({
-            id: productId,
-            name: productName,
-            price: priceNum,
-            measure,
-            image,
-            quantity: 1
-        });
-    }
-
-    saveCart(cart);
-    updateCartCount();
-}
-
-// --- MAIN ADD TO CART FUNCTION ---
-// --- INCREMENT / DECREMENT ---
-document.querySelectorAll('.qty-btn1').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const action = this.dataset.action;
-        const qtyInput = this.closest('.qty-group').querySelector('.qty-number');
-        let currentQty = parseInt(qtyInput.value) || 1;
-
-        if (action === 'increment') {
-            qtyInput.value = currentQty + 1;
-        } else if (action === 'decrement' && currentQty > 1) {
-            qtyInput.value = currentQty - 1;
-        }
-
-        // Reflect change in cart storage immediately
-        const card = this.closest('.product-item');
-        const productId = card.dataset.productId;
-        const productName = card.querySelector('.product-name, .product-name-s').textContent.trim();
-        const select = card.querySelector('.qty-select');
-        const selectedOption = select.options[select.selectedIndex];
-        const price = parseFloat(selectedOption.value);
-        const measure = selectedOption.dataset.measure;
-        const image = card.querySelector('img').src;
-
-        let cart = getCart();
-        const idx = cart.findIndex(item => item.id === productId && item.measure === measure && item
-            .price === price);
-        if (idx !== -1) {
-            cart[idx].quantity = parseInt(qtyInput.value);
-            saveCart(cart);
-            updateCartCount();
-        } else {
-            // If somehow not in cart yet (e.g., user clicked +/- before add), add it now with shown qty
-            cart.push({
-                id: productId,
-                name: productName,
-                price,
-                measure,
-                image,
-                quantity: parseInt(qtyInput.value)
-            });
-            saveCart(cart);
-            updateCartCount();
-        }
-    });
-});
-
-// --- ADD TO CART ---
-document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        handleAddToCart(this);
-    });
-});
-
-// --- OPTIONAL: Update cart when quantity changes ---
-document.querySelectorAll('.qty-number').forEach(input => {
-    input.addEventListener('change', function() {
-        const card = this.closest('.product-item');
-        const productId = card.dataset.productId;
-        const productName = card.querySelector('.product-name, .product-name-s').textContent.trim();
-        const select = card.querySelector('.qty-select');
-        const selectedOption = select.options[select.selectedIndex];
-        const price = selectedOption.value;
-        const measure = selectedOption.dataset.measure;
-        const image = card.querySelector('img').src;
-
-        // Update cart quantity (overwrite existing)
-        let cart = getCart();
-        const index = cart.findIndex(item => item.id === productId && item.measure === measure);
-        if (index !== -1) {
-            cart[index].quantity = parseInt(this.value);
-            saveCart(cart);
-            updateCartCount();
-        }
-    });
-});
-
-
-
-
-const shop_cart = "<?= $shop_url_name ?>";
-
-document.querySelectorAll(".add-to-cart-btn").forEach(button => {
-    button.addEventListener("click", () => {
-        localStorage.setItem("shop_cart", shop_cart);
-    });
-});
-
-// console.log("shop:", localStorage.getItem("shop_cart"));
-// console.log("shop:", shop_cart);
-
-document.querySelectorAll('.qty-select').forEach(function(select) {
-    select.addEventListener('change', function() {
-        var selected = this.options[this.selectedIndex];
-        var originalPrice = parseFloat(selected.getAttribute('data-original-price')) || 0;
-        var disc = parseFloat(selected.getAttribute('data-disc')) || 0;
-        var discType = selected.getAttribute('data-disc-type');
-        var displayDiv = this.closest('.product-card').querySelector('.selected-price-display');
-
-        var finalPrice = originalPrice;
-        if (disc > 0) {
-            if (discType === '1') {
-                finalPrice = originalPrice - disc;
-            } else if (discType === '2') {
-                finalPrice = originalPrice - (originalPrice * disc / 100);
-            }
-        }
-
-        if (disc > 0) {
-            displayDiv.innerHTML = `
-                <span class="text-muted" style="text-decoration: line-through;">
-                    ₹${originalPrice.toFixed(2)}
-                </span>
-                &nbsp;
-                <span class="product-price fw-bold fs-6 text-success">
-                    ₹${finalPrice.toFixed(2)}
-                </span>
-            `;
-        } else {
-            displayDiv.innerHTML = `
-                <span class="product-price fw-bold fs-6 text-success">
-                    ₹${finalPrice.toFixed(2)}
-                </span>
-            `;
-        }
-
-        const card = this.closest('.product-card');
-        if (!card) return;
-
-        const selectedMeasure = selected.getAttribute('data-measure');
-
-        // Hide all offers first
-        card.querySelectorAll('.product_offer').forEach(function(offerDiv) {
-            offerDiv.style.display = 'none';
-        });
-
-        // Show only the offer for selected measure, if present
-        const offerDiv = card.querySelector('.product_offer[data-measure="' + selectedMeasure + '"]');
-        if (offerDiv) {
-            offerDiv.style.display = '';
-        }
-    });
-});
-</script>
-
-
-
-<script>
-// Auto-select and trim subcategory chips based on provided category_id/subcategory_id
-document.addEventListener('DOMContentLoaded', function() {
-    const categoryEl = document.getElementById('category_id');
-    const subcategoryEl = document.getElementById('subcategory_id');
-    const selectedCategoryId = categoryEl ? categoryEl.textContent.trim() : '';
-    const selectedSubcategoryId = subcategoryEl ? subcategoryEl.textContent.trim() : '';
-
-    const container = document.getElementById('scrollContainer') || document.getElementById(
-        'subcategoryContainer');
-    if (!container) return;
-
-    const buttons = Array.from(container.querySelectorAll('.subcategory-filter-btn'));
-    const leftBtn = document.querySelector('.scroll-button.left');
-    const rightBtn = document.querySelector('.scroll-button.right');
-
-    function getVisibleButtons() {
-        return buttons.filter(btn => btn.style.display !== 'none');
-    }
-
-    function filterButtonsByCategory() {
-        if (!selectedCategoryId || selectedSubcategoryId) return;
-        const productItems = Array.from(document.querySelectorAll('.product-item'));
-        const allowedSubIds = new Set(
-            productItems
-            .filter(item => item.dataset.categoryId === selectedCategoryId)
-            .map(item => item.dataset.subcategoryId)
-        );
-        if (allowedSubIds.size === 0) return;
-        buttons.forEach(btn => {
-            const sid = btn.getAttribute('data-subcategory');
-            btn.style.display = allowedSubIds.has(sid) ? '' : 'none';
-        });
-    }
-
-    function activateProvidedSubcategory() {
-        if (!selectedSubcategoryId) return;
-        const target = buttons.find(b => b.getAttribute('data-subcategory') === selectedSubcategoryId);
-        if (!target) return;
-        buttons.forEach(b => b.classList.remove('active'));
-        target.style.display = '';
-        target.classList.add('active');
-        if (typeof window.filterBySubcategory === 'function') {
-            window.filterBySubcategory(selectedSubcategoryId, target);
-        } else if (typeof target.click === 'function') {
-            target.click();
-        }
-        try {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                inline: 'center',
-                block: 'nearest'
-            });
-        } catch (_) {}
-    }
-
-    function updateScrollButtonsVisibility() {
-        if (!leftBtn || !rightBtn) return;
-        const hasOverflow = container.scrollWidth > container.clientWidth + 1 && getVisibleButtons().length > 1;
-        leftBtn.style.display = hasOverflow ? 'flex' : 'none';
-        rightBtn.style.display = hasOverflow ? 'flex' : 'none';
-    }
-
-    if (typeof window.scrollContainer !== 'function') {
-        window.scrollContainer = function(direction) {
-            const delta = Math.round(container.clientWidth * 0.8);
-            container.scrollBy({
-                left: direction === 'left' ? -delta : delta,
-                behavior: 'smooth'
-            });
-        };
-    }
-
-    filterButtonsByCategory();
-    activateProvidedSubcategory();
-    setTimeout(updateScrollButtonsVisibility, 0);
-    container.addEventListener('scroll', updateScrollButtonsVisibility);
-    window.addEventListener('resize', updateScrollButtonsVisibility);
-});
-</script>
-
-<script>
-// Expand sidebar and highlight based on category_id/subcategory_id
-document.addEventListener('DOMContentLoaded', function() {
-    const categoryEl = document.getElementById('category_id');
-    const subcategoryEl = document.getElementById('subcategory_id');
-    const selectedCategoryId = categoryEl ? categoryEl.textContent.trim() : '';
-    const selectedSubcategoryId = subcategoryEl ? subcategoryEl.textContent.trim() : '';
-
-    const sidebar = document.getElementById('sidebar');
-    if (!sidebar) return;
-
-    const categoryItems = Array.from(sidebar.querySelectorAll('.myoffcanvas-menu-item'));
-
-    function collapseAll() {
-        categoryItems.forEach(li => {
-            const submenu = li.querySelector('.myoffcanvas-submenu');
-            if (submenu) submenu.style.display = 'none';
-            li.querySelectorAll('.myoffcanvas-menu-link, .myoffcanvas-submenu-link').forEach(a => a
-                .classList.remove('active'));
-        });
-    }
-
-    function expandCategoryById(categoryId) {
-        if (!categoryId) return false;
-        let expanded = false;
-        categoryItems.forEach(li => {
-            const catLink = li.querySelector('.myoffcanvas-menu-link');
-            if (!catLink) return;
-            const onclickVal = catLink.getAttribute('onclick') || '';
-            if (onclickVal.includes("filterByCategory('" + categoryId + "')")) {
-                const submenu = li.querySelector('.myoffcanvas-submenu');
-                if (submenu) submenu.style.display = '';
-                catLink.classList.add('active');
-                expanded = true;
-            }
-        });
-        return expanded;
-    }
-
-    function highlightSubcategoryById(subcategoryId) {
-        if (!subcategoryId) return false;
-        let highlighted = false;
-        categoryItems.forEach(li => {
-            const subLinks = li.querySelectorAll('.myoffcanvas-submenu-link');
-            subLinks.forEach(a => {
-                const onclickVal = a.getAttribute('onclick') || '';
-                if (onclickVal.includes("filterBySubcategory('" + subcategoryId + "')")) {
-                    const submenu = li.querySelector('.myoffcanvas-submenu');
-                    if (submenu) submenu.style.display = '';
-                    a.classList.add('active');
-                    highlighted = true;
-                }
-            });
-        });
-        return highlighted;
-    }
-
-    // Initialize state
-    collapseAll();
-
-    let didExpand = false;
-    if (selectedSubcategoryId) {
-        didExpand = highlightSubcategoryById(selectedSubcategoryId);
-        if (typeof window.filterBySubcategory === 'function') {
-            // Also ensure product grid is filtered
-            window.filterBySubcategory(selectedSubcategoryId);
-        }
-    }
-
-    if (!didExpand && selectedCategoryId) {
-        const ok = expandCategoryById(selectedCategoryId);
-        if (ok && typeof window.filterByCategory === 'function') {
-            window.filterByCategory(selectedCategoryId);
-        }
-    }
-
-    // If neither provided, keep first category open for better UX (optional)
-    if (!selectedCategoryId && !selectedSubcategoryId && categoryItems.length > 0) {
-        const first = categoryItems[0];
-        const submenu = first.querySelector('.myoffcanvas-submenu');
-        if (submenu) submenu.style.display = '';
-    }
-
-    // Ensure plus toggles reflect expanded state and trigger category filtering + chip sync
-    sidebar.querySelectorAll('.myoffcanvas-menu-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            if (e && typeof e.preventDefault === 'function') e.preventDefault();
-
-            const parent = this.closest('.myoffcanvas-menu-item');
-            if (!parent) return;
-            const submenu = parent.querySelector('.myoffcanvas-submenu');
-            if (!submenu) return;
-
-            // Toggle submenu visibility
-            const isHidden = getComputedStyle(submenu).display === 'none';
-            collapseAll();
-            submenu.style.display = isHidden ? '' : 'none';
-            this.classList.toggle('active', isHidden);
-
-            // Extract categoryId from inline onclick attribute and trigger unified filtering
-            const onv = (this.getAttribute('onclick') || '');
-            const m = onv.match(/filterByCategory\('([^']+)'\)/);
-            const categoryId = m && m[1] ? m[1] : '';
-            if (categoryId) {
-                try {
-                    if (typeof window.filterByCategory === 'function') window.filterByCategory(
-                        categoryId);
-                } catch (_) {}
-                try {
-                    if (typeof window.updateSubcategoryVisibility === 'function') window
-                        .updateSubcategoryVisibility(categoryId);
-                } catch (_) {}
-            }
-        });
-    });
-});
-</script>
-
-<script>
-// Sync second-header chips with sidebar selection and vice versa
-(function() {
-    function getVisibleChips(container) {
-        return Array.from(container.querySelectorAll('.subcategory-filter-btn')).filter(b => b.style.display !==
-            'none');
-    }
-
-    function showHideScrollButtons(container) {
-        const leftBtn = document.querySelector('.scroll-button.left');
-        const rightBtn = document.querySelector('.scroll-button.right');
-        if (!leftBtn || !rightBtn || !container) return;
-        const visible = getVisibleChips(container);
-        const hasOverflow = visible.length > 1 && container.scrollWidth > container.clientWidth + 1;
-        leftBtn.style.display = hasOverflow ? 'flex' : 'none';
-        rightBtn.style.display = hasOverflow ? 'flex' : 'none';
-    }
-
-    // Public: expand given category in sidebar (collapse others)
-    window.expandSidebarCategoryById = function(categoryId) {
-        const sidebar = document.getElementById('sidebar');
-        if (!sidebar || !categoryId) return;
-        const items = Array.from(sidebar.querySelectorAll('.myoffcanvas-menu-item'));
-        items.forEach(li => {
-            const link = li.querySelector('.myoffcanvas-menu-link');
-            const submenu = li.querySelector('.myoffcanvas-submenu');
-            if (!link) return;
-            const onv = link.getAttribute('onclick') || '';
-            const isMatch = onv.includes("filterByCategory('" + categoryId + "')");
-            // collapse all
-            if (submenu) submenu.style.display = 'none';
-            link.classList.remove('active');
-            // expand matched
-            if (isMatch) {
-                if (submenu) submenu.style.display = '';
-                link.classList.add('active');
-            }
-        });
-    };
-
-    // Public: filter chips by category
-    window.updateSubcategoryVisibility = function(categoryId) {
-        const container = document.getElementById('scrollContainer') || document.getElementById(
-            'subcategoryContainer');
-        if (!container) return;
-        const chips = Array.from(container.querySelectorAll('.subcategory-filter-btn'));
-
-        if (!categoryId || categoryId === 'all') {
-            chips.forEach(c => c.style.display = '');
-            showHideScrollButtons(container);
-            return;
-        }
-
-        // Strategy 1: Read allowed subcategory IDs from the sidebar submenu of the selected category
-        let allowed = new Set();
-        try {
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar) {
-                const catItems = Array.from(sidebar.querySelectorAll('.myoffcanvas-menu-item'));
-                for (const li of catItems) {
-                    const link = li.querySelector('.myoffcanvas-menu-link');
-                    if (!link) continue;
-                    const onv = link.getAttribute('onclick') || '';
-                    if (onv.includes("filterByCategory('" + categoryId + "')")) {
-                        const subLinks = Array.from(li.querySelectorAll('.myoffcanvas-submenu-link'));
-                        subLinks.forEach(a => {
-                            const aOn = a.getAttribute('onclick') || '';
-                            const m = aOn.match(/filterBySubcategory\('([^']+)'\)/);
-                            if (m && m[1]) allowed.add(m[1]);
-                        });
-                        break;
-                    }
-                }
-            }
-        } catch (_) {}
-
-        // Strategy 2: If none found, infer from product tiles
-        if (allowed.size === 0) {
-            allowed = new Set(
-                Array.from(document.querySelectorAll('.product-item'))
-                .filter(el => el.dataset.categoryId === categoryId)
-                .map(el => el.dataset.subcategoryId)
-            );
-        }
-
-        if (allowed.size > 0) {
-            chips.forEach(c => {
-                const sid = c.getAttribute('data-subcategory');
-                c.style.display = allowed.has(sid) ? '' : 'none';
-            });
-        } else {
-            // Strategy 3: Fallback match by main category name on chip
-            const catLinkSpan = document.querySelector(".myoffcanvas-menu-link[onclick*=\"" +
-                "filterByCategory('" + categoryId + "')" + "\"] span");
-            const catName = catLinkSpan ? catLinkSpan.textContent.trim() : '';
-            chips.forEach(c => {
-                const main = c.getAttribute('data-main-category') || '';
-                c.style.display = (catName && main === catName) ? '' : 'none';
-            });
-        }
-
-        // Clear inactive selections hidden by filter
-        chips.forEach(c => {
-            if (c.style.display === 'none') c.classList.remove('active');
-        });
-        showHideScrollButtons(container);
-    };
-
-    // Helper: ensure sidebar submenu highlights a given subcategory id
-    function highlightSidebarSubcategory(subcategoryId) {
-        const sidebar = document.getElementById('sidebar');
-        if (!sidebar || !subcategoryId) return;
-        const items = Array.from(sidebar.querySelectorAll('.myoffcanvas-menu-item'));
-        items.forEach(li => {
-            const link = li.querySelector('.myoffcanvas-menu-link');
-            const submenu = li.querySelector('.myoffcanvas-submenu');
-            const subLinks = li.querySelectorAll('.myoffcanvas-submenu-link');
-            let found = false;
-            subLinks.forEach(a => {
-                const onv = a.getAttribute('onclick') || '';
-                if (onv.includes("filterBySubcategory('" + subcategoryId + "')")) {
-                    if (submenu) submenu.style.display = '';
-                    if (link) link.classList.add('active');
-                    a.classList.add('active');
-                    found = true;
-                } else {
-                    a.classList.remove('active');
-                }
-            });
-            if (!found) {
-                // leave collapsed unless this li matched
-            }
-        });
-    }
-
-    // Decorate existing functions without breaking lazy-loading overrides
-    (function decorateCategory() {
-        const prev = window.filterByCategory;
-        window.filterByCategory = function(categoryId) {
-            window.currentCategoryFilter = categoryId;
-            window.currentSubcategoryFilter = 'all';
-            // Expand sidebar visibly
-            if (typeof window.expandSidebarCategoryById === 'function') window.expandSidebarCategoryById(
-                categoryId);
-            if (typeof prev === 'function') prev(categoryId);
-            else if (typeof window.filterProducts === 'function') window.filterProducts();
-            if (typeof window.updateSubcategoryVisibility === 'function') window
-                .updateSubcategoryVisibility(categoryId);
-            // Clear active chip selection on category change
-            const cont = document.getElementById('scrollContainer') || document.getElementById(
-                'subcategoryContainer');
-            if (cont) cont.querySelectorAll('.subcategory-filter-btn').forEach(b => b.classList.remove(
-                'active'));
-
-            // Scroll to products section
-            const productContainer = document.getElementById('productContainer1');
-            if (productContainer) {
-                setTimeout(() => {
-                    productContainer.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }, 100);
-            }
-        };
-    })();
-
-    (function decorateSubcategory() {
-        const prev = window.filterBySubcategory;
-        window.filterBySubcategory = function(subcategoryId, buttonElement = null) {
-            // If triggered from sidebar, activate the corresponding chip
-            if (!buttonElement) {
-                const chip = (document.querySelector(
-                        '#scrollContainer .subcategory-filter-btn[data-subcategory="' + subcategoryId +
-                        '"]') ||
-                    document.querySelector(
-                        '#subcategoryContainer .subcategory-filter-btn[data-subcategory="' +
-                        subcategoryId + '"]'));
-                if (chip) {
-                    const list = document.querySelectorAll('#scrollContainer .subcategory-filter-btn')
-                        .length ?
-                        document.querySelectorAll('#scrollContainer .subcategory-filter-btn') :
-                        document.querySelectorAll('#subcategoryContainer .subcategory-filter-btn');
-                    list.forEach(b => b.classList.remove('active'));
-                    chip.classList.add('active');
-                    try {
-                        chip.scrollIntoView({
-                            behavior: 'smooth',
-                            inline: 'center',
-                            block: 'nearest'
-                        });
-                    } catch (_) {}
-                    buttonElement = chip;
-                }
-            }
-            window.currentSubcategoryFilter = subcategoryId;
-            if (typeof prev === 'function') prev(subcategoryId, buttonElement);
-            else if (typeof window.filterProducts === 'function') window.filterProducts();
-            // Highlight the matching link in sidebar and ensure its category is expanded
-            highlightSidebarSubcategory(subcategoryId);
-        };
-    })();
-
-    // Initialize on load if hidden presets exist and ensure a reliable default (Fruits)
-    document.addEventListener('DOMContentLoaded', function() {
-        // Defer to ensure all other initializers (lazy loading/overrides) are in place
-        setTimeout(function initializeCategorySelection() {
-            const cat = document.getElementById('category_id');
-            const sub = document.getElementById('subcategory_id');
-            const cid = cat ? cat.textContent.trim() : '';
-            const sid = sub ? sub.textContent.trim() : '';
-
-            function safeFilterByCategory(categoryId) {
-                if (!categoryId) return;
-                if (typeof window.expandSidebarCategoryById === 'function') window
-                    .expandSidebarCategoryById(categoryId);
-                if (typeof window.updateSubcategoryVisibility === 'function') window
-                    .updateSubcategoryVisibility(categoryId);
-                if (typeof window.filterByCategory === 'function') {
-                    try {
-                        window.filterByCategory(categoryId);
-                    } catch (_) {}
-                } else if (typeof window.filterProducts === 'function') {
-                    window.currentCategoryFilter = categoryId;
-                    try {
-                        window.filterProducts();
-                    } catch (_) {}
-                }
-            }
-
-            function safeFilterBySubcategory(subcategoryId) {
-                if (!subcategoryId) return;
-                if (typeof window.filterBySubcategory === 'function') {
-                    try {
-                        window.filterBySubcategory(subcategoryId);
-                    } catch (_) {}
-                } else if (typeof window.filterProducts === 'function') {
-                    window.currentSubcategoryFilter = subcategoryId;
-                    try {
-                        window.filterProducts();
-                    } catch (_) {}
-                }
-            }
-
-            if (sid) {
-                // Prioritize explicit subcategory
-                safeFilterBySubcategory(sid);
-                // Ensure corresponding sidebar entry is highlighted/expanded
-                if (typeof window.updateSubcategoryVisibility === 'function' && cid) window
-                    .updateSubcategoryVisibility(cid);
-            } else if (cid) {
-                // Fallback to explicit category
-                safeFilterByCategory(cid);
-            } else {
-                // Default: auto-select category containing "fruits"
-                const sidebar = document.getElementById('sidebar');
-                const links = sidebar ? Array.from(sidebar.querySelectorAll(
-                    '.myoffcanvas-menu-link')) : [];
-                let pickedId = '';
-                for (const link of links) {
-                    const span = link.querySelector('span');
-                    const text = span ? (span.textContent || '').toLowerCase() : '';
-                    if (text.includes('fruits')  ) {
-                        const onv = link.getAttribute('onclick') || '';
-                        const m = onv.match(/filterByCategory\('([^']+)'\)/);
-                        if (m && m[1]) {
-                            pickedId = m[1];
-                            // Visually expand and mark active
-                            try {
-                                link.click();
-                            } catch (_) {
-                                const li = link.closest('.myoffcanvas-menu-item');
-                                const submenu = li ? li.querySelector('.myoffcanvas-submenu') :
-                                    null;
-                                if (submenu) submenu.style.display = '';
-                                link.classList.add('active');
-                            }
-                        }
-                        break;
-                    }
-                }
-                if (pickedId) {
-                    safeFilterByCategory(pickedId);
-                }
-            }
-        }, 0);
-    });
-})();
-</script>
-
-<script>
-// Initialize filter system
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof updateProductCount === 'function') {
-        try {
-            updateProductCount();
-        } catch (_) {}
-    }
-
-    // Delegate to unified handler; safe for both variant and non-variant
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            try {
-                handleAddToCart(this);
-            } catch (_) {}
-        });
-    });
-});
-
-
-
-
-
-
-
-// Check if price matches filter
-function matchesPriceFilter(price, filter) {
-    switch (filter) {
-        case '0-50':
-            return price >= 0 && price <= 50;
-        case '50-100':
-            return price > 50 && price <= 100;
-        case '100-200':
-            return price > 100 && price <= 200;
-        case '200-500':
-            return price > 200 && price <= 500;
-        case '500+':
-            return price > 500;
-        default:
-            return true;
-    }
-}
-
-
-
-
-
-// Initialize cart on page load
-document.addEventListener('DOMContentLoaded', function() {
-    initializeCart();
-
-    // Add event listeners for variant selection changes
-    document.querySelectorAll('#variantSelect, .qty-select').forEach(select => {
-        select.addEventListener('change', function() {
-            updatePriceDisplay(this);
-        });
-    });
-});
-
-// Update price display when variant is changed
 function updatePriceDisplay(selectElement) {
     const card = selectElement.closest('.product-item');
     const selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -2654,24 +1768,20 @@ function updatePriceDisplay(selectElement) {
     const discAmount = parseFloat(selectedOption.dataset.disc || 0);
     const discType = selectedOption.dataset.discType;
 
-    // Calculate final price based on discount
     let finalPrice = originalPrice;
     if (discAmount > 0) {
-        if (discType == 1) { // Fixed amount discount
+        if (discType == 1) {
             finalPrice = originalPrice - discAmount;
-        } else { // Percentage discount
+        } else {
             finalPrice = originalPrice - (discAmount * originalPrice / 100);
         }
     }
 
-    // Update the select option value with calculated price
     selectedOption.value = finalPrice;
 
-    // Update price display in the card
     const priceElement = card.querySelector('.prodprice');
     if (priceElement) {
         if (discAmount > 0) {
-            // Show strikethrough original price and discounted price
             priceElement.innerHTML = `
                 <span class="text-muted" style="text-decoration: line-through;">
                     ₹${originalPrice.toFixed(2)}
@@ -2682,7 +1792,6 @@ function updatePriceDisplay(selectElement) {
                 </span>
             `;
         } else {
-            // Just show the regular price
             priceElement.innerHTML = `
                 <span class="product-price fw-bold fs-6 text-success">
                     ₹${finalPrice.toFixed(2)}
@@ -2691,11 +1800,9 @@ function updatePriceDisplay(selectElement) {
         }
     }
 
-    // Update offer label
     const offerLabel = card.querySelector('.product_offer');
     if (offerLabel) {
         if (discAmount > 0) {
-            // Show offer label with discount
             if (discType == 1) {
                 offerLabel.textContent = `-₹${discAmount}`;
             } else {
@@ -2703,18 +1810,56 @@ function updatePriceDisplay(selectElement) {
             }
             offerLabel.style.display = 'block';
         } else {
-            // Hide offer label if no discount
             offerLabel.style.display = 'none';
         }
     }
 
-    // Update data-price attribute for filtering
     card.dataset.price = finalPrice;
 }
 
-// Initialize on page load
+// ========== EVENT LISTENERS ==========
 document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners for variant selection changes
+    // Initialize cart
+    initializeCart();
+
+    // Add to cart buttons
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            handleAddToCart(this);
+        });
+    });
+
+    // Quantity buttons
+    document.querySelectorAll('.qty-btn1').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const action = this.dataset.action;
+            const qtyInput = this.closest('.qty-group').querySelector('.qty-number');
+            let currentQty = parseInt(qtyInput.value) || 1;
+
+            if (action === 'increment') {
+                qtyInput.value = currentQty + 1;
+            } else if (action === 'decrement' && currentQty > 1) {
+                qtyInput.value = currentQty - 1;
+            }
+
+            const card = this.closest('.product-item');
+            const productId = card.dataset.productId;
+            const select = card.querySelector('.qty-select');
+            const selectedOption = select.options[select.selectedIndex];
+            const price = parseFloat(selectedOption.value);
+            const measure = selectedOption.dataset.measure;
+
+            let cart = getCart();
+            const idx = cart.findIndex(item => item.id === productId && item.measure === measure && item.price === price);
+            if (idx !== -1) {
+                cart[idx].quantity = parseInt(qtyInput.value);
+                saveCart(cart);
+                updateCartCount();
+            }
+        });
+    });
+
+    // Variant selection changes
     document.querySelectorAll('#variantSelect, .qty-select').forEach(select => {
         select.addEventListener('change', function() {
             updatePriceDisplay(this);
@@ -2728,38 +1873,80 @@ document.addEventListener('DOMContentLoaded', function() {
             updatePriceDisplay(select);
         }
     });
-});
-</script>
 
-<script>
-// Ensure scrollContainer chips trigger filtering consistently
-document.addEventListener('DOMContentLoaded', function() {
-    const container = document.getElementById('scrollContainer') || document.getElementById(
-        'subcategoryContainer');
-    if (!container) return;
+    // Subcategory chip clicks
+    const chipContainer = document.getElementById('scrollContainer') || document.getElementById('subcategoryContainer');
+    if (chipContainer) {
+        chipContainer.addEventListener('click', function(e) {
+            const btn = e.target.closest('.subcategory-filter-btn');
+            if (!btn) return;
+            e.preventDefault();
+            const subId = btn.getAttribute('data-subcategory') || 'all';
+            filterBySubcategory(subId, btn);
+        });
+    }
 
-    container.addEventListener('click', function(e) {
-        const btn = e.target.closest('.subcategory-filter-btn');
-        if (!btn || !container.contains(btn)) return;
-        e.preventDefault();
-        const subId = btn.getAttribute('data-subcategory') || 'all';
-        if (typeof window.filterBySubcategory === 'function') {
-            try {
-                window.filterBySubcategory(subId, btn);
-            } catch (_) {}
-        } else if (typeof window.filterProducts === 'function') {
-            window.currentSubcategoryFilter = subId;
-            try {
-                window.filterProducts();
-            } catch (_) {}
-            // Manually mark active if decorators not loaded
-            try {
-                container.querySelectorAll('.subcategory-filter-btn').forEach(b => b.classList.remove(
-                    'active'));
-                btn.classList.add('active');
-            } catch (_) {}
+    // Sidebar category clicks
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        sidebar.querySelectorAll('.myoffcanvas-menu-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const onclick = this.getAttribute('onclick') || '';
+                const match = onclick.match(/filterByCategory\('([^']+)'\)/);
+                if (match && match[1]) {
+                    filterByCategory(match[1]);
+                }
+            });
+        });
+
+        sidebar.querySelectorAll('.myoffcanvas-submenu-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const onclick = this.getAttribute('onclick') || '';
+                const match = onclick.match(/filterBySubcategory\('([^']+)'\)/);
+                if (match && match[1]) {
+                    filterBySubcategory(match[1]);
+                }
+            });
+        });
+    }
+
+    // Scroll buttons for chips
+    const prevBtn = document.getElementById('prevBtn4');
+    const nextBtn = document.getElementById('nextBtn4');
+    if (prevBtn && nextBtn && chipContainer) {
+        nextBtn.addEventListener('click', () => {
+            chipContainer.scrollBy({ left: 250, behavior: 'smooth' });
+        });
+        prevBtn.addEventListener('click', () => {
+            chipContainer.scrollBy({ left: -250, behavior: 'smooth' });
+        });
+    }
+
+    // Initialize with category/subcategory from page
+    setTimeout(function() {
+        const catEl = document.getElementById('category_id');
+        const subEl = document.getElementById('subcategory_id');
+        const categoryId = catEl ? catEl.textContent.trim() : '';
+        const subcategoryId = subEl ? subEl.textContent.trim() : '';
+
+        if (subcategoryId) {
+            filterBySubcategory(subcategoryId);
+        } else if (categoryId) {
+            filterByCategory(categoryId);
+        } else {
+            // Default to first category or "Fruits"
+            const firstCatLink = sidebar?.querySelector('.myoffcanvas-menu-link');
+            if (firstCatLink) {
+                const onclick = firstCatLink.getAttribute('onclick') || '';
+                const match = onclick.match(/filterByCategory\('([^']+)'\)/);
+                if (match && match[1]) {
+                    filterByCategory(match[1]);
+                }
+            }
         }
-    });
+    }, 100);
 });
 </script>
 
